@@ -5,14 +5,14 @@
 
 Install the gem
 ```
-gem build passage.gemspec
-gem install ./passage-0.0.1.gem
+gem build passageidentity.gemspec
+gem install ./passageidentity-0.0.1.gem
 ```
 
 Test it out:
 ```
-irb -Ilib -rpassage
->> require 'passage'
+irb -Ilib -rpassageidentity
+>> require 'passageidentity'
 => true
 >> passage = Passage::Client.new(app_id: 'YOUR_APP_ID')
 >> passage.auth.authenticate("JWT_HERE")
@@ -21,7 +21,7 @@ irb -Ilib -rpassage
 
 To in the example app, change the Gemfile to include this:
 ```
-gem "passage", path: "../../passage-ruby"
+gem "passageidentity", path: "../../passage-ruby"
 ```
 
 ## Publishing
@@ -35,10 +35,10 @@ Enter host password for user '<username>':
 ```
 
 ```
-gem push passage-0.0.0.gem
+gem push passageidentity-0.0.0.gem
 ```
 
 You can check for the gem here:
 ```
-gem list -r passage
+gem list -r passageidentity
 ```
