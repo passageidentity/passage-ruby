@@ -2,7 +2,7 @@
 
 require 'faraday'
 
-require_relative 'passage/client'
+require_relative 'passageidentity/client'
 
 module Passage end
 
