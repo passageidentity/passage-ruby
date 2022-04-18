@@ -2,6 +2,7 @@
 
 require_relative 'request'
 require_relative 'auth'
+require_relative 'error'
 
 module Passage
 
@@ -15,6 +16,11 @@ module Passage
         def initialize(app_id:, auth_strategy: COOKIE_STRATEGY)
             @api_url = "https://api.passage.id"
             @app_id = app_id
+
+            # check for valid auth strategy
+            if ! [COOKIE_STRATEGY, HEADER_STRATEGY].include? auth_strategy
+                raise PassageError, "invalid auth strategy."
+            end
             @auth_strategy = auth_strategy
 
             # setup 

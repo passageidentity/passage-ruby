@@ -29,11 +29,11 @@ module Passage
                 if headers['Authorization'].present?
                     @token = headers['Authorization'].split(' ').last
                 else
-                    # todo error handling
-                    puts('Missing Token')
+                    raise PassageError, "no authentication token in header"
                 end
             end
 
+            # authenticate the token
             if @token
                 return authenticate_token(@token)
             end
@@ -45,14 +45,16 @@ module Passage
             begin
               claims = JWT.decode(token, @public_key, true,{ iss: @app_id, verify_iss: true, aud: @auth_origin, verify_aud: true, algorithms: ["RS256"] })
               return claims[0]["sub"]
-            rescue JWT::InvalidIssuerError
-              raise JWTInvalidIssuerError
-            rescue JWT::InvalidAudError
-              raise JWTInvalidAudienceError
-            rescue JWT::ExpiredSignature
-              raise JWTExpiredSignatureError
-            rescue JWT::IncorrectAlgorithm
-              raise JWTIncorrectAlgorithmError
+            rescue JWT::InvalidIssuerError => e
+              raise Passage::PassageError, e.message
+            rescue JWT::InvalidAudError => e
+              raise Passage::PassageError, e.message
+            rescue JWT::ExpiredSignature => e
+              raise Passage::PassageError, e.message
+            rescue JWT::IncorrectAlgorithm => e
+              raise Passage::PassageError, e.message
+            rescue JWT::DecodeError => e
+                raise Passage::PassageError, e.message
             end
           end
     end
