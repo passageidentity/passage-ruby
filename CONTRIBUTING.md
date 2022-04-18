@@ -19,6 +19,11 @@ irb -Ilib -rpassage
 <passage_user_id>
 ```
 
+To in the example app, change the Gemfile to include this:
+```
+gem "passage", path: "../../passage-ruby"
+```
+
 ## Publishing
 Create an account in rubygems.org then run the following command with your username.
 

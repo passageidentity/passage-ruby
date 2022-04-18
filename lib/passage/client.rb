@@ -4,19 +4,25 @@ require_relative 'request'
 require_relative 'auth'
 
 module Passage
+
+    COOKIE_STRATEGY = 0
+    HEADER_STRATEGY = 1
+
     class Client
 
         attr_reader :auth
 
-        def initialize(app_id:)
+        def initialize(app_id:, auth_strategy: COOKIE_STRATEGY)
             @api_url = "https://api.passage.id"
             @app_id = app_id
+            @auth_strategy = auth_strategy
 
+            # setup 
             get_connection()
-
             fetch_public_key(@connection)
 
-            @auth = Passage::Auth.new(@app_id, @public_key, @auth_origin)
+            # initialize auth class
+            @auth = Passage::Auth.new(@app_id, @auth_strategy, @public_key, @auth_origin)
         end
 
         def get_connection
@@ -30,7 +36,7 @@ module Passage
 
         def fetch_public_key(conn)
             response = conn.get("/v1/apps/" + @app_id)
-            # TODO Add error handling
+            # TODO Add error handling and caching
             @public_key = response.body["app"]["rsa_public_key"]
             @auth_origin = response.body["app"]["auth_origin"]
         end
