@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'request'
 require_relative 'auth'
 require_relative 'error'
 
@@ -44,10 +43,9 @@ module Passage
 
         def fetch_public_key(conn)
             if @@app_cache[@app_id]
-                puts("using cache")
                 @public_key, @auth_origin = @@app_cache[@app_id]
             else
-                puts("fetching public key")
+                # fetch the public key if not in cache
                 response = conn.get("/v1/apps/" + @app_id)
                 @public_key = response.body["app"]["rsa_public_key"]
                 @auth_origin = response.body["app"]["auth_origin"]
