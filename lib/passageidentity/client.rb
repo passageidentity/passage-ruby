@@ -11,6 +11,8 @@ module Passage
 
     class Client
 
+        @@app_cache = {}
+
         attr_reader :auth
 
         def initialize(app_id:, auth_strategy: COOKIE_STRATEGY)
@@ -41,10 +43,16 @@ module Passage
         end
 
         def fetch_public_key(conn)
-            response = conn.get("/v1/apps/" + @app_id)
-            # TODO Add error handling and caching
-            @public_key = response.body["app"]["rsa_public_key"]
-            @auth_origin = response.body["app"]["auth_origin"]
+            if @@app_cache[@app_id]
+                puts("using cache")
+                @public_key, @auth_origin = @@app_cache[@app_id]
+            else
+                puts("fetching public key")
+                response = conn.get("/v1/apps/" + @app_id)
+                @public_key = response.body["app"]["rsa_public_key"]
+                @auth_origin = response.body["app"]["auth_origin"]
+                @@app_cache[@app_id] ||= [@public_key, @auth_origin]
+            end
         end
 
     end
