@@ -7,9 +7,13 @@ require_relative 'error'
 module Passage
 
     User = Struct.new :id, :status, :email, :phone, :email_verified, :created_at, :last_login
+    MagicLink = Struct.new :id, :secret, :activated, :user_id, :app_id, :identifier, :type, :redirect_url, :ttl, :url
 
     COOKIE_STRATEGY = 0
     HEADER_STRATEGY = 1
+
+    EMAIL_CHANNEL = "email"
+    PHOME_CHANNEL = "phone"
 
     class Client
 
@@ -61,5 +65,24 @@ module Passage
             end
         end
 
+        def create_magic_link(user_id: "", email: "", phone: "", channel: "", send: false, magic_link_path: "", redirect_url: "", ttl: 0)
+            magic_link_req = {}
+            magic_link_req["user_id"] = user_id unless user_id.empty?
+            magic_link_req["email"] = email unless email.empty?
+            magic_link_req["phone"] = phone unless phone.empty?
+            magic_link_req["channel"] = channel unless channel.empty?
+            magic_link_req["send"] = send
+            magic_link_req["magic_link_path"] = magic_link_path unless magic_link_path.empty?
+            magic_link_req["redirect_url"] = redirect_url unless redirect_url.empty?
+            magic_link_req["ttl"] = ttl unless ttl == 0
+
+            begin
+                response = @connection.post("/v1/apps/#{@app_id}/magic-links", magic_link_req)
+                magic_link = response.body["magic_link"]
+                return Passage::MagicLink.new(magic_link['id'], magic_link["secret"], magic_link["activated"], magic_link['user_id'], magic_link['app_id'], magic_link["identifier"], magic_link["type"], magic_link["redirect_url"], magic_link["ttl"], magic_link["url"])
+            rescue Faraday::Error => e
+                raise PassageError, "failed to create Passage Magic Link. Response: #{e.response}"
+            end
+        end
     end
 end

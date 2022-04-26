@@ -65,7 +65,7 @@ module Passage
                 if e.is_a?Faraday::ResourceNotFound
                     raise PassageError, "passage User with ID \"#{user_id}\" does not exist"
                 else
-                    raise PassageError, "failed to deactivate Passage User"
+                    raise PassageError, "failed to update Passage User"
                 end
             end
         end
