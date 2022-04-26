@@ -23,19 +23,19 @@ module Passage
 
             # Get the token based on the strategy
             if @auth_strategy === Passage::COOKIE_STRATEGY
+                raise PassageError, `missing authentication token: expected "psg_auth_token" cookie` unless request.cookies["psg_auth_token"].present?
                 @token = request.cookies["psg_auth_token"]
             else
                 headers = request.headers
-                if headers['Authorization'].present?
-                    @token = headers['Authorization'].split(' ').last
-                else
-                    raise PassageError, "no authentication token in header"
-                end
+                raise PassageError, "no authentication token in header" unless headers['Authorization'].present?
+                @token = headers['Authorization'].split(' ').last
             end
 
             # authenticate the token
             if @token
                 return authenticate_token(@token)
+            else
+                raise PassageError, "no authentication token"
             end
             nil
         end
