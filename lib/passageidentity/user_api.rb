@@ -27,7 +27,7 @@ module Passage
 
         def activate_user(user_id:)
             begin
-                response = @connection.patch("/v1/appps/#{@app_id}/users/#{user_id}/activate")
+                response = @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/activate")
                 user = response.body["user"]
                 return Passage::User.new(user['id'], user['status'], user['email'], user['phone'], user['email_verified'], user['created_at'], user['last_login_at'])
             rescue Faraday::Error => e
@@ -41,7 +41,7 @@ module Passage
         
         def deactivate_user(user_id:)
             begin
-                response = @connection.patch("/v1/appps/#{@app_id}/users/#{user_id}/deactivate")
+                response = @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/deactivate")
                 user = response.body["user"]
                 return Passage::User.new(user['id'], user['status'], user['email'], user['phone'], user['email_verified'], user['created_at'], user['last_login_at'])
             rescue Faraday::Error => e
@@ -54,9 +54,9 @@ module Passage
         end
 
         def update_user(user_id:, updates:)
-            raise PassageError, "updates must be of type Passage::UserUpdatesBody" unless updates.is_a?Passage::UserUpdatesBody
+            raise PassageError, "updates hash must contain either \"email\" or \"phone\" as a key" unless updates.has_key?("email") || updates.has_key?("phone")
             begin
-                response = @connection.patch("/v1/appps/#{@app_id}/users/#{user_id}", updates)
+                response = @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}", updates)
                 user = response.body["user"]
                 return Passage::User.new(user['id'], user['status'], user['email'], user['phone'], user['email_verified'], user['created_at'], user['last_login_at'])
             rescue Faraday::Error => e
@@ -70,7 +70,7 @@ module Passage
 
         def delete_user(user_id:)
             begin
-                response = @connection.delete("/v1/appps/#{@app_id}/users/#{user_id}")
+                response = @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}")
                 return true 
             rescue Faraday::Error => e
                 if e.is_a?Faraday::ResourceNotFound

@@ -7,7 +7,6 @@ require_relative 'error'
 module Passage
 
     User = Struct.new :id, :status, :email, :phone, :email_verified, :created_at, :last_login
-    UserUpdatesBody = Struct.new :email, :phone
 
     COOKIE_STRATEGY = 0
     HEADER_STRATEGY = 1
@@ -17,7 +16,7 @@ module Passage
         @@app_cache = {}
 
         attr_reader :auth
-        attr_reader :user_api
+        attr_reader :user
 
         def initialize(app_id:, auth_strategy: COOKIE_STRATEGY, api_key:)
             @api_url = "https://api.passage.id"
