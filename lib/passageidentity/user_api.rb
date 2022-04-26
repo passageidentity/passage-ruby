@@ -53,8 +53,10 @@ module Passage
             end
         end
 
-        def update_user(user_id:, updates:)
-            raise PassageError, "updates hash must contain either \"email\" or \"phone\" as a key" unless updates.has_key?("email") || updates.has_key?("phone")
+        def update_user(user_id:, email: "", phone: "")
+            updates = {}
+            updates["email"] = email unless email.empty?
+            updates["phone"] = phone unless phone.empty?
             begin
                 response = @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}", updates)
                 user = response.body["user"]
