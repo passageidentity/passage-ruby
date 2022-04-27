@@ -19,6 +19,14 @@ irb -Ilib -rpassageidentity
 <passage_user_id>
 ```
 
+Run Tests:
+```
+# all tests
+ruby tests/all.rb
+# individual test files
+ruby tests/*_test.rb
+```
+
 To in the example app, change the Gemfile to include this:
 ```
 gem "passageidentity", path: "../../passage-ruby"
