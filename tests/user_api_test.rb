@@ -35,5 +35,4 @@ class TestUserAPI < Test::Unit::TestCase
         assert_equal ENV["USER_ID"], user.id
         assert_equal original_email, user.email
     end
-
 end

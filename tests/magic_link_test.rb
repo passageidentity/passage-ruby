@@ -1,4 +1,3 @@
-
 require_relative '../lib/passageidentity/client'
 require_relative './environment'
 require 'faraday'
