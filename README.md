@@ -10,4 +10,4 @@ gem install passageidentity
 
 ## Basic Usage
 
-Use this SDK 
+Use this SDK

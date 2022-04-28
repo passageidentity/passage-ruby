@@ -1,15 +1,16 @@
 # Ruby SDK for Passage
 
-
 ## Testing the gem locally
 
 Install the gem
+
 ```
 gem build passageidentity.gemspec
 gem install ./passageidentity-0.0.1.gem
 ```
 
 Test it out:
+
 ```
 irb -Ilib -rpassageidentity
 >> require 'passageidentity'
@@ -20,6 +21,7 @@ irb -Ilib -rpassageidentity
 ```
 
 Run Tests:
+
 ```
 # all tests
 ruby tests/all.rb
@@ -28,11 +30,13 @@ ruby tests/*_test.rb
 ```
 
 To in the example app, change the Gemfile to include this:
+
 ```
 gem "passageidentity", path: "../../passage-ruby"
 ```
 
 ## Publishing
+
 Create an account in rubygems.org then run the following command with your username.
 
 ```
@@ -47,6 +51,7 @@ gem push passageidentity-0.0.0.gem
 ```
 
 You can check for the gem here:
+
 ```
 gem list -r passageidentity
 ```
