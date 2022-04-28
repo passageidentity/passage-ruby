@@ -22,7 +22,7 @@ module Passage
         attr_reader :auth
         attr_reader :user
 
-        def initialize(app_id:, auth_strategy: COOKIE_STRATEGY, api_key:)
+        def initialize(app_id:, api_key: "", auth_strategy: COOKIE_STRATEGY)
             @api_url = "https://api.passage.id"
             @app_id = app_id
             @api_key = api_key
@@ -42,12 +42,22 @@ module Passage
         end
 
         def get_connection
-            @connection = Faraday.new(url: @api_url, headers: {"Authorization" => "Bearer #{@api_key}"}) do |f|
-                f.request :json
-                f.request :retry
-                f.response :raise_error
-                f.response :json
-                f.adapter :net_http
+            if @api_key == ""
+                @connection = Faraday.new(url: @api_url) do |f|
+                    f.request :json
+                    f.request :retry
+                    f.response :raise_error
+                    f.response :json
+                    f.adapter :net_http
+                end
+            else
+                @connection = Faraday.new(url: @api_url, headers: {"Authorization" => "Bearer #{@api_key}"}) do |f|
+                    f.request :json
+                    f.request :retry
+                    f.response :raise_error
+                    f.response :json
+                    f.adapter :net_http
+                end
             end
         end
 
