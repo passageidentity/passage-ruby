@@ -35,4 +35,11 @@ class TestUserAPI < Test::Unit::TestCase
         assert_equal ENV["USER_ID"], user.id
         assert_equal original_email, user.email
     end
+
+    def test_create_delete_user()
+        user = PassageClient.user.create_user(email: "chris+delete@passage.id")
+        assert_equal "chris+delete@passage.id", user.email
+        deleted = PassageClient.user.delete_user(user_id: user.id)
+        assert_equal true, deleted
+    end
 end
