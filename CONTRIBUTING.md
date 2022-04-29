@@ -3,25 +3,20 @@
 ## Testing the gem locally
 
 Install the gem
-
 ```
 gem build passageidentity.gemspec
 gem install ./passageidentity-0.0.1.gem
 ```
 
 Test it out:
-
 ```
 irb -Ilib -rpassageidentity
->> require 'passageidentity'
-=> true
 >> passage = Passage::Client.new(app_id: 'YOUR_APP_ID')
 >> passage.auth.authenticate("JWT_HERE")
 <passage_user_id>
 ```
 
 Run Tests:
-
 ```
 # all tests
 ruby tests/all.rb
@@ -29,8 +24,7 @@ ruby tests/all.rb
 ruby tests/*_test.rb
 ```
 
-To in the example app, change the Gemfile to include this:
-
+To test in the example app, change the Gemfile to include this path:
 ```
 gem "passageidentity", path: "../../passage-ruby"
 ```

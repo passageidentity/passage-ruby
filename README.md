@@ -7,7 +7,17 @@ Install this package using [RubyGems](https://rubygems.org/gems/passageidentity)
 ```
 gem install passageidentity
 ```
+
 ## Instantiating the Passage Class
+
+Initialize the Passage Client as follows:
+```ruby
+Passage = Passage::Client.new(
+    app_id: "YOUR APP ID", 
+    api_key: "YOUR APIKEY", 
+    auth_strategy: Passage::HEADER_AUTH 
+)
+```
 
 Passage has three arguments that can be used for initialization: `app_id`, `api_key`, and `auth_strategy`.
 
@@ -17,8 +27,7 @@ Passage has three arguments that can be used for initialization: `app_id`, `api_
 
 ## Authenticating a Request
 
-To authenticate an HTTP request in a Rails application, you can use the Passage library in a middleware function.
-You need to provide Passage with your app ID in order to verify the JWTs.
+To authenticate an HTTP request in a Rails application, you can use the Passage library in a middleware function. You need to provide Passage with your App ID in order to verify the JWTs.
 
 ```ruby
 require 'passageidentity'
@@ -36,10 +45,10 @@ class ApplicationController < ActionController::Base
     end
 end
 ```
+
 ## Retrieve User Info
 
-To retrieve information about a user, you should use the `get_user` method. You will need to use a Passage API key, which can be created in the Passage Console under your Application Settings. This API key grants your web server access to the Passage management APIs to get and update information about users.
-This API key must be protected and stored in an appropriate secure storage location. It should never be hard-coded in the repository.
+To retrieve information about a user, you should use the `get_user` method. You will need to use a Passage API key, which can be created in the Passage Console under your Application Settings. This API key grants your web server access to the Passage management APIs to get and update information about users. This API key must be protected and stored in an appropriate secure storage location. It should never be hard-coded in the repository.
 
 ```ruby
 require 'passageidentity'
@@ -72,7 +81,7 @@ The information available in the Passage User struct returned by PassageClient.u
 ```
 ## Activate/Deactivate User
 
-You can also activate or deactivate a user using the Passage SDK. These actions require an API Key and deactivating a user will prevent them from logging into your application
+You can activate or deactivate a user using the Passage SDK. These actions require an API Key and deactivating a user will prevent them from logging into your application
 with Passage.
 
 ```ruby
@@ -86,7 +95,7 @@ user = PassageClient.user.activate_user(user_id: user_id)
 
 ## Create User
 
-You can also create users using their email address or phone number. Note that their phone number must be in E164 format (example shown below).
+You can create users using their email address or phone number. Note that their phone number must be in E164 format (example shown below).
 
 ```ruby
 require 'passageidentity'
@@ -98,7 +107,8 @@ user = PassageClient.user.create_user(phone: "+15005550007")
 ```
 
 ## Delete User
-You can also delete a user using the Passage SDK
+
+You can delete a user using the Passage SDK.
 
 ```ruby
 require 'passageidentity'
@@ -112,8 +122,7 @@ end
 ```
 ## Create an Embeddable Magic Link
 
-To create a magic link, you should use the `create_magic_link` method. The function takes in many different arguments:
-`def create_magic_link(user_id: '', email: '', phone: '', channel: '', send: false, magic_link_path: '', redirect_url: '', ttl: 60)`
+To create a magic link, you should use the `create_magic_link` method. You can check out our guide on embeddable magic links in our [docs](https://docs.passage.id/popular-guides/smart-links).
 
 ```ruby
 require 'passageidentity'
@@ -121,10 +130,16 @@ require 'passageidentity'
 PassageClient = Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
     
 magic_link = PassageClient.create_magic_link(user_id: user_id)
-magic_link = PassageClient.create_magic_link(email: "example@domain.com", send: true, channel: Passage::EMAIL_CHANNEL, ttl: 120)
+magic_link = PassageClient.create_magic_link(
+    email: "example@domain.com", 
+    send: true, 
+    channel: Passage::EMAIL_CHANNEL, 
+    ttl: 120)
 
 ```
-The information available in the Passage Magic Link struct returned by PassageClient.create_magic_link():
+
+The information available in the Passage Magic Link struct returned this method is below:
+
 ```ruby
     Struct.new :id,
                :secret,
