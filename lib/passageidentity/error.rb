@@ -1,5 +1,4 @@
-
 module Passage
-
-    class PassageError < StandardError;  end
+  class PassageError < StandardError
+  end
 end
