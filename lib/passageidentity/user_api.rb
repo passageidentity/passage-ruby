@@ -27,7 +27,7 @@ module Passage
             last_login_at: user['last_login_at'],
             login_count: user['login_count'],
             webauthn: user['webauthn'],
-            webauthn_devices: user['webbauthn_devices'],
+            webauthn_devices: user['webauthn_devices'],
             recent_events: user['recent_events'],
             user_metadata: user['user_metadata']
           )
@@ -61,7 +61,7 @@ module Passage
             last_login_at: user['last_login_at'],
             login_count: user['login_count'],
             webauthn: user['webauthn'],
-            webauthn_devices: user['webbauthn_devices'],
+            webauthn_devices: user['webauthn_devices'],
             recent_events: user['recent_events'],
             user_metadata: user['user_metadata']
           )
@@ -95,7 +95,7 @@ module Passage
             last_login_at: user['last_login_at'],
             login_count: user['login_count'],
             webauthn: user['webauthn'],
-            webauthn_devices: user['webbauthn_devices'],
+            webauthn_devices: user['webauthn_devices'],
             recent_events: user['recent_events'],
             user_metadata: user['user_metadata']
           )
@@ -133,7 +133,7 @@ module Passage
             last_login_at: user['last_login_at'],
             login_count: user['login_count'],
             webauthn: user['webauthn'],
-            webauthn_devices: user['webbauthn_devices'],
+            webauthn_devices: user['webauthn_devices'],
             recent_events: user['recent_events'],
             user_metadata: user['user_metadata']
           )
@@ -169,7 +169,7 @@ module Passage
             last_login_at: user['last_login_at'],
             login_count: user['login_count'],
             webauthn: user['webauthn'],
-            webauthn_devices: user['webbauthn_devices'],
+            webauthn_devices: user['webauthn_devices'],
             recent_events: user['recent_events'],
             user_metadata: user['user_metadata']
           )
