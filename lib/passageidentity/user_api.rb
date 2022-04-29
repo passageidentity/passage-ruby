@@ -222,9 +222,9 @@ module Passage
         devices = Array.new
         devicesResp.each do |device|
           devices.append(
-            Passage::Devices.new(
+            Passage::Device.new(
               id: device['id'],
-              cred_id: devicep['cred_id'],
+              cred_id: device['cred_id'],
               friendly_name: device['friendly_name'],
               usage_count: device['usage_count'],
               last_used: device['last_used']
