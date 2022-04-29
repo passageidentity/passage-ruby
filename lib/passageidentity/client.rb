@@ -12,8 +12,14 @@ module Passage
                :phone,
                :email_verified,
                :created_at,
-               :last_login,
-               :user_metadata
+               :updated_at,
+               :last_login_at,
+               :login_count,
+               :recent_events,
+               :webauthn,
+               :webauthn_devices,
+               :user_metadata,
+               keyword_init: true
   MagicLink =
     Struct.new :id,
                :secret,
@@ -24,7 +30,15 @@ module Passage
                :type,
                :redirect_url,
                :ttl,
-               :url
+               :url,
+               keyword_init: true
+  Device =
+    Struct.new :id,
+               :cred_id,
+               :friendly_name,
+               :usage_count,
+               :last_used,
+               keyword_init: true
 
   COOKIE_STRATEGY = 0
   HEADER_STRATEGY = 1
@@ -133,16 +147,16 @@ module Passage
         magic_link = response.body['magic_link']
         return(
           Passage::MagicLink.new(
-            magic_link['id'],
-            magic_link['secret'],
-            magic_link['activated'],
-            magic_link['user_id'],
-            magic_link['app_id'],
-            magic_link['identifier'],
-            magic_link['type'],
-            magic_link['redirect_url'],
-            magic_link['ttl'],
-            magic_link['url']
+            id: magic_link['id'],
+            secret: magic_link['secret'],
+            activated: magic_link['activated'],
+            user_id: magic_link['user_id'],
+            app_id: magic_link['app_id'],
+            identifier: magic_link['identifier'],
+            type: magic_link['type'],
+            redirect_url: magic_link['redirect_url'],
+            ttl: magic_link['ttl'],
+            url: magic_link['url']
           )
         )
       rescue Faraday::Error => e

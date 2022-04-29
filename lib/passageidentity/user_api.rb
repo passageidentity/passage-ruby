@@ -9,7 +9,7 @@ module Passage
       @api_key = api_key
     end
 
-    def get_user(user_id:)
+    def get(user_id:)
       raise PassageError, 'must supply a valid user_id' if user_id.to_s.empty?
       begin
         response = @connection.get("/v1/apps/#{@app_id}/users/#{user_id}")
@@ -17,14 +17,19 @@ module Passage
         user.transform_keys(&:to_sym)
         return(
           Passage::User.new(
-            user['id'],
-            user['status'],
-            user['email'],
-            user['phone'],
-            user['email_verified'],
-            user['created_at'],
-            user['last_login_at'],
-            user['user_metadata']
+            id: user['id'],
+            status: user['status'],
+            email: user['email'],
+            phone: user['phone'],
+            email_verified: user['email_verified'],
+            created_at: user['created_at'],
+            updated_at: user['updated_at'],
+            last_login_at: user['last_login_at'],
+            login_count: user['login_count'],
+            webauthn: user['webauthn'],
+            webauthn_devices: user['webbauthn_devices'],
+            recent_events: user['recent_events'],
+            user_metadata: user['user_metadata']
           )
         )
       rescue Faraday::Error => e
@@ -38,7 +43,7 @@ module Passage
       end
     end
 
-    def activate_user(user_id:)
+    def activate(user_id:)
       raise PassageError, 'must supply a valid user_id' if user_id.to_s.empty?
       begin
         response =
@@ -46,14 +51,19 @@ module Passage
         user = response.body['user']
         return(
           Passage::User.new(
-            user['id'],
-            user['status'],
-            user['email'],
-            user['phone'],
-            user['email_verified'],
-            user['created_at'],
-            user['last_login_at'],
-            user['user_metadata']
+            id: user['id'],
+            status: user['status'],
+            email: user['email'],
+            phone: user['phone'],
+            email_verified: user['email_verified'],
+            created_at: user['created_at'],
+            updated_at: user['updated_at'],
+            last_login_at: user['last_login_at'],
+            login_count: user['login_count'],
+            webauthn: user['webauthn'],
+            webauthn_devices: user['webbauthn_devices'],
+            recent_events: user['recent_events'],
+            user_metadata: user['user_metadata']
           )
         )
       rescue Faraday::Error => e
@@ -67,7 +77,7 @@ module Passage
       end
     end
 
-    def deactivate_user(user_id:)
+    def deactivate(user_id:)
       raise PassageError, 'must supply a valid user_id' if user_id.to_s.empty?
       begin
         response =
@@ -75,14 +85,19 @@ module Passage
         user = response.body['user']
         return(
           Passage::User.new(
-            user['id'],
-            user['status'],
-            user['email'],
-            user['phone'],
-            user['email_verified'],
-            user['created_at'],
-            user['last_login_at'],
-            user['user_metadata']
+            id: user['id'],
+            status: user['status'],
+            email: user['email'],
+            phone: user['phone'],
+            email_verified: user['email_verified'],
+            created_at: user['created_at'],
+            updated_at: user['updated_at'],
+            last_login_at: user['last_login_at'],
+            login_count: user['login_count'],
+            webauthn: user['webauthn'],
+            webauthn_devices: user['webbauthn_devices'],
+            recent_events: user['recent_events'],
+            user_metadata: user['user_metadata']
           )
         )
       rescue Faraday::Error => e
@@ -96,7 +111,7 @@ module Passage
       end
     end
 
-    def update_user(user_id:, email: '', phone: '', user_metadata: {})
+    def update(user_id:, email: '', phone: '', user_metadata: {})
       raise PassageError, 'must supply a valid user_id' if user_id.to_s.empty?
       updates = {}
       updates['email'] = email unless email.empty?
@@ -108,14 +123,19 @@ module Passage
         user = response.body['user']
         return(
           Passage::User.new(
-            user['id'],
-            user['status'],
-            user['email'],
-            user['phone'],
-            user['email_verified'],
-            user['created_at'],
-            user['last_login_at'],
-            user['user_metadata']
+            id: user['id'],
+            status: user['status'],
+            email: user['email'],
+            phone: user['phone'],
+            email_verified: user['email_verified'],
+            created_at: user['created_at'],
+            updated_at: user['updated_at'],
+            last_login_at: user['last_login_at'],
+            login_count: user['login_count'],
+            webauthn: user['webauthn'],
+            webauthn_devices: user['webbauthn_devices'],
+            recent_events: user['recent_events'],
+            user_metadata: user['user_metadata']
           )
         )
       rescue Faraday::Error => e
@@ -129,7 +149,7 @@ module Passage
       end
     end
 
-    def create_user(email: '', phone: '', user_metadata: {})
+    def create(email: '', phone: '', user_metadata: {})
       create = {}
       create['email'] = email unless email.empty?
       create['phone'] = phone unless phone.empty?
@@ -139,14 +159,19 @@ module Passage
         user = response.body['user']
         return(
           Passage::User.new(
-            user['id'],
-            user['status'],
-            user['email'],
-            user['phone'],
-            user['email_verified'],
-            user['created_at'],
-            user['last_login_at'],
-            user['user_metadata']
+            id: user['id'],
+            status: user['status'],
+            email: user['email'],
+            phone: user['phone'],
+            email_verified: user['email_verified'],
+            created_at: user['created_at'],
+            updated_at: user['updated_at'],
+            last_login_at: user['last_login_at'],
+            login_count: user['login_count'],
+            webauthn: user['webauthn'],
+            webauthn_devices: user['webbauthn_devices'],
+            recent_events: user['recent_events'],
+            user_metadata: user['user_metadata']
           )
         )
       rescue Faraday::Error => e
@@ -155,7 +180,7 @@ module Passage
       end
     end
 
-    def delete_user(user_id:)
+    def delete(user_id:)
       raise PassageError, 'must supply a valid user_id' if user_id.to_s.empty?
       begin
         response = @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}")
@@ -168,6 +193,48 @@ module Passage
           raise PassageError,
                 "failed to delete Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]['error']}"
         end
+      end
+    end
+
+    def delete_device(user_id:, device_id:)
+      raise PassageError, 'must supply a valid user_id' if user_id.to_s.empty?
+      if device_id.to_s.empty?
+        raise PassageError, 'must supply a valid device_id'
+      end
+      begin
+        response =
+          @connection.delete(
+            "/v1/apps/#{@app_id}/users/#{user_id}/devices/#{device_id}"
+          )
+        return true
+      rescue Faraday::Error => e
+        raise PassageError,
+              "failed to delete Passage User Device. Http Status: #{e.response[:status]}. Response: #{e.response[:body]['error']}"
+      end
+    end
+
+    def list_devices(user_id:)
+      raise PassageError, 'must supply a valid user_id' if user_id.to_s.empty?
+      begin
+        response =
+          @connection.get("/v1/apps/#{@app_id}/users/#{user_id}/devices")
+        devicesResp = response.body['devices']
+        devices = Array.new
+        devicesResp.each do |device|
+          devices.append(
+            Passage::Devices.new(
+              id: device['id'],
+              cred_id: devicep['cred_id'],
+              friendly_name: device['friendly_name'],
+              usage_count: device['usage_count'],
+              last_used: device['last_used']
+            )
+          )
+        end
+        return devices
+      rescue Faraday::Error => e
+        raise PassageError,
+              "failed to delete Passage User Device. Http Status: #{e.response[:status]}. Response: #{e.response[:body]['error']}"
       end
     end
   end

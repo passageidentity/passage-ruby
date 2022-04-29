@@ -3,12 +3,14 @@
 ## Testing the gem locally
 
 Install the gem
+
 ```
 gem build passageidentity.gemspec
 gem install ./passageidentity-0.0.1.gem
 ```
 
 Test it out:
+
 ```
 irb -Ilib -rpassageidentity
 >> passage = Passage::Client.new(app_id: 'YOUR_APP_ID')
@@ -17,6 +19,7 @@ irb -Ilib -rpassageidentity
 ```
 
 Run Tests:
+
 ```
 # all tests
 ruby tests/all.rb
@@ -25,6 +28,7 @@ ruby tests/*_test.rb
 ```
 
 To test in the example app, change the Gemfile to include this path:
+
 ```
 gem "passageidentity", path: "../../passage-ruby"
 ```
