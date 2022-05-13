@@ -47,7 +47,6 @@ module Passage
   PHONE_CHANNEL = 'phone'
 
   class Client
-
     attr_reader :auth
     attr_reader :user
 
@@ -66,8 +65,7 @@ module Passage
       get_connection
 
       # initialize auth class
-      @auth =
-        Passage::Auth.new(@app_id, @auth_strategy, @connection)
+      @auth = Passage::Auth.new(@app_id, @auth_strategy, @connection)
 
       # initialize user class
       @user = Passage::UserAPI.new(@connection, @app_id, @api_key)
@@ -99,7 +97,6 @@ module Passage
           end
       end
     end
-
 
     def create_magic_link(
       user_id: '',

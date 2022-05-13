@@ -10,7 +10,7 @@ module Passage
       @app_id = app_id
       @auth_strategy = auth_strategy
       @connection = connection
-      
+
       fetch_jwks
     end
 
@@ -19,19 +19,18 @@ module Passage
         response = @connection.get("/v1/apps/#{@app_id}")
         return response.body['app']
       rescue Faraday::Error => e
-          raise PassageError,
-                "failed to get Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]['error']}"
+        raise PassageError,
+              "failed to get Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]['error']}"
       end
     end
-
 
     def fetch_jwks()
       if @@app_cache[@app_id]
         @jwks, @auth_origin = @@app_cache[@app_id]
       else
-        app = fetch_app() 
+        app = fetch_app
         auth_gw_connection =
-          Faraday.new(url: "https://auth.passage.id") do |f|
+          Faraday.new(url: 'https://auth.passage.id') do |f|
             f.request :json
             f.request :retry
             f.response :raise_error
@@ -40,9 +39,10 @@ module Passage
           end
 
         # fetch the public key if not in cache
-        app = fetch_app()
+        app = fetch_app
         @auth_origin = app['auth_origin']
-        response = auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
+        response =
+          auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
         @jwks = response.body
         @@app_cache[@app_id] ||= [@jwks, @auth_origin]
       end
@@ -74,15 +74,15 @@ module Passage
     end
 
     def authenticate_token(token)
-        kid = JWT.decode(token, nil, false)[1]['kid']
-        exists = false
-        for jwk in @jwks["keys"] do 
-            if jwk["kid"] == kid 
-                exists = true
-                break
-            end
+      kid = JWT.decode(token, nil, false)[1]['kid']
+      exists = false
+      for jwk in @jwks['keys']
+        if jwk['kid'] == kid
+          exists = true
+          break
         end
-        fetch_jwks() unless exists
+      end
+      fetch_jwks unless exists
       begin
         claims =
           JWT.decode(
@@ -95,7 +95,7 @@ module Passage
               aud: @auth_origin,
               verify_aud: true,
               algorithms: ['RS256'],
-              jwks: @jwks 
+              jwks: @jwks
             }
           )
         return claims[0]['sub']

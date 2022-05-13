@@ -50,16 +50,22 @@ gem push passage-0.0.0.gem
 ```
 
 You can check for the gem here:
+
 ```
 gem list -r passage
 ```
+
 =======
 gem push passageidentity-0.0.0.gem
+
 ```
 
 You can check for the gem here:
 
 ```
+
 gem list -r passageidentity
+
 ```
 >>>>>>> 2d0e3f6dc3b40c621c8d16506fa6ab43b0fba673
+```
