@@ -7,7 +7,7 @@ module Passage
   class Auth
     @@app_cache = {}
     def initialize(app_id, auth_strategy, connection)
-        @app_id = app_id
+      @app_id = app_id
       @auth_strategy = auth_strategy
       @connection = connection
       
@@ -47,6 +47,7 @@ module Passage
         @@app_cache[@app_id] ||= [@jwks, @auth_origin]
       end
     end
+
     def authenticate_request(request)
       # Get the token based on the strategy
       if @auth_strategy === Passage::COOKIE_STRATEGY
