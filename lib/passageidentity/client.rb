@@ -47,7 +47,6 @@ module Passage
   PHONE_CHANNEL = 'phone'
 
   class Client
-    @@app_cache = {}
 
     attr_reader :auth
     attr_reader :user
@@ -65,11 +64,10 @@ module Passage
 
       # setup
       get_connection
-      fetch_public_key(@connection)
 
       # initialize auth class
       @auth =
-        Passage::Auth.new(@app_id, @auth_strategy, @public_key, @auth_origin)
+        Passage::Auth.new(@app_id, @auth_strategy, @connection)
 
       # initialize user class
       @user = Passage::UserAPI.new(@connection, @app_id, @api_key)
@@ -102,17 +100,6 @@ module Passage
       end
     end
 
-    def fetch_public_key(conn)
-      if @@app_cache[@app_id]
-        @public_key, @auth_origin = @@app_cache[@app_id]
-      else
-        # fetch the public key if not in cache
-        response = conn.get("/v1/apps/#{@app_id}")
-        @public_key = response.body['app']['rsa_public_key']
-        @auth_origin = response.body['app']['auth_origin']
-        @@app_cache[@app_id] ||= [@public_key, @auth_origin]
-      end
-    end
 
     def create_magic_link(
       user_id: '',

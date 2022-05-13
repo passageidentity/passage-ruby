@@ -5,16 +5,48 @@ require_relative 'client'
 
 module Passage
   class Auth
-    def initialize(app_id, auth_strategy, public_key, auth_origin)
-      @app_id = app_id
+    @@app_cache = {}
+    def initialize(app_id, auth_strategy, connection)
+        @app_id = app_id
       @auth_strategy = auth_strategy
-      @auth_origin = auth_origin
-
-      # bas64 decode and then parse the public key
-      # when we have JWKS endpoint, this will get easier I think
-      @public_key = OpenSSL::PKey::RSA.new(Base64.decode64(public_key))
+      @connection = connection
+      
+      fetch_jwks
     end
 
+    def fetch_app()
+      begin
+        response = @connection.get("/v1/apps/#{@app_id}")
+        return response.body['app']
+      rescue Faraday::Error => e
+          raise PassageError,
+                "failed to get Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]['error']}"
+      end
+    end
+
+
+    def fetch_jwks()
+      if @@app_cache[@app_id]
+        @jwks, @auth_origin = @@app_cache[@app_id]
+      else
+        app = fetch_app() 
+        auth_gw_connection =
+          Faraday.new(url: "https://auth.passage.id") do |f|
+            f.request :json
+            f.request :retry
+            f.response :raise_error
+            f.response :json
+            f.adapter :net_http
+          end
+
+        # fetch the public key if not in cache
+        app = fetch_app()
+        @auth_origin = app['auth_origin']
+        response = auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
+        @jwks = response.body
+        @@app_cache[@app_id] ||= [@jwks, @auth_origin]
+      end
+    end
     def authenticate_request(request)
       # Get the token based on the strategy
       if @auth_strategy === Passage::COOKIE_STRATEGY
@@ -41,18 +73,28 @@ module Passage
     end
 
     def authenticate_token(token)
+        kid = JWT.decode(token, nil, false)[1]['kid']
+        exists = false
+        for jwk in @jwks["keys"] do 
+            if jwk["kid"] == kid 
+                exists = true
+                break
+            end
+        end
+        fetch_jwks() unless exists
       begin
         claims =
           JWT.decode(
             token,
-            @public_key,
+            nil,
             true,
             {
               iss: @app_id,
               verify_iss: true,
               aud: @auth_origin,
               verify_aud: true,
-              algorithms: ['RS256']
+              algorithms: ['RS256'],
+              jwks: @jwks 
             }
           )
         return claims[0]['sub']
