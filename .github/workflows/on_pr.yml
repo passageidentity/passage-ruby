@@ -1,0 +1,25 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [users/cl/ch1334-ci]
+
+jobs:
+  build:
+    name: Test and Lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+
+    - name: Run Tests
+      run: |
+        ruby tests/all.rb
+    - name: Run Linting
+      run: |
+        npm install -g prettier @prettier/plugin-ruby
+        npx prettier --check '**/*.rb'
