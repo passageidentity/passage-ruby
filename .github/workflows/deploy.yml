@@ -21,7 +21,8 @@ jobs:
 
       - name: Run Tests
         run: |
-          gem install ./passageidentity-0.0.1.gemspec
+          gem build passageidentity.gemspec -o test.gem
+          gem install test.gem
           ruby tests/all.rb
 
       - name: Publish to GPR

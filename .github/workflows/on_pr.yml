@@ -19,7 +19,8 @@ jobs:
     - name: Run Tests
       run: |
         ls -la 
-        gem install jwt faraday:1.9 openssl dotenv 
+        gem build passageidentity.gemspec -o test.gem
+        gem install test.gem
         ruby tests/all.rb
     - name: Run Linting
       run: |
