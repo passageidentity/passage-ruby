@@ -1,8 +1,9 @@
 require_relative '../lib/passageidentity/client'
-require_relative './environment'
+require 'dotenv'
 require 'faraday'
 require 'test/unit'
 
+Dotenv.load('.env')
 class TestUserAPI < Test::Unit::TestCase
   PassageClient =
     Passage::Client.new(app_id: ENV['APP_ID'], api_key: ENV['API_KEY'])
