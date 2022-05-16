@@ -28,5 +28,6 @@ jobs:
         ruby tests/all.rb
     - name: Run Linting
       run: |
-        npm install --save-dev prettier @prettier/plugin-ruby
-        ./node_modules/.bin/prettier --check '**/*.rb'
+        npm install -g prettier @prettier/plugin-ruby
+        gem install bundler prettier_print syntax_tree syntax_tree-haml syntax_tree-rbs
+        prettier --check '**/*.rb'
