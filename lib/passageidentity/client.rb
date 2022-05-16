@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'auth'
-require_relative 'user_api'
-require_relative 'error'
+require_relative "auth"
+require_relative "user_api"
+require_relative "error"
 
 module Passage
   User =
@@ -43,21 +43,21 @@ module Passage
   COOKIE_STRATEGY = 0
   HEADER_STRATEGY = 1
 
-  EMAIL_CHANNEL = 'email'
-  PHONE_CHANNEL = 'phone'
+  EMAIL_CHANNEL = "email"
+  PHONE_CHANNEL = "phone"
 
   class Client
     attr_reader :auth
     attr_reader :user
 
-    def initialize(app_id:, api_key: '', auth_strategy: COOKIE_STRATEGY)
-      @api_url = 'https://api.passage.id'
+    def initialize(app_id:, api_key: "", auth_strategy: COOKIE_STRATEGY)
+      @api_url = "https://api.passage.id"
       @app_id = app_id
       @api_key = api_key
 
       # check for valid auth strategy
       unless [COOKIE_STRATEGY, HEADER_STRATEGY].include? auth_strategy
-        raise PassageError, 'invalid auth strategy.'
+        raise PassageError, "invalid auth strategy."
       end
       @auth_strategy = auth_strategy
 
@@ -72,7 +72,7 @@ module Passage
     end
 
     def get_connection
-      if @api_key == ''
+      if @api_key == ""
         @connection =
           Faraday.new(url: @api_url) do |f|
             f.request :json
@@ -86,7 +86,7 @@ module Passage
           Faraday.new(
             url: @api_url,
             headers: {
-              'Authorization' => "Bearer #{@api_key}"
+              "Authorization" => "Bearer #{@api_key}"
             }
           ) do |f|
             f.request :json
@@ -99,53 +99,54 @@ module Passage
     end
 
     def create_magic_link(
-      user_id: '',
-      email: '',
-      phone: '',
-      channel: '',
+      user_id: "",
+      email: "",
+      phone: "",
+      channel: "",
       send: false,
-      magic_link_path: '',
-      redirect_url: '',
+      magic_link_path: "",
+      redirect_url: "",
       ttl: 60
     )
       magic_link_req = {}
-      magic_link_req['user_id'] = user_id unless user_id.empty?
-      magic_link_req['email'] = email unless email.empty?
-      magic_link_req['phone'] = phone unless phone.empty?
+      magic_link_req["user_id"] = user_id unless user_id.empty?
+      magic_link_req["email"] = email unless email.empty?
+      magic_link_req["phone"] = phone unless phone.empty?
 
       # check to see if the channel specified is valid before sending it off to the server
       unless [PHONE_CHANNEL, EMAIL_CHANNEL].include? channel
         raise PassageError,
-              'channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL'
+              "channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL"
       end
-      magic_link_req['channel'] = channel unless channel.empty?
-      magic_link_req['send'] = send
-      magic_link_req['magic_link_path'] = magic_link_path unless magic_link_path
-        .empty?
-      magic_link_req['redirect_url'] = redirect_url unless redirect_url.empty?
-      magic_link_req['ttl'] = ttl unless ttl == 0
+      magic_link_req["channel"] = channel unless channel.empty?
+      magic_link_req["send"] = send
+      magic_link_req[
+        "magic_link_path"
+      ] = magic_link_path unless magic_link_path.empty?
+      magic_link_req["redirect_url"] = redirect_url unless redirect_url.empty?
+      magic_link_req["ttl"] = ttl unless ttl == 0
 
       begin
         response =
           @connection.post("/v1/apps/#{@app_id}/magic-links", magic_link_req)
-        magic_link = response.body['magic_link']
+        magic_link = response.body["magic_link"]
         return(
           Passage::MagicLink.new(
-            id: magic_link['id'],
-            secret: magic_link['secret'],
-            activated: magic_link['activated'],
-            user_id: magic_link['user_id'],
-            app_id: magic_link['app_id'],
-            identifier: magic_link['identifier'],
-            type: magic_link['type'],
-            redirect_url: magic_link['redirect_url'],
-            ttl: magic_link['ttl'],
-            url: magic_link['url']
+            id: magic_link["id"],
+            secret: magic_link["secret"],
+            activated: magic_link["activated"],
+            user_id: magic_link["user_id"],
+            app_id: magic_link["app_id"],
+            identifier: magic_link["identifier"],
+            type: magic_link["type"],
+            redirect_url: magic_link["redirect_url"],
+            ttl: magic_link["ttl"],
+            url: magic_link["url"]
           )
         )
       rescue Faraday::Error => e
         raise PassageError,
-              "failed to create Passage Magic Link. Http Status: #{e.response[:status]}. Response: #{e.response[:body]['error']}"
+              "failed to create Passage Magic Link. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
       end
     end
   end
