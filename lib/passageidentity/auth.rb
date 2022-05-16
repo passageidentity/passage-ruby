@@ -20,7 +20,7 @@ module Passage
         return response.body['app']
       rescue Faraday::Error => e
         raise PassageError,
-              "failed to get Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]['error']}"
+              "failed to get Passage App. Http Status: #{e.response[:status]}. Response: #{e.response[:body]['error']}"
       end
     end
 
