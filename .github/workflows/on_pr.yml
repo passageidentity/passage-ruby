@@ -23,12 +23,10 @@ jobs:
 
     - name: Run Tests
       run: |
-        ls -la 
         gem build passageidentity.gemspec -o test.gem
         gem install test.gem
-        echo $APP_ID
         ruby tests/all.rb
     - name: Run Linting
       run: |
         npm install -g prettier @prettier/plugin-ruby
-        npx prettier --check '**/*.rb'
+        prettier --check '**/*.rb'
