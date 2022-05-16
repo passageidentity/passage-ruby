@@ -19,7 +19,7 @@ jobs:
     - name: Run Tests
       run: |
         ls -la 
-        gem install ./passageidentity-0.0.1.gemspec
+        gem install ./passageidentity.gemspec
         ruby tests/all.rb
     - name: Run Linting
       run: |
