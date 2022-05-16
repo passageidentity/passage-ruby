@@ -2,7 +2,7 @@ name: PR Checks
 
 on:
   pull_request:
-    branches: [users/cl/ch1334-ci]
+    branches: [ main ]
 
 jobs:
   build:
