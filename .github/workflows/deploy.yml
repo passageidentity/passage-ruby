@@ -25,13 +25,6 @@ jobs:
         with:
           ruby-version: '3.0'
 
-      - name: Run Tests
-        run: |
-          gem build passageidentity.gemspec -o test.gem
-          gem install test.gem
-          rm test.gem
-          ruby tests/all.rb
-
       - name: Publish to RubyGems
         run: |
           mkdir -p $HOME/.gem
