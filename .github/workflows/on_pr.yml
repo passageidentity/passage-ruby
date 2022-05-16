@@ -4,6 +4,12 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  API_KEY: ${{ secrets.API_KEY }}
+  APP_ID: ${{ secrets.APP_ID }}
+  PSG_JWT: ${{ secrets.PSG_JWT }}
+  TEST_USER_ID: ${{ secrets.TEST_USER_ID }}
+
 jobs:
   build:
     name: Test and Lint
@@ -20,6 +26,7 @@ jobs:
         ls -la 
         gem build passageidentity.gemspec -o test.gem
         gem install test.gem
+        echo $APP_ID
         ruby tests/all.rb
     - name: Run Linting
       run: |
