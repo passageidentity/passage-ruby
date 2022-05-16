@@ -25,6 +25,7 @@ jobs:
       run: |
         gem build passageidentity.gemspec -o test.gem
         gem install test.gem
+        rm test.gem
         ruby tests/all.rb
     - name: Run Linting
       run: |
