@@ -5,8 +5,8 @@
 Install the gem
 
 ```
-gem build passageidentity.gemspec
-gem install ./passageidentity-0.0.1.gem
+gem build passageidentity.gemspec -o {$FILE_NAME}.gem
+gem install ./{$FILE_NAME}.gem
 ```
 
 Test it out:
