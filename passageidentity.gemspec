@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'passageidentity'
-  s.version = '0.0.4'
+  s.version = '0.0.5'
   s.summary = 'Passage SDK for biometric authentication'
   s.description =
     'Enables verification of server-side authentication and user management for applications using Passage'
