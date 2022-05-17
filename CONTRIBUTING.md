@@ -5,8 +5,8 @@
 Install the gem
 
 ```
-gem build passageidentity.gemspec
-gem install ./passageidentity-0.0.1.gem
+gem build passageidentity.gemspec -o {$FILE_NAME}.gem
+gem install ./{$FILE_NAME}.gem
 ```
 
 Test it out:
@@ -27,6 +27,15 @@ ruby tests/all.rb
 ruby tests/*_test.rb
 ```
 
+Run Linter:
+
+```
+npm install -g prettier @prettier/plugin-ruby
+gem install bundler prettier_print syntax_tree syntax_tree-haml syntax_tree-rbs
+prettier --fix '**/*.rb'
+```
+
+
 To test in the example app, change the Gemfile to include this path:
 
 ```
@@ -45,7 +54,6 @@ Enter host password for user '<username>':
 ```
 
 ```
-<<<<<<< HEAD
 gem push passage-0.0.0.gem
 ```
 
@@ -55,17 +63,4 @@ You can check for the gem here:
 gem list -r passage
 ```
 
-=======
-gem push passageidentity-0.0.0.gem
-
-```
-
-You can check for the gem here:
-
-```
-
-gem list -r passageidentity
-
-```
->>>>>>> 2d0e3f6dc3b40c621c8d16506fa6ab43b0fba673
 ```
