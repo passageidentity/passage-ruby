@@ -32,7 +32,7 @@ Run Linter:
 ```
 npm install -g prettier @prettier/plugin-ruby
 gem install bundler prettier_print syntax_tree syntax_tree-haml syntax_tree-rbs
-prettier --fix '**/*.rb'
+prettier --write '**/*.rb'
 ```
 
 

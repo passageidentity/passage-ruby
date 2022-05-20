@@ -5,6 +5,20 @@ require_relative "user_api"
 require_relative "error"
 
 module Passage
+  App =
+    Struct.new :name,
+               :id,
+               :auth_origin,
+               :redirect_url,
+               :login_url,
+               :rsa_public_key,
+               :allowed_identifer,
+               :required_identifier,
+               :require_email_verification,
+               :session_timeout_length,
+               :user_metadata_schema,
+               :layouts,
+               keyword_init: true
   User =
     Struct.new :id,
                :status,
@@ -95,6 +109,30 @@ module Passage
             f.response :json
             f.adapter :net_http
           end
+      end
+    end
+
+    def get_app()
+      begin
+        app_info = @auth.fetch_app()
+        return(
+          Passage::App.new(
+            name: app_info["name"],
+            id: app_info["id"],
+            auth_origin: app_info["auth_origin"],
+            redirect_url: app_info["redirect_url"],
+            login_url: app_info["login_url"],
+            rsa_public_key: app_info["rsa_public_key"],
+            allowed_identifer: app_info["allowed_identifer"],
+            required_identifier: app_info["required_identifier"],
+            require_email_verification: app_info["require_email_verification"],
+            session_timeout_length: app_info["session_timeout_length"],
+            user_metadata_schema: app_info["user_metadata_schema"],
+            layouts: app_info["layouts"]
+          )
+        )
+      rescue => e
+        raise e
       end
     end
 
