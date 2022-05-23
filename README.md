@@ -51,6 +51,36 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+## Retrieve App Info
+
+To retrieve information about an app , you should use the `get_app` method.
+
+```ruby
+require 'passageidentity'
+
+PassageClient =
+  Passage::Client.new(app_id: PASSAGE_APP_ID)
+app_info = PassageClient.get_app()
+  
+```
+
+The information available in the Passage App struct returned by PassageClient.get_app():
+
+```ruby
+    Struct.new :name,
+               :id,
+               :auth_origin,
+               :redirect_url,
+               :login_url,
+               :rsa_public_key,
+               :allowed_identifer,
+               :required_identifier,
+               :require_email_verification,
+               :session_timeout_length,
+               :user_metadata_schema,
+               :layouts,
+```
+
 ## Retrieve User Info
 
 To retrieve information about a user, you should use the `get` method. You will need to use a Passage API key, which can be created in the Passage Console under your Application Settings. This API key grants your web server access to the Passage management APIs to get and update information about users. This API key must be protected and stored in an appropriate secure storage location. It should never be hard-coded in the repository.
