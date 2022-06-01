@@ -90,8 +90,6 @@ module Passage
             nil,
             true,
             {
-              iss: @app_id,
-              verify_iss: true,
               aud: @auth_origin,
               verify_aud: true,
               algorithms: ["RS256"],
