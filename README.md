@@ -205,7 +205,7 @@ end
 
 ## Create an Embeddable Magic Link
 
-To create a magic link, you should use the `create_magic_link` method. You can check out our guide on embeddable magic links in our [docs](https://docs.passage.id/popular-guides/smart-links).
+To create a magic link, you should use the `create_magic_link` method. You can check out our guide on embeddable magic links in our [docs](https://docs.passage.id/guides/smart-links).
 
 ```ruby
 require 'passageidentity'
