@@ -229,7 +229,7 @@ module Passage
               usage_count: device["usage_count"],
               updated_at: device["updated_at"],
               created_at: device["created_at"],
-              last_login_at: device["last_login_at"],
+              last_login_at: device["last_login_at"]
             )
           )
         end
