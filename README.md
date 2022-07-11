@@ -184,7 +184,9 @@ The information available in the array of Passage Device struct returned by Pass
                :cred_id,
                :friendly_name,
                :usage_count,
-               :last_used,
+               :updated_at,
+               :created_at,
+               :last_login_at,
 
 ```
 
