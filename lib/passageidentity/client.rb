@@ -51,7 +51,9 @@ module Passage
                :cred_id,
                :friendly_name,
                :usage_count,
-               :last_used,
+               :updated_at,
+               :created_at,
+               :last_login_at,
                keyword_init: true
 
   COOKIE_STRATEGY = 0

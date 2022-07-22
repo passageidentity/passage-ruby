@@ -227,7 +227,9 @@ module Passage
               cred_id: device["cred_id"],
               friendly_name: device["friendly_name"],
               usage_count: device["usage_count"],
-              last_used: device["last_used"]
+              updated_at: device["updated_at"],
+              created_at: device["created_at"],
+              last_login_at: device["last_login_at"]
             )
           )
         end
