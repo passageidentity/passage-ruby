@@ -110,6 +110,7 @@ The information available in the Passage User struct returned by PassageClient.u
                :email,
                :phone,
                :email_verified,
+               :phone_verified,
                :created_at,
                :updated_at,
                :last_login_at,
