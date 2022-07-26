@@ -13,8 +13,7 @@ module Passage
                :login_url,
                :rsa_public_key,
                :allowed_identifer,
-               :required_identifier,
-               :require_email_verification,
+               :require_identifier_verification,
                :session_timeout_length,
                :user_metadata_schema,
                :layouts,
@@ -25,6 +24,7 @@ module Passage
                :email,
                :phone,
                :email_verified,
+               :phone_verified,
                :created_at,
                :updated_at,
                :last_login_at,
@@ -126,8 +126,8 @@ module Passage
             login_url: app_info["login_url"],
             rsa_public_key: app_info["rsa_public_key"],
             allowed_identifer: app_info["allowed_identifer"],
-            required_identifier: app_info["required_identifier"],
-            require_email_verification: app_info["require_email_verification"],
+            require_identifier_verification:
+              app_info["require_identifier_verification"],
             session_timeout_length: app_info["session_timeout_length"],
             user_metadata_schema: app_info["user_metadata_schema"],
             layouts: app_info["layouts"]
