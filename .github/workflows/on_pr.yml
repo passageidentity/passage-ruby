@@ -1,8 +1,8 @@
 name: PR Checks
 
 on:
+  workflow_dispatch:
   pull_request:
-    branches: [ main ]
 
 env:
   API_KEY: ${{ secrets.API_KEY }}
