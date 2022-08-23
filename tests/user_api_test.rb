@@ -69,6 +69,12 @@ class TestUserAPI < Test::Unit::TestCase
     assert_equal [], devices
   end
 
+  def test_signout()
+    success = PassageClient.user.signout(user_id: $global_test_user.id)
+    assert_equal true, success
+  end
+
+
   def teardown()
     deleted = PassageClient.user.delete(user_id: $global_test_user.id)
   end

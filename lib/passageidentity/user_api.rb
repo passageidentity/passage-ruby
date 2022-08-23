@@ -250,7 +250,7 @@ module Passage
       begin
         response =
           @connection.delete(
-            "/v1/apps/#{@app_id}/users/#{user_id}"
+            "/v1/apps/#{@app_id}/users/#{user_id}/tokens/"
           )
         return true
       rescue Faraday::Error => e
