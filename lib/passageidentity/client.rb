@@ -134,7 +134,8 @@ module Passage
             session_timeout_length: app_info["session_timeout_length"],
             refresh_enabled: app_info["refresh_enabled"],
             refresh_absolute_lifetime: app_info["refresh_absolute_lifetime"],
-            refresh_inactivity_lifetime: app_info["refresh_inactivity_lifetime"],
+            refresh_inactivity_lifetime:
+              app_info["refresh_inactivity_lifetime"],
             user_metadata_schema: app_info["user_metadata_schema"],
             layouts: app_info["layouts"]
           )

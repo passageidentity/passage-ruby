@@ -74,7 +74,6 @@ class TestUserAPI < Test::Unit::TestCase
     assert_equal true, success
   end
 
-
   def teardown()
     deleted = PassageClient.user.delete(user_id: $global_test_user.id)
   end
