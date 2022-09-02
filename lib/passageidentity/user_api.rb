@@ -244,5 +244,17 @@ module Passage
               "failed to delete Passage User Device. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
       end
     end
+
+    def signout(user_id:)
+      raise PassageError, "must supply a valid user_id" if user_id.to_s.empty?
+      begin
+        response =
+          @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}/tokens/")
+        return true
+      rescue Faraday::Error => e
+        raise PassageError,
+              "failed to revoke user's refresh tokens. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+      end
+    end
   end
 end
