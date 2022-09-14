@@ -138,7 +138,7 @@ module Passage
             refresh_inactivity_lifetime:
               app_info["refresh_inactivity_lifetime"],
             user_metadata_schema: app_info["user_metadata_schema"],
-            layouts: app_info["layouts"]
+            layouts: app_info["layouts"],
             default_language: app_info["default_language"]
           )
         )
