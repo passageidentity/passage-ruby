@@ -20,6 +20,7 @@ module Passage
                :refresh_inactivity_lifetime,
                :user_metadata_schema,
                :layouts,
+               :default_language,
                keyword_init: true
   User =
     Struct.new :id,
@@ -138,6 +139,7 @@ module Passage
               app_info["refresh_inactivity_lifetime"],
             user_metadata_schema: app_info["user_metadata_schema"],
             layouts: app_info["layouts"]
+            default_language: app_info["default_language"]
           )
         )
       rescue => e
@@ -153,6 +155,7 @@ module Passage
       send: false,
       magic_link_path: "",
       redirect_url: "",
+      language: "",
       ttl: 60
     )
       magic_link_req = {}
