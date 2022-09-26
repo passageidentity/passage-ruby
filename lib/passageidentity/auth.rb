@@ -19,7 +19,12 @@ module Passage
         response = @connection.get("/v1/apps/#{@app_id}")
         return response.body["app"]
       rescue Faraday::Error => e
-        raise PassageError, PassageError.new(message: "failed to fetch passage app", status_code: e.response[:status], body: e.response[:body])
+        raise PassageError,
+              PassageError.new(
+                message: "failed to fetch passage app",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
 
@@ -51,13 +56,18 @@ module Passage
       # Get the token based on the strategy
       if @auth_strategy === Passage::COOKIE_STRATEGY
         unless request.cookies["psg_auth_token"].present?
-          raise PassageError, PassageError.new(message: `missing authentication token: expected "psg_auth_token" cookie`)
+          raise PassageError,
+                PassageError.new(
+                  message:
+                    `missing authentication token: expected "psg_auth_token" cookie`
+                )
         end
         @token = request.cookies["psg_auth_token"]
       else
         headers = request.headers
         unless headers["Authorization"].present?
-          raise PassageError, PassageError.new(message: "no authentication token in header")
+          raise PassageError,
+                PassageError.new(message: "no authentication token in header")
         end
         @token = headers["Authorization"].split(" ").last
       end

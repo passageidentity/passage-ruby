@@ -4,9 +4,14 @@ require "net/http"
 
 class ErrorTest < Test::Unit::TestCase
   def test_initialize
-    body = {"error" => "some error"}
+    body = { "error" => "some error" }
 
-    error = Passage::PassageError.new(message: "some message", status_code: 400, body: body)
+    error =
+      Passage::PassageError.new(
+        message: "some message",
+        status_code: 400,
+        body: body
+      )
 
     assert_equal error.message, "some message"
     assert_equal error.error, "some error"
@@ -22,5 +27,4 @@ class ErrorTest < Test::Unit::TestCase
     assert_equal error.status_code, nil
     assert_equal error.status_text, nil
   end
-
 end

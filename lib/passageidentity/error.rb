@@ -9,9 +9,16 @@ module Passage
 
     def initialize(message:, status_code: nil, body: nil)
       @message = message
-      @status_code =  status_code
-      @status_text = status_code.nil? ? nil : Net::HTTPResponse::CODE_TO_OBJ[status_code.to_s]
-      @error = body.nil? ? nil :  body["error"]
-     end
+      @status_code = status_code
+      @status_text =
+        (
+          if status_code.nil?
+            nil
+          else
+            Net::HTTPResponse::CODE_TO_OBJ[status_code.to_s]
+          end
+        )
+      @error = body.nil? ? nil : body["error"]
+    end
   end
 end
