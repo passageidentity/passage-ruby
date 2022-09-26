@@ -10,9 +10,8 @@ module Passage
     end
 
     def get(user_id:)
-      if user_id.to_s.empty?
-        raise PassageError, PassageError.new("must supply a valid user_id")
-      end
+      user_exists?(user_id)
+
       begin
         response = @connection.get("/v1/apps/#{@app_id}/users/#{user_id}")
         user = response.body["user"]
@@ -55,9 +54,8 @@ module Passage
     end
 
     def activate(user_id:)
-      if user_id.to_s.empty?
-        raise PassageError, PassageError.new("must supply a valid user_id")
-      end
+      user_exists?(user_id)
+
       begin
         response =
           @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/activate")
@@ -100,9 +98,8 @@ module Passage
     end
 
     def deactivate(user_id:)
-      if user_id.to_s.empty?
-        raise PassageError, PassageError.new("must supply a valid user_id")
-      end
+      user_exists?(user_id)
+
       begin
         response =
           @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/deactivate")
@@ -145,9 +142,8 @@ module Passage
     end
 
     def update(user_id:, email: "", phone: "", user_metadata: {})
-      if user_id.to_s.empty?
-        raise PassageError, PassageError.new("must supply a valid user_id")
-      end
+      user_exists?(user_id)
+
       updates = {}
       updates["email"] = email unless email.empty?
       updates["phone"] = phone unless phone.empty?
@@ -228,9 +224,8 @@ module Passage
     end
 
     def delete(user_id:)
-      if user_id.to_s.empty?
-        raise PassageError, PassageError.new("must supply a valid user_id")
-      end
+      user_exists?(user_id)
+
       begin
         response = @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}")
         return true
@@ -254,12 +249,9 @@ module Passage
     end
 
     def delete_device(user_id:, device_id:)
-      if user_id.to_s.empty?
-        raise PassageError, PassageError.new("must supply a valid user_id")
-      end
-      if device_id.to_s.empty?
-        raise PassageError, "must supply a valid device_id"
-      end
+      user_exists?(user_id)
+      device_exists?(device_id)
+
       begin
         response =
           @connection.delete(
@@ -277,9 +269,8 @@ module Passage
     end
 
     def list_devices(user_id:)
-      if user_id.to_s.empty?
-        raise PassageError, PassageError.new("must supply a valid user_id")
-      end
+      user_exists?(user_id)
+
       begin
         response =
           @connection.get("/v1/apps/#{@app_id}/users/#{user_id}/devices")
@@ -324,6 +315,19 @@ module Passage
                 status_code: e.response[:status],
                 body: e.response[:body]
               )
+      end
+    end
+
+    private
+    def user_exists?(user_id:)
+      if user_id.to_s.empty?
+        raise PassageError, PassageError.new("must supply a valid user_id")
+      end
+    end
+
+    def device_exists?(device_id:)
+      if device_id.to_s.empty?
+        raise PassageError, "must supply a valid device_id"
       end
     end
   end
