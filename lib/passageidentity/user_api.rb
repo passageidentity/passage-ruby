@@ -35,9 +35,9 @@ module Passage
         )
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
-          raise PassageError, PassageError(message: "Passage User with ID \"#{user_id}\" does not exist", status_code: e.response[:status], body: e.response[:body])
+          raise PassageError, PassageError.new(message: "Passage User with ID \"#{user_id}\" does not exist", status_code: e.response[:status], body: e.response[:body])
         else
-          raise PassageError, PassageError(message: "failed to get Passage User.", status_code: e.response[:status], body: e.response[:body])
+          raise PassageError, PassageError.new(message: "failed to get Passage User.", status_code: e.response[:status], body: e.response[:body])
         end
       end
     end
@@ -68,9 +68,9 @@ module Passage
         )
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
-          raise PassageError, PassageError(message: "Passage User with ID \"#{user_id}\" does not exist", status_code: e.response[:status], body: e.response[:body])
+          raise PassageError, PassageError.new(message: "Passage User with ID \"#{user_id}\" does not exist", status_code: e.response[:status], body: e.response[:body])
         else
-          raise PassageError, PassageError(message: "failed to activate Passage User.", status_code: e.response[:status], body: e.response[:body])
+          raise PassageError, PassageError.new(message: "failed to activate Passage User.", status_code: e.response[:status], body: e.response[:body])
         end
       end
     end
@@ -101,9 +101,9 @@ module Passage
         )
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
-          raise PassageError, PassageError(message: "Passage User with ID \"#{user_id}\" does not exist", status_code: e.response[:status], body: e.response[:body])
+          raise PassageError, PassageError.new(message: "Passage User with ID \"#{user_id}\" does not exist", status_code: e.response[:status], body: e.response[:body])
         else
-          raise PassageError, PassageError(message: "failed to deactivate Passage User.", status_code: e.response[:status], body: e.response[:body])
+          raise PassageError, PassageError.new(message: "failed to deactivate Passage User.", status_code: e.response[:status], body: e.response[:body])
         end
       end
     end
