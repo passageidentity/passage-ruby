@@ -77,7 +77,7 @@ module Passage
 
       # check for valid auth strategy
       unless [COOKIE_STRATEGY, HEADER_STRATEGY].include? auth_strategy
-        raise PassageError, "invalid auth strategy."
+        raise PassageError, PassageError.new(message: "invalid auth strategy.")
       end
       @auth_strategy = auth_strategy
 
@@ -165,8 +165,7 @@ module Passage
 
       # check to see if the channel specified is valid before sending it off to the server
       unless [PHONE_CHANNEL, EMAIL_CHANNEL].include? channel
-        raise PassageError,
-              "channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL"
+        raise PassageError, PassageError(message: "channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL")
       end
       magic_link_req["channel"] = channel unless channel.empty?
       magic_link_req["send"] = send
@@ -195,8 +194,7 @@ module Passage
           )
         )
       rescue Faraday::Error => e
-        raise PassageError,
-              "failed to create Passage Magic Link. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+        raise PassageError, PassageError.new(message: "failed to create Passage Magic Link", status_code: e.response[:status], body: e.response[:body])
       end
     end
   end
