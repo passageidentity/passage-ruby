@@ -319,15 +319,15 @@ module Passage
     end
 
     private
-    def user_exists?(user_id:)
+    def user_exists?(user_id)
       if user_id.to_s.empty?
         raise PassageError, PassageError.new("must supply a valid user_id")
       end
     end
 
-    def device_exists?(device_id:)
+    def device_exists?(device_id)
       if device_id.to_s.empty?
-        raise PassageError, "must supply a valid device_id"
+        raise PassageError, PassageError.new("must supply a valid device_id")
       end
     end
   end
