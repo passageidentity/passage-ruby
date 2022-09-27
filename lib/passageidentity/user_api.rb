@@ -319,6 +319,7 @@ module Passage
     end
 
     private
+
     def user_exists?(user_id)
       if user_id.to_s.empty?
         raise PassageError, PassageError.new("must supply a valid user_id")
