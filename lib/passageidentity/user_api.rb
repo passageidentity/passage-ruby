@@ -290,8 +290,7 @@ module Passage
     end
 
     def signout(user_id:)
-      if user_id.to_s.empty?
-        raise PassageError.new("must supply a valid user_id")
+      user_exists?(user_id)
       end
       begin
         response =
@@ -310,13 +309,13 @@ module Passage
 
     def user_exists?(user_id)
       if user_id.to_s.empty?
-        raise PassageError.new("must supply a valid user_id")
+        raise PassageError.new(message: "must supply a valid user_id")
       end
     end
 
     def device_exists?(device_id)
       if device_id.to_s.empty?
-        raise PassageError.new("must supply a valid device_id")
+        raise PassageError.new(message: "must supply a valid device_id")
       end
     end
   end
