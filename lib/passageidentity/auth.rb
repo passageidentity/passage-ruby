@@ -19,12 +19,12 @@ module Passage
         response = @connection.get("/v1/apps/#{@app_id}")
         return response.body["app"]
       rescue Faraday::Error => e
-        raise PassageError,
-              PassageError.new(
-                message: "failed to fetch passage app",
-                status_code: e.response[:status],
-                body: e.response[:body]
-              )
+        raise
+        PassageError.new(
+          message: "failed to fetch passage app",
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
       end
     end
 
@@ -56,18 +56,18 @@ module Passage
       # Get the token based on the strategy
       if @auth_strategy === Passage::COOKIE_STRATEGY
         unless request.cookies["psg_auth_token"].present?
-          raise PassageError,
-                PassageError.new(
-                  message:
-                    `missing authentication token: expected "psg_auth_token" cookie`
-                )
+          raise
+          PassageError.new(
+            message:
+              `missing authentication token: expected "psg_auth_token" cookie`
+          )
         end
         @token = request.cookies["psg_auth_token"]
       else
         headers = request.headers
         unless headers["Authorization"].present?
-          raise PassageError,
-                PassageError.new(message: "no authentication token in header")
+          raise
+          PassageError.new(message: "no authentication token in header")
         end
         @token = headers["Authorization"].split(" ").last
       end
@@ -76,7 +76,7 @@ module Passage
       if @token
         return authenticate_token(@token)
       else
-        raise PassageError, PassageError.new(message: "no authentication token")
+        raise PassageError.new(message: "no authentication token")
       end
       nil
     end
@@ -106,15 +106,15 @@ module Passage
           )
         return claims[0]["sub"]
       rescue JWT::InvalidIssuerError => e
-        raise PassageError, PassageError.new(message: e.message)
+        raise PassageError.new(message: e.message)
       rescue JWT::InvalidAudError => e
-        raise PassageError, PassageError.new(e.message)
+        raise PassageError.new(e.message)
       rescue JWT::ExpiredSignature => e
-        raise PassageError, PassageError.new(e.message)
+        raise PassageError.new(e.message)
       rescue JWT::IncorrectAlgorithm => e
-        raise PassageError, PassageError.new(e.message)
+        raise PassageError.new(e.message)
       rescue JWT::DecodeError => e
-        raise PassageError, PassageError.new(e.message)
+        raise PassageError.new(e.message)
       end
     end
   end
