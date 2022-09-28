@@ -56,8 +56,7 @@ module Passage
       # Get the token based on the strategy
       if @auth_strategy === Passage::COOKIE_STRATEGY
         unless request.cookies["psg_auth_token"].present?
-          raise
-          PassageError.new(
+          raise PassageError.new(
             message:
               `missing authentication token: expected "psg_auth_token" cookie`
           )
@@ -66,8 +65,7 @@ module Passage
       else
         headers = request.headers
         unless headers["Authorization"].present?
-          raise
-          PassageError.new(message: "no authentication token in header")
+          raise PassageError.new(message: "no authentication token in header")
         end
         @token = headers["Authorization"].split(" ").last
       end
