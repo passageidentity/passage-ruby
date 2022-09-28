@@ -291,7 +291,6 @@ module Passage
 
     def signout(user_id:)
       user_exists?(user_id)
-      end
       begin
         response =
           @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}/tokens/")

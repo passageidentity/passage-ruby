@@ -166,9 +166,9 @@ module Passage
       # check to see if the channel specified is valid before sending it off to the server
       unless [PHONE_CHANNEL, EMAIL_CHANNEL].include? channel
         raise PassageError.new(
-          message:
-            "channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL"
-        )
+                message:
+                  "channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL"
+              )
       end
       magic_link_req["channel"] = channel unless channel.empty?
       magic_link_req["send"] = send

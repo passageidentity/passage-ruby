@@ -20,10 +20,10 @@ module Passage
         return response.body["app"]
       rescue Faraday::Error => e
         raise PassageError.new(
-          message: "failed to fetch passage app",
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
+                message: "failed to fetch passage app",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
 
