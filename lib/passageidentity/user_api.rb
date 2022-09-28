@@ -37,16 +37,16 @@ module Passage
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
-            message: "Passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  message: "Passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
           raise PassageError.new(
-            message: "failed to get Passage User.",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  message: "failed to get Passage User.",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
@@ -79,16 +79,16 @@ module Passage
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
-            message: "Passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  message: "Passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
           raise PassageError.new(
-            message: "failed to activate Passage User.",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  message: "failed to activate Passage User.",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
@@ -121,16 +121,16 @@ module Passage
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
-            message: "Passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  message: "Passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
           raise PassageError.new(
-            message: "failed to deactivate Passage User.",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  message: "failed to deactivate Passage User.",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
@@ -167,16 +167,16 @@ module Passage
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
-            message: "Passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  message: "Passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
           raise PassageError.new(
-            "failed to update Passage User",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  "failed to update Passage User",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
@@ -209,10 +209,10 @@ module Passage
         )
       rescue Faraday::Error => e
         raise PassageError.new(
-          "failed to create Passage User",
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
+                "failed to create Passage User",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
 
@@ -225,16 +225,16 @@ module Passage
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
-            "passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  "passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
           raise PassageError.new(
-            "failed to delete Passage User",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
+                  "failed to delete Passage User",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
@@ -251,10 +251,10 @@ module Passage
         return true
       rescue Faraday::Error => e
         raise PassageError.new(
-          "failed to delete Passage User Device",
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
+                "failed to delete Passage User Device",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
 
@@ -282,10 +282,10 @@ module Passage
         return devices
       rescue Faraday::Error => e
         raise PassageError.new(
-          "failed to delete Passage User Device",
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
+                "failed to delete Passage User Device",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
 
@@ -299,10 +299,10 @@ module Passage
         return true
       rescue Faraday::Error => e
         raise PassageError.new(
-          "failed to revoke user's refresh tokens",
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
+                "failed to revoke user's refresh tokens",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
 

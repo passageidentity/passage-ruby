@@ -199,10 +199,10 @@ module Passage
         )
       rescue Faraday::Error => e
         raise PassageError.new(
-          message: "failed to create Passage Magic Link",
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
+                message: "failed to create Passage Magic Link",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
   end

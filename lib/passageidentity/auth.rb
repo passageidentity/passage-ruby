@@ -57,9 +57,9 @@ module Passage
       if @auth_strategy === Passage::COOKIE_STRATEGY
         unless request.cookies["psg_auth_token"].present?
           raise PassageError.new(
-            message:
-              `missing authentication token: expected "psg_auth_token" cookie`
-          )
+                  message:
+                    `missing authentication token: expected "psg_auth_token" cookie`
+                )
         end
         @token = request.cookies["psg_auth_token"]
       else
