@@ -10,7 +10,8 @@ module Passage
     end
 
     def get(user_id:)
-      raise PassageError, "must supply a valid user_id" if user_id.to_s.empty?
+      user_exists?(user_id)
+
       begin
         response = @connection.get("/v1/apps/#{@app_id}/users/#{user_id}")
         user = response.body["user"]
@@ -35,17 +36,24 @@ module Passage
         )
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
-          raise PassageError,
-                "passage User with ID \"#{user_id}\" does not exist"
+          raise PassageError.new(
+                  message: "Passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
-          raise PassageError,
-                "failed to get Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+          raise PassageError.new(
+                  message: "failed to get Passage User.",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
 
     def activate(user_id:)
-      raise PassageError, "must supply a valid user_id" if user_id.to_s.empty?
+      user_exists?(user_id)
+
       begin
         response =
           @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/activate")
@@ -70,17 +78,24 @@ module Passage
         )
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
-          raise PassageError,
-                "passage User with ID \"#{user_id}\" does not exist"
+          raise PassageError.new(
+                  message: "Passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
-          raise PassageError,
-                "failed to activate Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+          raise PassageError.new(
+                  message: "failed to activate Passage User.",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
 
     def deactivate(user_id:)
-      raise PassageError, "must supply a valid user_id" if user_id.to_s.empty?
+      user_exists?(user_id)
+
       begin
         response =
           @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/deactivate")
@@ -105,17 +120,24 @@ module Passage
         )
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
-          raise PassageError,
-                "passage User with ID \"#{user_id}\" does not exist"
+          raise PassageError.new(
+                  message: "Passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
-          raise PassageError,
-                "failed to deactivate Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+          raise PassageError.new(
+                  message: "failed to deactivate Passage User.",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
 
     def update(user_id:, email: "", phone: "", user_metadata: {})
-      raise PassageError, "must supply a valid user_id" if user_id.to_s.empty?
+      user_exists?(user_id)
+
       updates = {}
       updates["email"] = email unless email.empty?
       updates["phone"] = phone unless phone.empty?
@@ -144,11 +166,17 @@ module Passage
         )
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
-          raise PassageError,
-                "passage User with ID \"#{user_id}\" does not exist"
+          raise PassageError.new(
+                  message: "Passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
-          raise PassageError,
-                "failed to update Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+          raise PassageError.new(
+                  "failed to update Passage User",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
@@ -180,32 +208,41 @@ module Passage
           )
         )
       rescue Faraday::Error => e
-        raise PassageError,
-              "failed to create Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+        raise PassageError.new(
+                "failed to create Passage User",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
 
     def delete(user_id:)
-      raise PassageError, "must supply a valid user_id" if user_id.to_s.empty?
+      user_exists?(user_id)
+
       begin
         response = @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}")
         return true
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
-          raise PassageError,
-                "passage User with ID \"#{user_id}\" does not exist"
+          raise PassageError.new(
+                  "passage User with ID \"#{user_id}\" does not exist",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         else
-          raise PassageError,
-                "failed to delete Passage User. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+          raise PassageError.new(
+                  "failed to delete Passage User",
+                  status_code: e.response[:status],
+                  body: e.response[:body]
+                )
         end
       end
     end
 
     def delete_device(user_id:, device_id:)
-      raise PassageError, "must supply a valid user_id" if user_id.to_s.empty?
-      if device_id.to_s.empty?
-        raise PassageError, "must supply a valid device_id"
-      end
+      user_exists?(user_id)
+      device_exists?(device_id)
+
       begin
         response =
           @connection.delete(
@@ -213,13 +250,17 @@ module Passage
           )
         return true
       rescue Faraday::Error => e
-        raise PassageError,
-              "failed to delete Passage User Device. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+        raise PassageError.new(
+                "failed to delete Passage User Device",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
 
     def list_devices(user_id:)
-      raise PassageError, "must supply a valid user_id" if user_id.to_s.empty?
+      user_exists?(user_id)
+
       begin
         response =
           @connection.get("/v1/apps/#{@app_id}/users/#{user_id}/devices")
@@ -240,20 +281,40 @@ module Passage
         end
         return devices
       rescue Faraday::Error => e
-        raise PassageError,
-              "failed to delete Passage User Device. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+        raise PassageError.new(
+                "failed to delete Passage User Device",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
       end
     end
 
     def signout(user_id:)
-      raise PassageError, "must supply a valid user_id" if user_id.to_s.empty?
+      user_exists?(user_id)
       begin
         response =
           @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}/tokens/")
         return true
       rescue Faraday::Error => e
-        raise PassageError,
-              "failed to revoke user's refresh tokens. Http Status: #{e.response[:status]}. Response: #{e.response[:body]["error"]}"
+        raise PassageError.new(
+                "failed to revoke user's refresh tokens",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
+      end
+    end
+
+    private
+
+    def user_exists?(user_id)
+      if user_id.to_s.empty?
+        raise PassageError.new(message: "must supply a valid user_id")
+      end
+    end
+
+    def device_exists?(device_id)
+      if device_id.to_s.empty?
+        raise PassageError.new(message: "must supply a valid device_id")
       end
     end
   end
