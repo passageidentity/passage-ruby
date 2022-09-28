@@ -165,8 +165,7 @@ module Passage
 
       # check to see if the channel specified is valid before sending it off to the server
       unless [PHONE_CHANNEL, EMAIL_CHANNEL].include? channel
-        raise
-        PassageError.new(
+        raise PassageError.new(
           message:
             "channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL"
         )

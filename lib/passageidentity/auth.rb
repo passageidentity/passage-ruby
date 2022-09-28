@@ -19,8 +19,7 @@ module Passage
         response = @connection.get("/v1/apps/#{@app_id}")
         return response.body["app"]
       rescue Faraday::Error => e
-        raise
-        PassageError.new(
+        raise PassageError.new(
           message: "failed to fetch passage app",
           status_code: e.response[:status],
           body: e.response[:body]
