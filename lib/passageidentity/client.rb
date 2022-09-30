@@ -95,7 +95,7 @@ module Passage
     def get_connection
       gemspec = File.join(__dir__, "../../passageidentity.gemspec")
       spec = Gem::Specification.load(gemspec)
-      headers = { "Passage-Version" => "ruby #{spec.version}" }
+      headers = { "Passage-Version" => "passage-ruby #{spec.version}" }
       headers["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
 
       @connection =
