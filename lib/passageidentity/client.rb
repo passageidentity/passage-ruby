@@ -94,19 +94,12 @@ module Passage
 
     def get_connection
       gemspec = File.join(__dir__, "../../passageidentity.gemspec")
-      spec = Gem::Specification::load(gemspec)
-      headers = {
-        "Passage-Version" => "ruby #{spec.version}",
-      }
-      if @api_key != ""
-        headers["Authorization"] = "Bearer #{@api_key}"
-      end
+      spec = Gem::Specification.load(gemspec)
+      headers = { "Passage-Version" => "ruby #{spec.version}" }
+      headers["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
 
       @connection =
-        Faraday.new(
-          url: @api_url,
-          headers: headers
-        ) do |f|
+        Faraday.new(url: @api_url, headers: headers) do |f|
           f.request :json
           f.request :retry
           f.response :raise_error
