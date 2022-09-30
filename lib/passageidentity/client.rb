@@ -3,6 +3,7 @@
 require_relative "auth"
 require_relative "user_api"
 require_relative "error"
+require "rubygems"
 
 module Passage
   App =
@@ -92,30 +93,26 @@ module Passage
     end
 
     def get_connection
-      if @api_key == ""
-        @connection =
-          Faraday.new(url: @api_url) do |f|
-            f.request :json
-            f.request :retry
-            f.response :raise_error
-            f.response :json
-            f.adapter :net_http
-          end
-      else
-        @connection =
-          Faraday.new(
-            url: @api_url,
-            headers: {
-              "Authorization" => "Bearer #{@api_key}"
-            }
-          ) do |f|
-            f.request :json
-            f.request :retry
-            f.response :raise_error
-            f.response :json
-            f.adapter :net_http
-          end
+      gemspec = File.join(__dir__, "../../passageidentity.gemspec")
+      spec = Gem::Specification::load(gemspec)
+      headers = {
+        "Passage-Version" => "#{spec.name} #{spec.version}",
+      }
+      if @api_key != ""
+        headers["Authorization"] = "Bearer #{@api_key}"
       end
+
+      @connection =
+        Faraday.new(
+          url: @api_url,
+          headers: headers
+        ) do |f|
+          f.request :json
+          f.request :retry
+          f.response :raise_error
+          f.response :json
+          f.adapter :net_http
+        end
     end
 
     def get_app()
