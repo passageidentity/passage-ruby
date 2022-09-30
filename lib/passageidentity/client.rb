@@ -96,7 +96,7 @@ module Passage
       gemspec = File.join(__dir__, "../../passageidentity.gemspec")
       spec = Gem::Specification::load(gemspec)
       headers = {
-        "Passage-Version" => "#{spec.name} #{spec.version}",
+        "Passage-Version" => "ruby #{spec.version}",
       }
       if @api_key != ""
         headers["Authorization"] = "Bearer #{@api_key}"
