@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
 
   s.metadata['source_code_uri'] =
-    'https://github.com/passage-identity/passage-ruby'
+    'https://github.com/passageidentity/passage-ruby'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
