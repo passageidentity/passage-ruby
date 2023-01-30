@@ -83,10 +83,10 @@ module Passage
         kid = JWT.decode(token, nil, false)[1]["kid"]
         exists = false
         for jwk in @jwks["keys"]
-            if jwk["kid"] == kid
+          if jwk["kid"] == kid
             exists = true
             break
-            end
+          end
         end
         fetch_jwks unless exists
         claims =
