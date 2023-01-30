@@ -1,6 +1,7 @@
 require_relative "../lib/passageidentity/client"
 require "dotenv"
 require "faraday"
+require "rack"
 require "test/unit"
 
 Dotenv.load(".env")
