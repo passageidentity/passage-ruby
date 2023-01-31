@@ -30,5 +30,4 @@ jobs:
     - name: Run Linting
       run: |
         npm install -g prettier @prettier/plugin-ruby
-        gem install bundler prettier_print syntax_tree syntax_tree-haml syntax_tree-rbs
         prettier --check '**/*.rb'
