@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
     end
 
   s.add_dependency 'faraday', '>= 0.17.0', '< 2.0'
-  s.add_dependency 'rack', '>= 3.0.0'
+  s.add_development_dependency 'rack', '>= 3.0.0'
   s.add_dependency 'jwt', '>= 2.3.0'
   s.add_dependency 'openssl', '>= 3.0.0'
   s.add_dependency 'dotenv', '>= 2.7.6'
