@@ -3,7 +3,7 @@ name: PR Checks
 on:
   workflow_dispatch:
   pull_request:
-    branches: 
+    branches:
       - main
 
 env:
@@ -21,16 +21,13 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0'
+        ruby-version: '3.1'
 
     - name: Run Tests
       run: |
-        gem build passageidentity.gemspec -o test.gem
-        gem install test.gem
-        rm test.gem
+        bundle install
         ruby tests/all.rb
     - name: Run Linting
       run: |
         npm install -g prettier @prettier/plugin-ruby
-        gem install bundler prettier_print syntax_tree syntax_tree-haml syntax_tree-rbs
         prettier --check '**/*.rb'
