@@ -25,7 +25,7 @@ module Passage
                :auth_fallback_method,
                :auth_fallback_method_ttl,
                keyword_init: true
-                
+
   User =
     Struct.new :id,
                :status,
