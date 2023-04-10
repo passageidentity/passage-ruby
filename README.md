@@ -78,6 +78,8 @@ The information available in the Passage App struct returned by PassageClient.ge
                :session_timeout_length,
                :user_metadata_schema,
                :layouts,
+               :auth_fallback_method,
+               :auth_fallback_method_ttl
 ```
 
 ## Retrieve User Info

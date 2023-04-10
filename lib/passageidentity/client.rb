@@ -22,7 +22,10 @@ module Passage
                :user_metadata_schema,
                :layouts,
                :default_language,
+               :auth_fallback_method,
+               :auth_fallback_method_ttl,
                keyword_init: true
+
   User =
     Struct.new :id,
                :status,
@@ -129,7 +132,9 @@ module Passage
               app_info["refresh_inactivity_lifetime"],
             user_metadata_schema: app_info["user_metadata_schema"],
             layouts: app_info["layouts"],
-            default_language: app_info["default_language"]
+            default_language: app_info["default_language"],
+            auth_fallback_method: app_info["auth_fallback_method"],
+            auth_fallback_method_ttl: app_info["auth_fallback_method_ttl"]
           )
         )
       rescue => e
