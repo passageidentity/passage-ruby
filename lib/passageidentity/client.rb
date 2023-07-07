@@ -151,7 +151,8 @@ module Passage
       magic_link_path: "",
       redirect_url: "",
       language: "",
-      ttl: 60
+      ttl: 60,
+      type: "login"
     )
       magic_link_req = {}
       magic_link_req["user_id"] = user_id unless user_id.empty?
@@ -172,6 +173,7 @@ module Passage
       ] = magic_link_path unless magic_link_path.empty?
       magic_link_req["redirect_url"] = redirect_url unless redirect_url.empty?
       magic_link_req["ttl"] = ttl unless ttl == 0
+      magic_link_req["type"] = type
 
       begin
         response =
