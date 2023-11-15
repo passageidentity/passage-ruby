@@ -3,8 +3,7 @@ require_relative "client"
 module Passage
   class UserAPI
     # This class will require an API key
-    def initialize(connection, app_id, api_key)
-      @connection = connection
+    def initialize(app_id, api_key)
       @app_id = app_id
       @api_key = api_key
     end
@@ -55,8 +54,7 @@ module Passage
       user_exists?(user_id)
 
       begin
-        response =
-          @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/activate")
+        response = OpenapiClient::UsersApi.activate_user(@app_id, user_id)
         user = response.body["user"]
         return(
           Passage::User.new(
@@ -97,8 +95,7 @@ module Passage
       user_exists?(user_id)
 
       begin
-        response =
-          @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/deactivate")
+        response = OpenapiClient::UsersApi.deactivate_user(@app_id, user_id)
         user = response.body["user"]
         return(
           Passage::User.new(
@@ -143,8 +140,7 @@ module Passage
       updates["phone"] = phone unless phone.empty?
       updates["user_metadata"] = user_metadata unless user_metadata.empty?
       begin
-        response =
-          @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}", updates)
+        response = OpenapiClient::UsersApi.update_user(@app_id, user_id, updates)
         user = response.body["user"]
         return(
           Passage::User.new(
@@ -187,7 +183,7 @@ module Passage
       create["phone"] = phone unless phone.empty?
       create["user_metadata"] = user_metadata unless user_metadata.empty?
       begin
-        response = @connection.post("/v1/apps/#{@app_id}/users", create)
+        response = OpenapiClient::UsersApi.create_user(@app_id, create)
         user = response.body["user"]
         return(
           Passage::User.new(
@@ -220,7 +216,7 @@ module Passage
       user_exists?(user_id)
 
       begin
-        response = @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}")
+        response = OpenapiClient::UsersApi.delete_user(@app_id, user_id)
         return true
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
@@ -244,10 +240,7 @@ module Passage
       device_exists?(device_id)
 
       begin
-        response =
-          @connection.delete(
-            "/v1/apps/#{@app_id}/users/#{user_id}/devices/#{device_id}"
-          )
+        response = OpenapiClient::UsersApi.delete_user_devices(@app_id, user_id, device_id)
         return true
       rescue Faraday::Error => e
         raise PassageError.new(
@@ -262,8 +255,7 @@ module Passage
       user_exists?(user_id)
 
       begin
-        response =
-          @connection.get("/v1/apps/#{@app_id}/users/#{user_id}/devices")
+        response = OpenapiClient::UsersApi.list_user_devices(@app_id, user_id)
         devicesResp = response.body["devices"]
         devices = Array.new
         devicesResp.each do |device|
@@ -292,8 +284,7 @@ module Passage
     def signout(user_id:)
       user_exists?(user_id)
       begin
-        response =
-          @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}/tokens/")
+        response = OpenapiClient::UsersApi.revoke_user_refresh_tokens(@app_id, user_id)
         return true
       rescue Faraday::Error => e
         raise PassageError.new(

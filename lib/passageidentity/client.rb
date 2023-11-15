@@ -85,58 +85,33 @@ module Passage
       end
       @auth_strategy = auth_strategy
 
-      # setup
-      get_connection
-
       # initialize auth class
-      @auth = Passage::Auth.new(@app_id, @auth_strategy, @connection)
+      @auth = Passage::Auth.new(@app_id, @auth_strategy)
 
       # initialize user class
-      @user = Passage::UserAPI.new(@connection, @app_id, @api_key)
+      @user = Passage::UserAPI.new(@app_id, @api_key)
     end
 
-    def get_connection
-      gemspec = File.join(__dir__, "../../passageidentity.gemspec")
-      spec = Gem::Specification.load(gemspec)
-      headers = { "Passage-Version" => "passage-ruby #{spec.version}" }
-      headers["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
+    # def get_connection
+    #   gemspec = File.join(__dir__, "../../passageidentity.gemspec")
+    #   spec = Gem::Specification.load(gemspec)
+    #   headers = { "Passage-Version" => "passage-ruby #{spec.version}" }
+    #   headers["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
 
-      @connection =
-        Faraday.new(url: @api_url, headers: headers) do |f|
-          f.request :json
-          f.request :retry
-          f.response :raise_error
-          f.response :json
-          f.adapter :net_http
-        end
-    end
+    #   @connection =
+    #     Faraday.new(url: @api_url, headers: headers) do |f|
+    #       f.request :json
+    #       f.request :retry
+    #       f.response :raise_error
+    #       f.response :json
+    #       f.adapter :net_http
+    #     end
+    # end
 
     def get_app()
       begin
         app_info = @auth.fetch_app()
-        return(
-          Passage::App.new(
-            name: app_info["name"],
-            id: app_info["id"],
-            auth_origin: app_info["auth_origin"],
-            redirect_url: app_info["redirect_url"],
-            login_url: app_info["login_url"],
-            rsa_public_key: app_info["rsa_public_key"],
-            allowed_identifer: app_info["allowed_identifer"],
-            require_identifier_verification:
-              app_info["require_identifier_verification"],
-            session_timeout_length: app_info["session_timeout_length"],
-            refresh_enabled: app_info["refresh_enabled"],
-            refresh_absolute_lifetime: app_info["refresh_absolute_lifetime"],
-            refresh_inactivity_lifetime:
-              app_info["refresh_inactivity_lifetime"],
-            user_metadata_schema: app_info["user_metadata_schema"],
-            layouts: app_info["layouts"],
-            default_language: app_info["default_language"],
-            auth_fallback_method: app_info["auth_fallback_method"],
-            auth_fallback_method_ttl: app_info["auth_fallback_method_ttl"]
-          )
-        )
+        return OpenapiClient::AppsApi.get_app(@app_id)
       rescue => e
         raise e
       end
@@ -176,8 +151,7 @@ module Passage
       magic_link_req["type"] = type
 
       begin
-        response =
-          @connection.post("/v1/apps/#{@app_id}/magic-links", magic_link_req)
+        response = OpenapiClient::MagicLinksApi.create_magic_link(@app_id, magic_link_req)
         magic_link = response.body["magic_link"]
         return(
           Passage::MagicLink.new(
