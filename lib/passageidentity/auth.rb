@@ -2,6 +2,7 @@ require "openssl"
 require "base64"
 require "jwt"
 require_relative "client"
+require_relative "../generated/lib/openapi_client.rb"
 
 module Passage
   class Auth

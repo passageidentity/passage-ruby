@@ -75,7 +75,6 @@ module Passage
     attr_reader :user
 
     def initialize(app_id:, api_key: "", auth_strategy: COOKIE_STRATEGY)
-      @api_url = "https://api.passage.id"
       @app_id = app_id
       @api_key = api_key
 
@@ -154,7 +153,7 @@ module Passage
         response = OpenapiClient::MagicLinksApi.create_magic_link(@app_id, magic_link_req)
         magic_link = response.body["magic_link"]
         return(
-          Passage::MagicLink.new(
+          OpenapiClient::MagicLinkApi.new(
             id: magic_link["id"],
             secret: magic_link["secret"],
             activated: magic_link["activated"],
