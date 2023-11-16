@@ -8,7 +8,6 @@ fi
 
 file="$1"
 
-rm -rf ./generated
 npm install @openapitools/openapi-generator-cli -g
 
 mkdir generated
@@ -21,3 +20,8 @@ openapi-generator-cli generate \
 
 rm -rf ./docs/generated
 mv ./generated/docs ./docs/generated
+
+rm -rf ./lib/openapi_client
+mv ./generated/lib/openapi_client ./lib
+
+rm -rf ./generated

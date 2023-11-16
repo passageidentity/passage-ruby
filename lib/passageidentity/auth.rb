@@ -2,7 +2,7 @@ require "openssl"
 require "base64"
 require "jwt"
 require_relative "client"
-require_relative "../generated/lib/openapi_client.rb"
+require_relative "../openapi_client"
 
 module Passage
   class Auth
@@ -16,8 +16,15 @@ module Passage
 
     def fetch_app()
       begin
-        response = OpenapiClient::MagicLinksApi.get_app(@app_id)
-        return response.body["app"]
+        puts  OpenapiClient
+
+
+        client = OpenapiClient::AppsApi.get_app(@app_id)
+
+
+        # response = client.get_app(@app_id)
+        # response = OpenapiClient::AppsApi.get_app(@app_id)
+        return client.body["app"]
       rescue Faraday::Error => e
         raise PassageError.new(
                 message: "failed to fetch passage app",
