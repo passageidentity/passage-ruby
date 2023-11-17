@@ -156,9 +156,6 @@ module OpenapiClient
         fail ArgumentError, 'ttl cannot be nil'
       end
 
-      # if ttl < 60
-      #   fail ArgumentError, 'invalid value for "ttl", must be greater than or equal to 60.'
-      # end
 
       @ttl = ttl
     end
