@@ -27,7 +27,7 @@ class TestUserAPI < Test::Unit::TestCase
         }
       )
     assert_equal "chris+test-create-delete@passage.id", user.email
-    assert_equal "cool", user.user_metadata["example1"]
+    assert_equal "cool", user.user_metadata[:example1]
     deleted = PassageClient.user.delete(user_id: user.id)
     assert_equal true, deleted
   end
@@ -61,7 +61,7 @@ class TestUserAPI < Test::Unit::TestCase
       )
     assert_equal $global_test_user.id, user.id
     assert_equal new_email, user.email
-    assert_equal "lame", user.user_metadata["example1"]
+    assert_equal "lame", user.user_metadata[:example1]
   end
 
   def test_list_devices()

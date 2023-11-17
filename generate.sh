@@ -16,7 +16,7 @@ openapi-generator-cli generate \
   -i "$file" \
   -g ruby \
   -o ./generated \
-  --additional-properties=modelPropertyNaming=original
+  --additional-properties=modelPropertyNaming=original,library=faraday
 
 rm -rf ./docs/generated
 mv ./generated/docs ./docs/generated

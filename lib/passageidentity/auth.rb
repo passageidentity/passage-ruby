@@ -16,15 +16,10 @@ module Passage
 
     def fetch_app()
       begin
-        puts  OpenapiClient
-
-
-        client = OpenapiClient::AppsApi.get_app(@app_id)
-
-
-        # response = client.get_app(@app_id)
-        # response = OpenapiClient::AppsApi.get_app(@app_id)
-        return client.body["app"]
+        client = OpenapiClient::AppsApi.new
+        response = client.get_app(@app_id)
+        
+        return response.app
       rescue Faraday::Error => e
         raise PassageError.new(
                 message: "failed to fetch passage app",
@@ -50,7 +45,8 @@ module Passage
 
         # fetch the public key if not in cache
         app = fetch_app
-        @auth_origin = app["auth_origin"]
+
+        @auth_origin = app.auth_origin
         response =
           auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
         @jwks = response.body
