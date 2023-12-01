@@ -1,6 +1,8 @@
+require_relative 'lib/passageidentity/version'
+
 Gem::Specification.new do |s|
   s.name = 'passageidentity'
-  s.version = '0.2.3'
+  s.version = Passage::VERSION
   s.summary = 'Passage SDK for biometric authentication'
   s.description =
     'Enables verification of server-side authentication and user management for applications using Passage'

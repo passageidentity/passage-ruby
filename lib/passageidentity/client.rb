@@ -3,6 +3,7 @@
 require_relative "auth"
 require_relative "user_api"
 require_relative "error"
+require_relative "version"
 require "rubygems"
 
 module Passage
@@ -96,9 +97,7 @@ module Passage
     end
 
     def get_connection
-      gemspec = File.join(__dir__, "../../passageidentity.gemspec")
-      spec = Gem::Specification.load(gemspec)
-      headers = { "Passage-Version" => "passage-ruby #{spec.version}" }
+      headers = { "Passage-Version" => "passage-ruby #{Passage::VERSION}" }
       headers["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
 
       @connection =
