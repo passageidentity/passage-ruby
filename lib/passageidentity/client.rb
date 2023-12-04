@@ -3,6 +3,7 @@
 require_relative "auth"
 require_relative "user_api"
 require_relative "error"
+require_relative "version"
 require "rubygems"
 require_relative "../openapi_client"
 
@@ -79,7 +80,7 @@ module Passage
       begin
         gemspec = File.join(__dir__, "../../passageidentity.gemspec")
         spec = Gem::Specification.load(gemspec)
-        header_params = { "Passage-Version" => "passage-ruby #{spec.version}" }
+        header_params = { "Passage-Version" => "passage-ruby #{Passage::VERSION}" }
         header_params["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
         
         opts = {}
