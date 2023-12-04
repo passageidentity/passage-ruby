@@ -55,6 +55,8 @@ module Passage
     end
 
     def authenticate_request(request)
+      warn "[DEPRECATION] `authenticate_request` is deprecated.  Please use `validate_jwt(token)` instead."
+
       # Get the token based on the strategy
       if @auth_strategy === Passage::COOKIE_STRATEGY
         unless request.cookies.key?("psg_auth_token")
@@ -79,6 +81,14 @@ module Passage
         raise PassageError.new(message: "no authentication token")
       end
       nil
+    end
+
+    def validate_jwt(token)
+      if token
+        return authenticate_token(token)
+      else
+        raise PassageError.new(message: "no authentication token")
+      end
     end
 
     def authenticate_token(token)
