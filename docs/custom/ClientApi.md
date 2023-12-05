@@ -1,4 +1,4 @@
-Passage::ClientApi
+# Passage::ClientApi
 
 All URIs are relative to *https://api.passage.id/v1*
 

@@ -197,7 +197,4 @@ Class | Method | Description
 *UserAPI* | [**user.delete**](docs/custom/UserApi.md#delete) | Delete User
 *UserAPI* | [**user.get**](docs/custom/UserApi.md#get) | Get User
 *UserAPI* | [**user.update**](docs/custom/UserApi.md#update) | Update User
-*UserAPI* | [**user.signout**](docs/custom/UserApi.md#signout) | Update User
-
-
-https://github.com/passageidentity/passage-ruby/tree/main/docs/custom/UserApi.md#signout
+*UserAPI* | [**user.signout**](docs/custom/UserApi.md#signout) | Signout User

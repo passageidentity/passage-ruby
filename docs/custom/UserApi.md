@@ -1,4 +1,4 @@
-# OpenapiClient::UsersApi
+# Passage::UsersApi
 
 All URIs are relative to *https://api.passage.id/v1*
 
@@ -30,7 +30,7 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # Activate User
-  result = api_instance.activate(user_id)
+  result = api_instance.user.activate(user_id)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UsersApi->activate: #{e}"
@@ -74,7 +74,7 @@ create_user_request = OpenapiClient::CreateUserRequest.new # CreateUserRequest |
 
 begin
   # Create User
-  result = api_instance.create(create_user_request)
+  result = api_instance.user.create(create_user_request)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UsersApi->create: #{e}"
@@ -118,7 +118,7 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # Deactivate User
-  result = api_instance.deactivate(user_id)
+  result = api_instance.user.deactivate(user_id)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UsersApi->deactivate: #{e}"
@@ -163,7 +163,7 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # Delete User
-  api_instance.delete(user_id)
+  api_instance.user.delete(user_id)
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UsersApi->delete: #{e}"
 end
@@ -206,7 +206,7 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # Get User
-  result = api_instance.get(user_id)
+  result = api_instance.user.get(user_id)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UsersApi->get: #{e}"
@@ -251,7 +251,7 @@ update_user_request = OpenapiClient::UpdateUserRequest.new # UpdateUserRequest |
 
 begin
   # Update User
-  result = api_instance.update(user_id, update_user_request)
+  result = api_instance.user.update(user_id, update_user_request)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UsersApi->update: #{e}"
@@ -297,7 +297,7 @@ device_id = 'device_id_example' # String | Device ID
 
 begin
   # Delete a device for a user
-  api_instance.delete_device(user_id, device_id)
+  api_instance.user.delete_device(user_id, device_id)
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UserDevicesApi->delete_device: #{e}"
 end
@@ -342,7 +342,7 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # List User Devices
-  result = api_instance.list_devices(user_id)
+  result = api_instance.user.list_devices(user_id)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UserDevicesApi->list_devices: #{e}"
