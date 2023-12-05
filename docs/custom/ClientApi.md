@@ -5,6 +5,7 @@ All URIs are relative to *https://api.passage.id/v1*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**get_app**](ClientApi.md#get_app) | **GET** /apps/{app_id} | Get App |
+| [**create_magic_link**](ClientApi.md#create_magic_link) | **POST** /apps/{app_id}/magic-links | Create Embeddable Magic Link |
 
 
 ## get_app
@@ -50,10 +51,6 @@ end
 - **Accept**: application/json
 
 ---
-
-| Method | HTTP request | Description |
-| ------ | ------------ | ----------- |
-| [**create_magic_link**](ClientApi.md#create_magic_link) | **POST** /apps/{app_id}/magic-links | Create Embeddable Magic Link |
 
 
 ## create_magic_link

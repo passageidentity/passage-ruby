@@ -5,6 +5,7 @@ All URIs are relative to *https://api.passage.id/v1*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**revoke_user_refresh_tokens**](TokensApi.md#revoke_user_refresh_tokens) | **DELETE** /apps/{app_id}/users/{user_id}/tokens | **Deprecated:** Revokes refresh tokens |
+| [**validate_jwt**](TokensApi.md#validate_jwt) | n/a | Validates jwt token
 
 
 ## revoke_user_refresh_tokens
@@ -55,10 +56,6 @@ bool
 - **Accept**: application/json
 
 ---
-
-| Method | Description |
-| ------ | ----------- |
-| [**validate_jwt**](TokensApi.md#validate_jwt) | Validates jwt token |
 
 
 ## validate_jwt

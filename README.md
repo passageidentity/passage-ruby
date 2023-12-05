@@ -187,7 +187,8 @@ Class | Method | Description
 ------------ | ------------- | -------------
 *ClientApi* | [**get_app**](docs/custom/ClientApi.md#get_app) |  Get App
 *ClientApi* | [**create_magic_link**](docs/custom/Passage/ClientApi.md#create_magic_link) | Create Embeddable Magic Link
-*AuthApi* | [**validate_jwt**](docs/custom/AuthApi.md#validate_jwt) | Validates user jwt token
+*AuthApi* | [**auth.authenticate_request**](docs/custom/AuthApi.md#authenticate_request) | Validates user jwt token
+*AuthApi* | [**auth.validate_jwt**](docs/custom/AuthApi.md#validate_jwt) | Validates user jwt token
 *UserAPI* | [**user.delete_device**](docs/custom/UserApi.md#delete_device) | Delete a device for a user
 *UserAPI* | [**user.list_devices**](docs/custom/UserApi.md#list_devices) | List User Devices
 *UserAPI* | [**user.activate**](docs/custom/UserApi.md#activate) | Activate User
@@ -197,3 +198,6 @@ Class | Method | Description
 *UserAPI* | [**user.get**](docs/custom/UserApi.md#get) | Get User
 *UserAPI* | [**user.update**](docs/custom/UserApi.md#update) | Update User
 *UserAPI* | [**user.signout**](docs/custom/UserApi.md#signout) | Update User
+
+
+https://github.com/passageidentity/passage-ruby/tree/main/docs/custom/UserApi.md#signout
