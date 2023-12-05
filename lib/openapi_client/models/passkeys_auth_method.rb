@@ -14,42 +14,13 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class EmailSmsAuthMethod
+  class PasskeysAuthMethod
     attr_accessor :enabled
-
-    # Maximum time (IN SECONDS) for the auth to expire.
-    attr_accessor :ttl
-
-    attr_accessor :ttl_display_unit
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'enabled' => :'enabled',
-        :'ttl' => :'ttl',
-        :'ttl_display_unit' => :'ttl_display_unit'
+        :'enabled' => :'enabled'
       }
     end
 
@@ -61,9 +32,7 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'enabled' => :'Boolean',
-        :'ttl' => :'Integer',
-        :'ttl_display_unit' => :'TtlDisplayUnit'
+        :'enabled' => :'Boolean'
       }
     end
 
@@ -76,7 +45,7 @@ module OpenapiClient
     # List of class defined in allOf (OpenAPI v3)
     def self.openapi_all_of
       [
-      :'UpdateEmailSmsAuthMethod'
+      :'UpdatePasskeysAuthMethod'
       ]
     end
 
@@ -84,13 +53,13 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::EmailSmsAuthMethod` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::PasskeysAuthMethod` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::EmailSmsAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::PasskeysAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
@@ -98,19 +67,7 @@ module OpenapiClient
       if attributes.key?(:'enabled')
         self.enabled = attributes[:'enabled']
       else
-        self.enabled = nil
-      end
-
-      if attributes.key?(:'ttl')
-        self.ttl = attributes[:'ttl']
-      else
-        self.ttl = 300
-      end
-
-      if attributes.key?(:'ttl_display_unit')
-        self.ttl_display_unit = attributes[:'ttl_display_unit']
-      else
-        self.ttl_display_unit = nil
+        self.enabled = true
       end
     end
 
@@ -123,18 +80,6 @@ module OpenapiClient
         invalid_properties.push('invalid value for "enabled", enabled cannot be nil.')
       end
 
-      if @ttl.nil?
-        invalid_properties.push('invalid value for "ttl", ttl cannot be nil.')
-      end
-
-      if @ttl < 60
-        invalid_properties.push('invalid value for "ttl", must be greater than or equal to 60.')
-      end
-
-      if @ttl_display_unit.nil?
-        invalid_properties.push('invalid value for "ttl_display_unit", ttl_display_unit cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -143,21 +88,7 @@ module OpenapiClient
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @enabled.nil?
-      return false if @ttl.nil?
-      return false if @ttl < 60
-      return false if @ttl_display_unit.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] ttl Value to be assigned
-    def ttl=(ttl)
-      if ttl.nil?
-        fail ArgumentError, 'ttl cannot be nil'
-      end
-
-
-      @ttl = ttl
     end
 
     # Checks equality by comparing each attribute.
@@ -165,9 +96,7 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          enabled == o.enabled &&
-          ttl == o.ttl &&
-          ttl_display_unit == o.ttl_display_unit
+          enabled == o.enabled
     end
 
     # @see the `==` method
@@ -179,7 +108,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [enabled, ttl, ttl_display_unit].hash
+      [enabled].hash
     end
 
     # Builds the object from hash

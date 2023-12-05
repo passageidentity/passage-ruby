@@ -14,20 +14,13 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  # Denotes what methods this app is allowed to use for authentication with configurations
-  class AuthMethods
-    attr_accessor :passkeys
-
-    attr_accessor :otp
-
-    attr_accessor :magic_link
+  class UpdatePasskeysAuthMethod
+    attr_accessor :enabled
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'passkeys' => :'passkeys',
-        :'otp' => :'otp',
-        :'magic_link' => :'magic_link'
+        :'enabled' => :'enabled'
       }
     end
 
@@ -39,9 +32,7 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'passkeys' => :'PasskeysAuthMethod',
-        :'otp' => :'OtpAuthMethod',
-        :'magic_link' => :'MagicLinkAuthMethod'
+        :'enabled' => :'Boolean'
       }
     end
 
@@ -55,33 +46,21 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::AuthMethods` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::UpdatePasskeysAuthMethod` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::AuthMethods`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::UpdatePasskeysAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'passkeys')
-        self.passkeys = attributes[:'passkeys']
+      if attributes.key?(:'enabled')
+        self.enabled = attributes[:'enabled']
       else
-        self.passkeys = nil
-      end
-
-      if attributes.key?(:'otp')
-        self.otp = attributes[:'otp']
-      else
-        self.otp = nil
-      end
-
-      if attributes.key?(:'magic_link')
-        self.magic_link = attributes[:'magic_link']
-      else
-        self.magic_link = nil
+        self.enabled = true
       end
     end
 
@@ -90,18 +69,6 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @passkeys.nil?
-        invalid_properties.push('invalid value for "passkeys", passkeys cannot be nil.')
-      end
-
-      if @otp.nil?
-        invalid_properties.push('invalid value for "otp", otp cannot be nil.')
-      end
-
-      if @magic_link.nil?
-        invalid_properties.push('invalid value for "magic_link", magic_link cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -109,9 +76,6 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @passkeys.nil?
-      return false if @otp.nil?
-      return false if @magic_link.nil?
       true
     end
 
@@ -120,9 +84,7 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          passkeys == o.passkeys &&
-          otp == o.otp &&
-          magic_link == o.magic_link
+          enabled == o.enabled
     end
 
     # @see the `==` method
@@ -134,7 +96,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [passkeys, otp, magic_link].hash
+      [enabled].hash
     end
 
     # Builds the object from hash
