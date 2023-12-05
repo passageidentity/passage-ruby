@@ -4,19 +4,19 @@ All URIs are relative to *https://api.passage.id/v1*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**activate_user**](UsersApi.md#activate_user) | **PATCH** /apps/{app_id}/users/{user_id}/activate | Activate User |
-| [**create_user**](UsersApi.md#create_user) | **POST** /apps/{app_id}/users | Create User |
-| [**deactivate_user**](UsersApi.md#deactivate_user) | **PATCH** /apps/{app_id}/users/{user_id}/deactivate | Deactivate User |
-| [**delete_user**](UsersApi.md#delete_user) | **DELETE** /apps/{app_id}/users/{user_id} | Delete User |
-| [**get_user**](UsersApi.md#get_user) | **GET** /apps/{app_id}/users/{user_id} | Get User |
-| [**update_user**](UsersApi.md#update_user) | **PATCH** /apps/{app_id}/users/{user_id} | Update User |
-| [**delete_user_devices**](UsersApi.md#delete_user_devices) | **DELETE** /apps/{app_id}/users/{user_id}/devices/{device_id} | Delete a device for a user |
-| [**list_user_devices**](UsersApi.md#list_user_devices) | **GET** /apps/{app_id}/users/{user_id}/devices | List User Devices |
+| [**activate**](UsersApi.md#activate) | **PATCH** /apps/{app_id}/users/{user_id}/activate | Activate User |
+| [**create**](UsersApi.md#create) | **POST** /apps/{app_id}/users | Create User |
+| [**deactivate**](UsersApi.md#deactivate) | **PATCH** /apps/{app_id}/users/{user_id}/deactivate | Deactivate User |
+| [**delete**](UsersApi.md#delete) | **DELETE** /apps/{app_id}/users/{user_id} | Delete User |
+| [**get**](UsersApi.md#get) | **GET** /apps/{app_id}/users/{user_id} | Get User |
+| [**update**](UsersApi.md#update) | **PATCH** /apps/{app_id}/users/{user_id} | Update User |
+| [**delete_device**](UsersApi.md#delete_device) | **DELETE** /apps/{app_id}/users/{user_id}/devices/{device_id} | Delete a device for a user |
+| [**list_devices**](UsersApi.md#list_devices) | **GET** /apps/{app_id}/users/{user_id}/devices | List User Devices |
 
 
-## activate_user
+## activate
 
-> <UserResponse> activate_user(user_id)
+> <UserResponse> activate(user_id)
 
 Activate User
 
@@ -30,10 +30,10 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # Activate User
-  result = api_instance.activate_user(user_id)
+  result = api_instance.activate(user_id)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling UsersApi->activate_user: #{e}"
+  puts "Error when calling UsersApi->activate: #{e}"
 end
 ```
 
@@ -58,9 +58,9 @@ end
 
 ---
 
-## create_user
+## create
 
-> <UserResponse> create_user(create_user_request)
+> <UserResponse> create(create_user_request)
 
 Create User
 
@@ -74,10 +74,10 @@ create_user_request = OpenapiClient::CreateUserRequest.new # CreateUserRequest |
 
 begin
   # Create User
-  result = api_instance.create_user(create_user_request)
+  result = api_instance.create(create_user_request)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling UsersApi->create_user: #{e}"
+  puts "Error when calling UsersApi->create: #{e}"
 end
 ```
 
@@ -102,9 +102,9 @@ end
 
 ---
 
-## deactivate_user
+## deactivate
 
-> <UserResponse> deactivate_user(user_id)
+> <UserResponse> deactivate(user_id)
 
 Deactivate User
 
@@ -118,10 +118,10 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # Deactivate User
-  result = api_instance.deactivate_user(user_id)
+  result = api_instance.deactivate(user_id)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling UsersApi->deactivate_user: #{e}"
+  puts "Error when calling UsersApi->deactivate: #{e}"
 end
 ```
 
@@ -147,9 +147,9 @@ end
 
 ---
 
-## delete_user
+## delete
 
-> delete_user(user_id)
+> delete(user_id)
 
 Delete User
 
@@ -163,9 +163,9 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # Delete User
-  api_instance.delete_user(user_id)
+  api_instance.delete(user_id)
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling UsersApi->delete_user: #{e}"
+  puts "Error when calling UsersApi->delete: #{e}"
 end
 ```
 
@@ -190,9 +190,9 @@ nil (empty response body)
 
 ---
 
-## get_user
+## get
 
-> <UserResponse> get_user(user_id)
+> <UserResponse> get(user_id)
 
 Get User
 
@@ -206,10 +206,10 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # Get User
-  result = api_instance.get_user(user_id)
+  result = api_instance.get(user_id)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling UsersApi->get_user: #{e}"
+  puts "Error when calling UsersApi->get: #{e}"
 end
 ```
 
@@ -234,9 +234,9 @@ end
 
 ---
 
-## update_user
+## update
 
-> <UserResponse> update_user(user_id, update_user_request)
+> <UserResponse> update(user_id, update_user_request)
 
 Update User
 
@@ -251,10 +251,10 @@ update_user_request = OpenapiClient::UpdateUserRequest.new # UpdateUserRequest |
 
 begin
   # Update User
-  result = api_instance.update_user(user_id, update_user_request)
+  result = api_instance.update(user_id, update_user_request)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling UsersApi->update_user: #{e}"
+  puts "Error when calling UsersApi->update: #{e}"
 end
 ```
 
@@ -280,9 +280,9 @@ end
 
 ---
 
-## delete_user_devices
+## delete_device
 
-> delete_user_devices(user_id, device_id)
+> delete_device(user_id, device_id)
 
 Delete a device for a user
 
@@ -297,9 +297,9 @@ device_id = 'device_id_example' # String | Device ID
 
 begin
   # Delete a device for a user
-  api_instance.delete_user_devices(user_id, device_id)
+  api_instance.delete_device(user_id, device_id)
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling UserDevicesApi->delete_user_devices: #{e}"
+  puts "Error when calling UserDevicesApi->delete_device: #{e}"
 end
 ```
 
@@ -326,9 +326,9 @@ nil (empty response body)
 
 ---
 
-## list_user_devices
+## list_devices
 
-> <ListDevicesResponse> list_user_devices(user_id)
+> <ListDevicesResponse> list_devices(user_id)
 
 List User Devices
 
@@ -342,10 +342,10 @@ user_id = 'user_id_example' # String | User ID
 
 begin
   # List User Devices
-  result = api_instance.list_user_devices(user_id)
+  result = api_instance.list_devices(user_id)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling UserDevicesApi->list_user_devices: #{e}"
+  puts "Error when calling UserDevicesApi->list_devices: #{e}"
 end
 ```
 

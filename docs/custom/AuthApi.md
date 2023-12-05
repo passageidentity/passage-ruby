@@ -1,4 +1,4 @@
-# Passage::TokensApi
+# Passage::AuthApi
 
 All URIs are relative to *https://api.passage.id/v1*
 
@@ -34,19 +34,6 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-#### Using the revoke_user_refresh_tokens_with_http_info variant
-
-This returns an Array which contains the response data (`nil` in this case), status code and headers.
-
-> <Array(nil, Integer, Hash)> revoke_user_refresh_tokens_with_http_info(app_id, user_id)
-
-```ruby
-  # Revokes refresh tokens
-  data, status_code, headers = PassageClient.auth.revoke_user_refresh_tokens_with_http_info(app_id, user_id)
-  p status_code # => 2xx
-  p headers # => { ... }
-  p data # => nil
-```
 
 ### Parameters
 
