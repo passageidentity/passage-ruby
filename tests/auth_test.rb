@@ -5,7 +5,7 @@ require "rack"
 require "test/unit"
 
 Dotenv.load(".env")
-class TestUserAPI < Test::Unit::TestCase
+class TestAuthAPI < Test::Unit::TestCase
   PassageClient =
     Passage::Client.new(app_id: ENV["APP_ID"], api_key: ENV["API_KEY"])
   PassageHeaderClient =

@@ -5,66 +5,9 @@ require_relative "user_api"
 require_relative "error"
 require_relative "version"
 require "rubygems"
+require_relative "../openapi_client"
 
 module Passage
-  App =
-    Struct.new :name,
-               :id,
-               :auth_origin,
-               :redirect_url,
-               :login_url,
-               :rsa_public_key,
-               :allowed_identifer,
-               :require_identifier_verification,
-               :session_timeout_length,
-               :refresh_enabled,
-               :refresh_absolute_lifetime,
-               :refresh_inactivity_lifetime,
-               :user_metadata_schema,
-               :layouts,
-               :default_language,
-               :auth_fallback_method,
-               :auth_fallback_method_ttl,
-               keyword_init: true
-
-  User =
-    Struct.new :id,
-               :status,
-               :email,
-               :phone,
-               :email_verified,
-               :phone_verified,
-               :created_at,
-               :updated_at,
-               :last_login_at,
-               :login_count,
-               :recent_events,
-               :webauthn,
-               :webauthn_devices,
-               :user_metadata,
-               keyword_init: true
-  MagicLink =
-    Struct.new :id,
-               :secret,
-               :activated,
-               :user_id,
-               :app_id,
-               :identifier,
-               :type,
-               :redirect_url,
-               :ttl,
-               :url,
-               keyword_init: true
-  Device =
-    Struct.new :id,
-               :cred_id,
-               :friendly_name,
-               :usage_count,
-               :updated_at,
-               :created_at,
-               :last_login_at,
-               keyword_init: true
-
   COOKIE_STRATEGY = 0
   HEADER_STRATEGY = 1
 
@@ -76,7 +19,6 @@ module Passage
     attr_reader :user
 
     def initialize(app_id:, api_key: "", auth_strategy: COOKIE_STRATEGY)
-      @api_url = "https://api.passage.id"
       @app_id = app_id
       @api_key = api_key
 
@@ -86,56 +28,17 @@ module Passage
       end
       @auth_strategy = auth_strategy
 
-      # setup
-      get_connection
-
       # initialize auth class
-      @auth = Passage::Auth.new(@app_id, @auth_strategy, @connection)
+      @auth = Passage::Auth.new(@app_id, @auth_strategy)
 
       # initialize user class
-      @user = Passage::UserAPI.new(@connection, @app_id, @api_key)
-    end
-
-    def get_connection
-      headers = { "Passage-Version" => "passage-ruby #{Passage::VERSION}" }
-      headers["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
-
-      @connection =
-        Faraday.new(url: @api_url, headers: headers) do |f|
-          f.request :json
-          f.request :retry
-          f.response :raise_error
-          f.response :json
-          f.adapter :net_http
-        end
+      @user = Passage::UserAPI.new(@app_id, @api_key)
     end
 
     def get_app()
       begin
-        app_info = @auth.fetch_app()
-        return(
-          Passage::App.new(
-            name: app_info["name"],
-            id: app_info["id"],
-            auth_origin: app_info["auth_origin"],
-            redirect_url: app_info["redirect_url"],
-            login_url: app_info["login_url"],
-            rsa_public_key: app_info["rsa_public_key"],
-            allowed_identifer: app_info["allowed_identifer"],
-            require_identifier_verification:
-              app_info["require_identifier_verification"],
-            session_timeout_length: app_info["session_timeout_length"],
-            refresh_enabled: app_info["refresh_enabled"],
-            refresh_absolute_lifetime: app_info["refresh_absolute_lifetime"],
-            refresh_inactivity_lifetime:
-              app_info["refresh_inactivity_lifetime"],
-            user_metadata_schema: app_info["user_metadata_schema"],
-            layouts: app_info["layouts"],
-            default_language: app_info["default_language"],
-            auth_fallback_method: app_info["auth_fallback_method"],
-            auth_fallback_method_ttl: app_info["auth_fallback_method_ttl"]
-          )
-        )
+        client = OpenapiClient::AppsApi.new
+        return client.get_app(@app_id).app
       rescue => e
         raise e
       end
@@ -175,23 +78,17 @@ module Passage
       magic_link_req["type"] = type
 
       begin
-        response =
-          @connection.post("/v1/apps/#{@app_id}/magic-links", magic_link_req)
-        magic_link = response.body["magic_link"]
-        return(
-          Passage::MagicLink.new(
-            id: magic_link["id"],
-            secret: magic_link["secret"],
-            activated: magic_link["activated"],
-            user_id: magic_link["user_id"],
-            app_id: magic_link["app_id"],
-            identifier: magic_link["identifier"],
-            type: magic_link["type"],
-            redirect_url: magic_link["redirect_url"],
-            ttl: magic_link["ttl"],
-            url: magic_link["url"]
-          )
-        )
+        gemspec = File.join(__dir__, "../../passageidentity.gemspec")
+        spec = Gem::Specification.load(gemspec)
+        header_params = { "Passage-Version" => "passage-ruby #{Passage::VERSION}" }
+        header_params["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
+        
+        opts = {}
+        opts[:header_params] = header_params
+        opts[:debug_auth_names] = ["header"]
+
+        client = OpenapiClient::MagicLinksApi.new
+        return client.create_magic_link(@app_id, magic_link_req, opts).magic_link
       rescue Faraday::Error => e
         raise PassageError.new(
                 message: "failed to create Passage Magic Link",

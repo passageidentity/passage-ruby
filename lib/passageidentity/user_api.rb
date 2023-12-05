@@ -3,37 +3,30 @@ require_relative "client"
 module Passage
   class UserAPI
     # This class will require an API key
-    def initialize(connection, app_id, api_key)
-      @connection = connection
+    def initialize(app_id, api_key)
       @app_id = app_id
       @api_key = api_key
+      @user_client = OpenapiClient::UsersApi.new
+      @user_device_client = OpenapiClient::UserDevicesApi.new
+
+      gemspec = File.join(__dir__, "../../passageidentity.gemspec")
+      spec = Gem::Specification.load(gemspec)
+      header_params = { "Passage-Version" => "passage-ruby #{spec.version}" }
+      header_params["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
+      
+      @req_opts = {}
+      @req_opts[:header_params] = header_params
+      @req_opts[:debug_auth_names] = ["header"]
+      
     end
 
     def get(user_id:)
       user_exists?(user_id)
 
       begin
-        response = @connection.get("/v1/apps/#{@app_id}/users/#{user_id}")
-        user = response.body["user"]
-        user.transform_keys(&:to_sym)
-        return(
-          Passage::User.new(
-            id: user["id"],
-            status: user["status"],
-            email: user["email"],
-            phone: user["phone"],
-            email_verified: user["email_verified"],
-            phone_verified: user["phone_verified"],
-            created_at: user["created_at"],
-            updated_at: user["updated_at"],
-            last_login_at: user["last_login_at"],
-            login_count: user["login_count"],
-            webauthn: user["webauthn"],
-            webauthn_devices: user["webauthn_devices"],
-            recent_events: user["recent_events"],
-            user_metadata: user["user_metadata"]
-          )
-        )
+        response = @user_client.get_user(@app_id, user_id, @req_opts)
+        user = response.user
+        return user
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
@@ -55,27 +48,8 @@ module Passage
       user_exists?(user_id)
 
       begin
-        response =
-          @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/activate")
-        user = response.body["user"]
-        return(
-          Passage::User.new(
-            id: user["id"],
-            status: user["status"],
-            email: user["email"],
-            phone: user["phone"],
-            email_verified: user["email_verified"],
-            phone_verified: user["phone_verified"],
-            created_at: user["created_at"],
-            updated_at: user["updated_at"],
-            last_login_at: user["last_login_at"],
-            login_count: user["login_count"],
-            webauthn: user["webauthn"],
-            webauthn_devices: user["webauthn_devices"],
-            recent_events: user["recent_events"],
-            user_metadata: user["user_metadata"]
-          )
-        )
+        response = @user_client.activate_user(@app_id, user_id, @req_opts)
+        return response.user
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
@@ -97,27 +71,8 @@ module Passage
       user_exists?(user_id)
 
       begin
-        response =
-          @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}/deactivate")
-        user = response.body["user"]
-        return(
-          Passage::User.new(
-            id: user["id"],
-            status: user["status"],
-            email: user["email"],
-            phone: user["phone"],
-            email_verified: user["email_verified"],
-            phone_verified: user["phone_verified"],
-            created_at: user["created_at"],
-            updated_at: user["updated_at"],
-            last_login_at: user["last_login_at"],
-            login_count: user["login_count"],
-            webauthn: user["webauthn"],
-            webauthn_devices: user["webauthn_devices"],
-            recent_events: user["recent_events"],
-            user_metadata: user["user_metadata"]
-          )
-        )
+        response = @user_client.deactivate_user(@app_id, user_id, @req_opts)
+        return response.user
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
@@ -143,27 +98,8 @@ module Passage
       updates["phone"] = phone unless phone.empty?
       updates["user_metadata"] = user_metadata unless user_metadata.empty?
       begin
-        response =
-          @connection.patch("/v1/apps/#{@app_id}/users/#{user_id}", updates)
-        user = response.body["user"]
-        return(
-          Passage::User.new(
-            id: user["id"],
-            status: user["status"],
-            email: user["email"],
-            phone: user["phone"],
-            email_verified: user["email_verified"],
-            phone_verified: user["phone_verified"],
-            created_at: user["created_at"],
-            updated_at: user["updated_at"],
-            last_login_at: user["last_login_at"],
-            login_count: user["login_count"],
-            webauthn: user["webauthn"],
-            webauthn_devices: user["webauthn_devices"],
-            recent_events: user["recent_events"],
-            user_metadata: user["user_metadata"]
-          )
-        )
+        response = @user_client.update_user(@app_id, user_id, updates, @req_opts)
+        return response.user
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
@@ -187,26 +123,8 @@ module Passage
       create["phone"] = phone unless phone.empty?
       create["user_metadata"] = user_metadata unless user_metadata.empty?
       begin
-        response = @connection.post("/v1/apps/#{@app_id}/users", create)
-        user = response.body["user"]
-        return(
-          Passage::User.new(
-            id: user["id"],
-            status: user["status"],
-            email: user["email"],
-            phone: user["phone"],
-            email_verified: user["email_verified"],
-            phone_verified: user["phone_verified"],
-            created_at: user["created_at"],
-            updated_at: user["updated_at"],
-            last_login_at: user["last_login_at"],
-            login_count: user["login_count"],
-            webauthn: user["webauthn"],
-            webauthn_devices: user["webauthn_devices"],
-            recent_events: user["recent_events"],
-            user_metadata: user["user_metadata"]
-          )
-        )
+        response = @user_client.create_user(@app_id, create, @req_opts)
+        return response.user
       rescue Faraday::Error => e
         raise PassageError.new(
                 "failed to create Passage User",
@@ -220,7 +138,7 @@ module Passage
       user_exists?(user_id)
 
       begin
-        response = @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}")
+        response = @user_client.delete_user(@app_id, user_id, @req_opts)
         return true
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
@@ -244,10 +162,7 @@ module Passage
       device_exists?(device_id)
 
       begin
-        response =
-          @connection.delete(
-            "/v1/apps/#{@app_id}/users/#{user_id}/devices/#{device_id}"
-          )
+        response = @user_device_client.delete_user_devices(@app_id, user_id, device_id, @req_opts)
         return true
       rescue Faraday::Error => e
         raise PassageError.new(
@@ -262,24 +177,8 @@ module Passage
       user_exists?(user_id)
 
       begin
-        response =
-          @connection.get("/v1/apps/#{@app_id}/users/#{user_id}/devices")
-        devicesResp = response.body["devices"]
-        devices = Array.new
-        devicesResp.each do |device|
-          devices.append(
-            Passage::Device.new(
-              id: device["id"],
-              cred_id: device["cred_id"],
-              friendly_name: device["friendly_name"],
-              usage_count: device["usage_count"],
-              updated_at: device["updated_at"],
-              created_at: device["created_at"],
-              last_login_at: device["last_login_at"]
-            )
-          )
-        end
-        return devices
+        response = @user_device_client.list_user_devices(@app_id, user_id, @req_opts)
+        return response.devices
       rescue Faraday::Error => e
         raise PassageError.new(
                 "failed to delete Passage User Device",
@@ -292,8 +191,8 @@ module Passage
     def signout(user_id:)
       user_exists?(user_id)
       begin
-        response =
-          @connection.delete("/v1/apps/#{@app_id}/users/#{user_id}/tokens/")
+        tokens_client = OpenapiClient::TokensApi.new
+        response = tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
         return true
       rescue Faraday::Error => e
         raise PassageError.new(

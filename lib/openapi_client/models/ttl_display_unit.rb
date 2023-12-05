@@ -35,7 +35,7 @@ module OpenapiClient
     # @param [String] The enum value in the form of the string
     # @return [String] The enum value
     def build_from_hash(value)
-      return value if TtlDisplayUnit.all_vars.include?(value)
+      return value if TtlDisplayUnit.all_vars.include?(value) || value == ""
       raise "Invalid ENUM value #{value} for class #TtlDisplayUnit"
     end
   end
