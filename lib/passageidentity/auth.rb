@@ -128,4 +128,18 @@ module Passage
       end
     end
   end
+
+  def revoke_user_refresh_tokens(user_id)
+    begin
+      client = OpenapiClient::TokensApi.new
+      response = client.revoke_user_refresh_tokens(@app_id, user_id)
+      return true
+    rescue Faraday::Error => e
+      raise PassageError.new(
+              message: "failed to revoke user's refresh tokens",
+              status_code: e.response[:status],
+              body: e.response[:body]
+            )
+    end
+  end
 end
