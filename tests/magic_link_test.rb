@@ -13,10 +13,10 @@ class TestMagicLinkAPI < Test::Unit::TestCase
       PassageClient.create_magic_link(
         email: "chris@passage.id",
         channel: Passage::EMAIL_CHANNEL,
-        ttl: 12
+        ttl: 122
       )
 
-    assert_equal 12, magic_link.ttl
+    assert_equal 122, magic_link.ttl
     assert_equal "chris@passage.id", magic_link.identifier
   end
 end
