@@ -20,6 +20,7 @@ openapi-generator-cli generate \
 
 rm -rf ./docs/generated
 mv ./generated/docs ./docs/generated
+mv ./generated/README.md ./docs/generated
 
 rm -rf ./lib/openapi_client
 mv ./generated/lib/openapi_client ./lib

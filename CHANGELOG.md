@@ -18,4 +18,4 @@ All notable changes to this project will be documented in this file.
 
 ### Possible Breaking Changes
 
-- Type names may change.
+- Types are now generated. Previous type names may have changed. [See documentation](https://github.com/passageidentity/passage-ruby/tree/main/docs/generated) for model definitions.
