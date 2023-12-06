@@ -55,7 +55,7 @@ module Passage
     end
 
     def authenticate_request(request)
-      warn "[DEPRECATION] `authenticate_request` is deprecated.  Please use `validate_jwt(token)` instead."
+      warn "[DEPRECATION] `auth.authenticate_request()` is deprecated.  Please use `auth.validate_jwt()` instead."
 
       # Get the token based on the strategy
       if @auth_strategy === Passage::COOKIE_STRATEGY

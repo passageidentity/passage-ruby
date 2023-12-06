@@ -12,7 +12,7 @@ All URIs are relative to *https://api.passage.id/v1*
 | [**update**](UsersApi.md#update) | **PATCH** /apps/{app_id}/users/{user_id} | Update User |
 | [**delete_device**](UsersApi.md#delete_device) | **DELETE** /apps/{app_id}/users/{user_id}/devices/{device_id} | Delete a device for a user |
 | [**list_devices**](UsersApi.md#list_devices) | **GET** /apps/{app_id}/users/{user_id}/devices | List User Devices |
-| [**signout**](UsersApi.md#signout) | DELETE /apps/{app_id}/users/{user_id}/tokens | Signout of user |
+| [**signout**](UsersApi.md#signout) | DELETE /apps/{app_id}/users/{user_id}/tokens | **Deprecated:** Signout a user |
 
 
 ## activate
