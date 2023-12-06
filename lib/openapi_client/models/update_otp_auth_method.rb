@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class EmailSmsAuthMethod
+  class UpdateOtpAuthMethod
     attr_accessor :enabled
 
     # Maximum time (IN SECONDS) for the auth to expire.
@@ -73,32 +73,23 @@ module OpenapiClient
       ])
     end
 
-    # List of class defined in allOf (OpenAPI v3)
-    def self.openapi_all_of
-      [
-      :'UpdateEmailSmsAuthMethod'
-      ]
-    end
-
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::EmailSmsAuthMethod` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::UpdateOtpAuthMethod` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::EmailSmsAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::UpdateOtpAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
       if attributes.key?(:'enabled')
         self.enabled = attributes[:'enabled']
-      else
-        self.enabled = nil
       end
 
       if attributes.key?(:'ttl')
@@ -109,8 +100,6 @@ module OpenapiClient
 
       if attributes.key?(:'ttl_display_unit')
         self.ttl_display_unit = attributes[:'ttl_display_unit']
-      else
-        self.ttl_display_unit = nil
       end
     end
 
@@ -119,20 +108,8 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @enabled.nil?
-        invalid_properties.push('invalid value for "enabled", enabled cannot be nil.')
-      end
-
-      if @ttl.nil?
-        invalid_properties.push('invalid value for "ttl", ttl cannot be nil.')
-      end
-
-      if @ttl < 60
+      if !@ttl.nil? && @ttl < 60
         invalid_properties.push('invalid value for "ttl", must be greater than or equal to 60.')
-      end
-
-      if @ttl_display_unit.nil?
-        invalid_properties.push('invalid value for "ttl_display_unit", ttl_display_unit cannot be nil.')
       end
 
       invalid_properties
@@ -142,10 +119,7 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @enabled.nil?
-      return false if @ttl.nil?
-      return false if @ttl < 60
-      return false if @ttl_display_unit.nil?
+      return false if !@ttl.nil? && @ttl < 60
       true
     end
 
@@ -156,6 +130,9 @@ module OpenapiClient
         fail ArgumentError, 'ttl cannot be nil'
       end
 
+      if ttl < 60
+        fail ArgumentError, 'invalid value for "ttl", must be greater than or equal to 60.'
+      end
 
       @ttl = ttl
     end

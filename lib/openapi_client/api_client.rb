@@ -122,7 +122,6 @@ module OpenapiClient
 
       request.url url
       request.params = query_params
-
       request
     end
 

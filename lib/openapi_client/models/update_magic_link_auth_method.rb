@@ -14,20 +14,42 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  # Denotes what methods this app is allowed to use for authentication with configurations
-  class AuthMethods
-    attr_accessor :passkeys
+  class UpdateMagicLinkAuthMethod
+    attr_accessor :enabled
 
-    attr_accessor :otp
+    # Maximum time (IN SECONDS) for the auth to expire.
+    attr_accessor :ttl
 
-    attr_accessor :magic_link
+    attr_accessor :ttl_display_unit
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'passkeys' => :'passkeys',
-        :'otp' => :'otp',
-        :'magic_link' => :'magic_link'
+        :'enabled' => :'enabled',
+        :'ttl' => :'ttl',
+        :'ttl_display_unit' => :'ttl_display_unit'
       }
     end
 
@@ -39,9 +61,9 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'passkeys' => :'PasskeysAuthMethod',
-        :'otp' => :'OtpAuthMethod',
-        :'magic_link' => :'MagicLinkAuthMethod'
+        :'enabled' => :'Boolean',
+        :'ttl' => :'Integer',
+        :'ttl_display_unit' => :'TtlDisplayUnit'
       }
     end
 
@@ -55,33 +77,29 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::AuthMethods` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::UpdateMagicLinkAuthMethod` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::AuthMethods`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::UpdateMagicLinkAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'passkeys')
-        self.passkeys = attributes[:'passkeys']
-      else
-        self.passkeys = nil
+      if attributes.key?(:'enabled')
+        self.enabled = attributes[:'enabled']
       end
 
-      if attributes.key?(:'otp')
-        self.otp = attributes[:'otp']
+      if attributes.key?(:'ttl')
+        self.ttl = attributes[:'ttl']
       else
-        self.otp = nil
+        self.ttl = 300
       end
 
-      if attributes.key?(:'magic_link')
-        self.magic_link = attributes[:'magic_link']
-      else
-        self.magic_link = nil
+      if attributes.key?(:'ttl_display_unit')
+        self.ttl_display_unit = attributes[:'ttl_display_unit']
       end
     end
 
@@ -90,16 +108,8 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @passkeys.nil?
-        invalid_properties.push('invalid value for "passkeys", passkeys cannot be nil.')
-      end
-
-      if @otp.nil?
-        invalid_properties.push('invalid value for "otp", otp cannot be nil.')
-      end
-
-      if @magic_link.nil?
-        invalid_properties.push('invalid value for "magic_link", magic_link cannot be nil.')
+      if !@ttl.nil? && @ttl < 60
+        invalid_properties.push('invalid value for "ttl", must be greater than or equal to 60.')
       end
 
       invalid_properties
@@ -109,10 +119,22 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @passkeys.nil?
-      return false if @otp.nil?
-      return false if @magic_link.nil?
+      return false if !@ttl.nil? && @ttl < 60
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] ttl Value to be assigned
+    def ttl=(ttl)
+      if ttl.nil?
+        fail ArgumentError, 'ttl cannot be nil'
+      end
+
+      if ttl < 60
+        fail ArgumentError, 'invalid value for "ttl", must be greater than or equal to 60.'
+      end
+
+      @ttl = ttl
     end
 
     # Checks equality by comparing each attribute.
@@ -120,9 +142,9 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          passkeys == o.passkeys &&
-          otp == o.otp &&
-          magic_link == o.magic_link
+          enabled == o.enabled &&
+          ttl == o.ttl &&
+          ttl_display_unit == o.ttl_display_unit
     end
 
     # @see the `==` method
@@ -134,7 +156,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [passkeys, otp, magic_link].hash
+      [enabled, ttl, ttl_display_unit].hash
     end
 
     # Builds the object from hash

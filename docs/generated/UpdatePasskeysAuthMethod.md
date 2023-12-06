@@ -1,17 +1,17 @@
-# OpenapiClient::PasskeyAuthMethod
+# OpenapiClient::UpdatePasskeysAuthMethod
 
 ## Properties
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **enabled** | **Boolean** |  | [default to true] |
+| **enabled** | **Boolean** |  | [optional][default to true] |
 
 ## Example
 
 ```ruby
 require 'openapi_client'
 
-instance = OpenapiClient::PasskeyAuthMethod.new(
+instance = OpenapiClient::UpdatePasskeysAuthMethod.new(
   enabled: null
 )
 ```

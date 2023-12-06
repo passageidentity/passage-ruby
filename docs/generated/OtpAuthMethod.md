@@ -1,4 +1,4 @@
-# OpenapiClient::EmailSmsAuthMethod
+# OpenapiClient::OtpAuthMethod
 
 ## Properties
 
@@ -13,7 +13,7 @@
 ```ruby
 require 'openapi_client'
 
-instance = OpenapiClient::EmailSmsAuthMethod.new(
+instance = OpenapiClient::OtpAuthMethod.new(
   enabled: null,
   ttl: null,
   ttl_display_unit: null

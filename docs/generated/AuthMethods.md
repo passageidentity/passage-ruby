@@ -4,9 +4,9 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **passkey** | [**PasskeyAuthMethod**](PasskeyAuthMethod.md) |  |  |
-| **otp** | [**EmailSmsAuthMethod**](EmailSmsAuthMethod.md) |  |  |
-| **magic_link** | [**EmailSmsAuthMethod**](EmailSmsAuthMethod.md) |  |  |
+| **passkeys** | [**PasskeysAuthMethod**](PasskeysAuthMethod.md) |  |  |
+| **otp** | [**OtpAuthMethod**](OtpAuthMethod.md) |  |  |
+| **magic_link** | [**MagicLinkAuthMethod**](MagicLinkAuthMethod.md) |  |  |
 
 ## Example
 
@@ -14,7 +14,7 @@
 require 'openapi_client'
 
 instance = OpenapiClient::AuthMethods.new(
-  passkey: null,
+  passkeys: null,
   otp: null,
   magic_link: null
 )

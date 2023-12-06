@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class PasskeyAuthMethod
+  class PasskeysAuthMethod
     attr_accessor :enabled
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -45,7 +45,7 @@ module OpenapiClient
     # List of class defined in allOf (OpenAPI v3)
     def self.openapi_all_of
       [
-      :'UpdatePasskeyAuthMethod'
+      :'UpdatePasskeysAuthMethod'
       ]
     end
 
@@ -53,13 +53,13 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::PasskeyAuthMethod` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::PasskeysAuthMethod` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::PasskeyAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::PasskeysAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }

@@ -1,4 +1,4 @@
-# OpenapiClient::UpdateEmailSmsAuthMethod
+# OpenapiClient::UpdateMagicLinkAuthMethod
 
 ## Properties
 
@@ -13,7 +13,7 @@
 ```ruby
 require 'openapi_client'
 
-instance = OpenapiClient::UpdateEmailSmsAuthMethod.new(
+instance = OpenapiClient::UpdateMagicLinkAuthMethod.new(
   enabled: null,
   ttl: null,
   ttl_display_unit: null

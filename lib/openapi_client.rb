@@ -23,11 +23,11 @@ require_relative 'openapi_client/models/auth_methods'
 require_relative 'openapi_client/models/create_magic_link_request'
 require_relative 'openapi_client/models/create_user_request'
 require_relative 'openapi_client/models/element_customization'
-require_relative 'openapi_client/models/email_sms_auth_method'
 require_relative 'openapi_client/models/font_family'
 require_relative 'openapi_client/models/layout_config'
 require_relative 'openapi_client/models/layouts'
 require_relative 'openapi_client/models/list_devices_response'
+require_relative 'openapi_client/models/magic_link_auth_method'
 require_relative 'openapi_client/models/magic_link'
 require_relative 'openapi_client/models/magic_link_channel'
 require_relative 'openapi_client/models/magic_link_response'
@@ -36,11 +36,13 @@ require_relative 'openapi_client/models/model400_error'
 require_relative 'openapi_client/models/model401_error'
 require_relative 'openapi_client/models/model404_error'
 require_relative 'openapi_client/models/model500_error'
-require_relative 'openapi_client/models/passkey_auth_method'
+require_relative 'openapi_client/models/otp_auth_method'
+require_relative 'openapi_client/models/passkeys_auth_method'
 require_relative 'openapi_client/models/technologies'
 require_relative 'openapi_client/models/ttl_display_unit'
-require_relative 'openapi_client/models/update_email_sms_auth_method'
-require_relative 'openapi_client/models/update_passkey_auth_method'
+require_relative 'openapi_client/models/update_magic_link_auth_method'
+require_relative 'openapi_client/models/update_otp_auth_method'
+require_relative 'openapi_client/models/update_passkeys_auth_method'
 require_relative 'openapi_client/models/update_user_request'
 require_relative 'openapi_client/models/user_event_info'
 require_relative 'openapi_client/models/user_info'
@@ -61,12 +63,6 @@ require_relative 'openapi_client/api/users_api'
 
 module OpenapiClient
   class << self
-    # Customize default settings for the SDK using block.
-    #   OpenapiClient.configure do |config|
-    #     config.username = "xxx"
-    #     config.password = "xxx"
-    #   end
-    # If no block given, return the default Configuration object.
     def configure
       if block_given?
         yield(Configuration.default)
