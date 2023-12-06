@@ -24,4 +24,7 @@ mv ./generated/docs ./docs/generated
 rm -rf ./lib/openapi_client
 mv ./generated/lib/openapi_client ./lib
 
+rm -rf ./lib/openapi_client.rb
+mv ./generated/lib/openapi_client.rb ./lib/openapi_client.rb
+
 rm -rf ./generated
