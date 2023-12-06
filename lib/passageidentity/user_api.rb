@@ -189,6 +189,7 @@ module Passage
     end
 
     def signout(user_id:)
+      warn "[DEPRECATION] `user.signout()` is deprecated.  Please use `auth.revoke_user_refresh_tokens()` instead."
       user_exists?(user_id)
       begin
         tokens_client = OpenapiClient::TokensApi.new

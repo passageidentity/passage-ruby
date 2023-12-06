@@ -55,7 +55,7 @@ module Passage
     end
 
     def authenticate_request(request)
-      warn "[DEPRECATION] `authenticate_request` is deprecated.  Please use `validate_jwt(token)` instead."
+      warn "[DEPRECATION] `auth.authenticate_request()` is deprecated.  Please use `auth.validate_jwt()` instead."
 
       # Get the token based on the strategy
       if @auth_strategy === Passage::COOKIE_STRATEGY
@@ -127,19 +127,19 @@ module Passage
         raise PassageError.new(message: e.message)
       end
     end
-  end
 
-  def revoke_user_refresh_tokens(user_id)
-    begin
-      client = OpenapiClient::TokensApi.new
-      response = client.revoke_user_refresh_tokens(@app_id, user_id)
-      return true
-    rescue Faraday::Error => e
-      raise PassageError.new(
-              message: "failed to revoke user's refresh tokens",
-              status_code: e.response[:status],
-              body: e.response[:body]
-            )
+    def revoke_user_refresh_tokens(user_id)
+      begin
+        client = OpenapiClient::TokensApi.new
+        response = client.revoke_user_refresh_tokens(@app_id, user_id)
+        return true
+      rescue Faraday::Error => e
+        raise PassageError.new(
+                message: "failed to revoke user's refresh tokens",
+                status_code: e.response[:status],
+                body: e.response[:body]
+              )
+      end
     end
   end
 end
