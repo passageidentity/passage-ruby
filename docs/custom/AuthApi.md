@@ -2,19 +2,22 @@
 
 All URIs are relative to *https://api.passage.id/v1*
 
-| Method | HTTP request | Description |
-| ------ | ------------ | ----------- |
-| [**revoke_user_refresh_tokens**](TokensApi.md#revoke_user_refresh_tokens) | **DELETE** /apps/{app_id}/users/{user_id}/tokens | **Deprecated:** Revokes refresh tokens |
-| [**validate_jwt**](TokensApi.md#validate_jwt) | n/a | Validates jwt token
+| Method | Description |
+| ------ | ----------- |
+| [**authenticate_request**](TokensApi.md#revoke_user_refresh_tokens) |  **Deprecated:** Revokes refresh tokens |
+| [**validate_jwt**](TokensApi.md#validate_jwt) |  Validates jwt token
 
 
-## revoke_user_refresh_tokens
 
-> revoke_user_refresh_tokens(user_id)
+---
 
-Revokes refresh tokens
+## authenticate_request (deprecated)
 
-Revokes all refresh tokens for a user
+> authenticate_request(request)
+
+Validates that request has the correct jwt token
+
+Validates that request has the correct jwt token
 
 ### Examples
 
@@ -24,39 +27,36 @@ require 'passageidentity'
 class ApplicationController < ActionController::Base
     PassageClient = Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
 
-  def revoke_passage_user_tokens!
+  def authorize!
     begin
-        # tokens are revoked
-        revoke = PassageClient.auth.revoke_user_refresh_tokens(USER_ID)
+      request.to_hash()
+      @user_id = Passage.auth.authenticate_request(request)
+      session[:psg_user_id] = @user_id
     rescue Exception => e
-        # handle exception (user is not authorized)
+      # unauthorized
+      redirect_to "/unauthorized"
     end
   end
 end
 ```
 
-
 ### Parameters
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **user_id** | **String** | User ID |  |
+| **request** | **RequestObject** | request |  |
 
 ### Return type
 
-bool
+[**UserInfo**](UserInfo.md)
 
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
 
-### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 ---
-
 
 ## validate_jwt
 

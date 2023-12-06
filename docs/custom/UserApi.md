@@ -12,6 +12,7 @@ All URIs are relative to *https://api.passage.id/v1*
 | [**update**](UsersApi.md#update) | **PATCH** /apps/{app_id}/users/{user_id} | Update User |
 | [**delete_device**](UsersApi.md#delete_device) | **DELETE** /apps/{app_id}/users/{user_id}/devices/{device_id} | Delete a device for a user |
 | [**list_devices**](UsersApi.md#list_devices) | **GET** /apps/{app_id}/users/{user_id}/devices | List User Devices |
+| [**signout**](UsersApi.md#signout) | DELETE /apps/{app_id}/users/{user_id}/tokens | Signout of user |
 
 
 ## activate
@@ -368,3 +369,51 @@ end
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
+---
+
+## signout
+
+> signout(user_id)
+
+Revokes refresh tokens
+
+Revokes all refresh tokens for a user
+
+### Examples
+
+```ruby
+require 'passageidentity'
+
+class ApplicationController < ActionController::Base
+    PassageClient = Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
+
+  def revoke_passage_user_tokens!
+    begin
+        # tokens are revoked
+        revoke = PassageClient.auth.signout(USER_ID)
+    rescue Exception => e
+        # handle exception (user is not authorized)
+    end
+  end
+end
+```
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **user_id** | **String** | User ID |  |
+
+### Return type
+
+bool
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
