@@ -64,23 +64,6 @@ app_info = PassageClient.get_app()
   
 ```
 
-The information available in the Passage App struct returned by PassageClient.get_app():
-
-```ruby
-    Struct.new :name,
-               :id,
-               :auth_origin,
-               :redirect_url,
-               :login_url,
-               :rsa_public_key,
-               :allowed_identifer,
-               :require_identifier_verification,
-               :session_timeout_length,
-               :user_metadata_schema,
-               :layouts,
-               :auth_fallback_method,
-               :auth_fallback_method_ttl
-```
 
 ## Retrieve User Info
 
@@ -104,24 +87,6 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-The information available in the Passage User struct returned by PassageClient.user.get(user_id:):
-
-```ruby
-    Struct.new :id,
-               :status,
-               :email,
-               :phone,
-               :email_verified,
-               :phone_verified,
-               :created_at,
-               :updated_at,
-               :last_login_at,
-               :login_count,
-               :recent_events,
-               :webauthn,
-               :webauthn_devices,
-               :user_metadata,
-```
 
 ## Activate/Deactivate User
 
@@ -179,18 +144,6 @@ PassageClient =
 devices = PassageClient.user.list_devices(user_id: user_id)
 ```
 
-The information available in the array of Passage Device struct returned by PassageClient.user.list_devices(user_id:):
-
-```ruby
-    Struct.new :id,
-               :cred_id,
-               :friendly_name,
-               :usage_count,
-               :updated_at,
-               :created_at,
-               :last_login_at,
-
-```
 
 ## List User Devices
 
@@ -227,17 +180,21 @@ magic_link =
   )
 ```
 
-The information available in the Passage Magic Link struct returned this method is below:
+## Available Functions
 
-```ruby
-Struct.new :id,
-           :secret,
-           :activated,
-           :user_id,
-           :app_id,
-           :identifier,
-           :type,
-           :redirect_url,
-           :ttl,
-           :url
-```
+
+Class | Method | Description
+------------ | ------------- | -------------
+*ClientApi* | [**get_app**](docs/custom/ClientApi.md#get_app) |  Get App
+*ClientApi* | [**create_magic_link**](docs/custom/Passage/ClientApi.md#create_magic_link) | Create Embeddable Magic Link
+*AuthApi* | [**auth.authenticate_request**](docs/custom/AuthApi.md#authenticate_request) | Validates user jwt token
+*AuthApi* | [**auth.validate_jwt**](docs/custom/AuthApi.md#validate_jwt) | Validates user jwt token
+*UserAPI* | [**user.delete_device**](docs/custom/UserApi.md#delete_device) | Delete a device for a user
+*UserAPI* | [**user.list_devices**](docs/custom/UserApi.md#list_devices) | List User Devices
+*UserAPI* | [**user.activate**](docs/custom/UserApi.md#activate) | Activate User
+*UserAPI* | [**user.create**](docs/custom/UserApi.md#create) | Create User
+*UserAPI* | [**user.deactivate**](docs/custom/UserApi.md#deactivate) | Deactivate User
+*UserAPI* | [**user.delete**](docs/custom/UserApi.md#delete) | Delete User
+*UserAPI* | [**user.get**](docs/custom/UserApi.md#get) | Get User
+*UserAPI* | [**user.update**](docs/custom/UserApi.md#update) | Update User
+*UserAPI* | [**user.signout**](docs/custom/UserApi.md#signout) | Signout User
