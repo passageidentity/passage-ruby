@@ -4,9 +4,9 @@ All URIs are relative to *https://api.passage.id/v1*
 
 | Method | Description |
 | ------ | ----------- |
-| [**authenticate_request**](TokensApi.md#revoke_user_refresh_tokens) |  **Deprecated:** Revokes refresh tokens |
-| [**revoke_user_refresh_tokens**](TokensApi.md#revoke_user_refresh_tokens) | Revokes user tokens |
-| [**validate_jwt**](TokensApi.md#validate_jwt) |  Validates jwt token
+| [**authenticate_request**](AuthApi.md#authenticate_request) |  **Deprecated:** Revokes refresh tokens |
+| [**revoke_user_refresh_tokens**](AuthApi.md#revoke_user_refresh_tokens) | Revokes user tokens |
+| [**validate_jwt**](AuthApi.md#validate_jwt) |  Validates jwt token
 
 
 ---
