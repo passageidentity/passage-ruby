@@ -33,6 +33,8 @@ module OpenapiClient
 
     attr_accessor :recent_events
 
+    attr_accessor :social_connections
+
     attr_accessor :status
 
     attr_accessor :updated_at
@@ -80,6 +82,7 @@ module OpenapiClient
         :'phone' => :'phone',
         :'phone_verified' => :'phone_verified',
         :'recent_events' => :'recent_events',
+        :'social_connections' => :'social_connections',
         :'status' => :'status',
         :'updated_at' => :'updated_at',
         :'user_metadata' => :'user_metadata',
@@ -106,6 +109,7 @@ module OpenapiClient
         :'phone' => :'String',
         :'phone_verified' => :'Boolean',
         :'recent_events' => :'Array<UserEventInfo>',
+        :'social_connections' => :'UserSocialConnections',
         :'status' => :'UserStatus',
         :'updated_at' => :'Time',
         :'user_metadata' => :'Object',
@@ -193,6 +197,12 @@ module OpenapiClient
         self.recent_events = nil
       end
 
+      if attributes.key?(:'social_connections')
+        self.social_connections = attributes[:'social_connections']
+      else
+        self.social_connections = nil
+      end
+
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       else
@@ -275,6 +285,10 @@ module OpenapiClient
         invalid_properties.push('invalid value for "recent_events", recent_events cannot be nil.')
       end
 
+      if @social_connections.nil?
+        invalid_properties.push('invalid value for "social_connections", social_connections cannot be nil.')
+      end
+
       if @status.nil?
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
@@ -311,6 +325,7 @@ module OpenapiClient
       return false if @phone.nil?
       return false if @phone_verified.nil?
       return false if @recent_events.nil?
+      return false if @social_connections.nil?
       return false if @status.nil?
       return false if @updated_at.nil?
       return false if @webauthn.nil?
@@ -333,6 +348,7 @@ module OpenapiClient
           phone == o.phone &&
           phone_verified == o.phone_verified &&
           recent_events == o.recent_events &&
+          social_connections == o.social_connections &&
           status == o.status &&
           updated_at == o.updated_at &&
           user_metadata == o.user_metadata &&
@@ -350,7 +366,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created_at, email, email_verified, id, last_login_at, login_count, phone, phone_verified, recent_events, status, updated_at, user_metadata, webauthn, webauthn_devices, webauthn_types].hash
+      [created_at, email, email_verified, id, last_login_at, login_count, phone, phone_verified, recent_events, social_connections, status, updated_at, user_metadata, webauthn, webauthn_devices, webauthn_types].hash
     end
 
     # Builds the object from hash
