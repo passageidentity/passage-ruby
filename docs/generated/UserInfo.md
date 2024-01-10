@@ -13,6 +13,7 @@
 | **phone** | **String** |  |  |
 | **phone_verified** | **Boolean** |  |  |
 | **recent_events** | [**Array&lt;UserEventInfo&gt;**](UserEventInfo.md) |  |  |
+| **social_connections** | [**UserSocialConnections**](UserSocialConnections.md) |  |  |
 | **status** | [**UserStatus**](UserStatus.md) |  |  |
 | **updated_at** | **Time** |  |  |
 | **user_metadata** | **Object** |  |  |
@@ -35,6 +36,7 @@ instance = OpenapiClient::UserInfo.new(
   phone: null,
   phone_verified: null,
   recent_events: null,
+  social_connections: null,
   status: null,
   updated_at: null,
   user_metadata: null,
