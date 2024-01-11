@@ -117,7 +117,7 @@ module OpenapiClient
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @code.nil?
-      code_validator = EnumAttributeValidator.new('String', ["admin_not_found", "api_key_not_found", "app_not_found", "device_not_found", "domain_not_found", "email_provider_not_found", "email_template_not_found", "event_not_found", "function_not_found", "function_secret_key_not_found", "function_version_not_found", "metadata_field_not_found", "organization_member_not_found", "sms_provider_not_found", "sms_template_not_found", "user_not_found", "oauth2_app_not_found"])
+      code_validator = EnumAttributeValidator.new('String', ["admin_not_found", "api_key_not_found", "app_not_found", "device_not_found", "domain_not_found", "email_provider_not_found", "email_template_not_found", "event_not_found", "function_not_found", "function_secret_key_not_found", "function_version_not_found", "metadata_field_not_found", "oauth2_app_not_found", "organization_member_not_found", "sms_provider_not_found", "sms_template_not_found", "social_connection_not_found", "user_not_found"])
       return false unless code_validator.valid?(@code)
       return false if @error.nil?
       true
@@ -126,7 +126,7 @@ module OpenapiClient
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] code Object to be assigned
     def code=(code)
-      validator = EnumAttributeValidator.new('String', ["admin_not_found", "api_key_not_found", "app_not_found", "device_not_found", "domain_not_found", "email_provider_not_found", "email_template_not_found", "event_not_found", "function_not_found", "function_secret_key_not_found", "function_version_not_found", "metadata_field_not_found", "organization_member_not_found", "sms_provider_not_found", "sms_template_not_found", "user_not_found", "oauth2_app_not_found"])
+      validator = EnumAttributeValidator.new('String', ["admin_not_found", "api_key_not_found", "app_not_found", "device_not_found", "domain_not_found", "email_provider_not_found", "email_template_not_found", "event_not_found", "function_not_found", "function_secret_key_not_found", "function_version_not_found", "metadata_field_not_found", "oauth2_app_not_found", "organization_member_not_found", "sms_provider_not_found", "sms_template_not_found", "social_connection_not_found", "user_not_found"])
       unless validator.valid?(code)
         fail ArgumentError, "invalid value for \"code\", must be one of #{validator.allowable_values}."
       end
