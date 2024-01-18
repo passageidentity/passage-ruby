@@ -24,11 +24,13 @@ require_relative 'openapi_client/models/create_magic_link_request'
 require_relative 'openapi_client/models/create_user_request'
 require_relative 'openapi_client/models/element_customization'
 require_relative 'openapi_client/models/font_family'
+require_relative 'openapi_client/models/github_social_connection'
+require_relative 'openapi_client/models/google_social_connection'
 require_relative 'openapi_client/models/layout_config'
 require_relative 'openapi_client/models/layouts'
 require_relative 'openapi_client/models/list_devices_response'
-require_relative 'openapi_client/models/magic_link_auth_method'
 require_relative 'openapi_client/models/magic_link'
+require_relative 'openapi_client/models/magic_link_auth_method'
 require_relative 'openapi_client/models/magic_link_channel'
 require_relative 'openapi_client/models/magic_link_response'
 require_relative 'openapi_client/models/magic_link_type'
@@ -49,6 +51,7 @@ require_relative 'openapi_client/models/user_info'
 require_relative 'openapi_client/models/user_metadata_field'
 require_relative 'openapi_client/models/user_metadata_field_type'
 require_relative 'openapi_client/models/user_response'
+require_relative 'openapi_client/models/user_social_connections'
 require_relative 'openapi_client/models/user_status'
 require_relative 'openapi_client/models/web_authn_devices'
 require_relative 'openapi_client/models/web_authn_icons'
@@ -63,6 +66,12 @@ require_relative 'openapi_client/api/users_api'
 
 module OpenapiClient
   class << self
+    # Customize default settings for the SDK using block.
+    #   OpenapiClient.configure do |config|
+    #     config.username = "xxx"
+    #     config.password = "xxx"
+    #   end
+    # If no block given, return the default Configuration object.
     def configure
       if block_given?
         yield(Configuration.default)

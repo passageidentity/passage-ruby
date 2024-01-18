@@ -14,38 +14,24 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class Model404Error
-    attr_accessor :code
+  class GithubSocialConnection
+    # The external ID of the Social Connection.
+    attr_accessor :provider_id
 
-    attr_accessor :error
+    attr_accessor :created_at
 
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
+    attr_accessor :last_login_at
 
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    # The email of connected social user.
+    attr_accessor :provider_identifier
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'code' => :'code',
-        :'error' => :'error'
+        :'provider_id' => :'provider_id',
+        :'created_at' => :'created_at',
+        :'last_login_at' => :'last_login_at',
+        :'provider_identifier' => :'provider_identifier'
       }
     end
 
@@ -57,8 +43,10 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'code' => :'String',
-        :'error' => :'String'
+        :'provider_id' => :'String',
+        :'created_at' => :'Time',
+        :'last_login_at' => :'Time',
+        :'provider_identifier' => :'String'
       }
     end
 
@@ -72,27 +60,39 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::Model404Error` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::GithubSocialConnection` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::Model404Error`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::GithubSocialConnection`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'code')
-        self.code = attributes[:'code']
+      if attributes.key?(:'provider_id')
+        self.provider_id = attributes[:'provider_id']
       else
-        self.code = nil
+        self.provider_id = nil
       end
 
-      if attributes.key?(:'error')
-        self.error = attributes[:'error']
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       else
-        self.error = nil
+        self.created_at = nil
+      end
+
+      if attributes.key?(:'last_login_at')
+        self.last_login_at = attributes[:'last_login_at']
+      else
+        self.last_login_at = nil
+      end
+
+      if attributes.key?(:'provider_identifier')
+        self.provider_identifier = attributes[:'provider_identifier']
+      else
+        self.provider_identifier = nil
       end
     end
 
@@ -101,12 +101,20 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @code.nil?
-        invalid_properties.push('invalid value for "code", code cannot be nil.')
+      if @provider_id.nil?
+        invalid_properties.push('invalid value for "provider_id", provider_id cannot be nil.')
       end
 
-      if @error.nil?
-        invalid_properties.push('invalid value for "error", error cannot be nil.')
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @last_login_at.nil?
+        invalid_properties.push('invalid value for "last_login_at", last_login_at cannot be nil.')
+      end
+
+      if @provider_identifier.nil?
+        invalid_properties.push('invalid value for "provider_identifier", provider_identifier cannot be nil.')
       end
 
       invalid_properties
@@ -116,21 +124,11 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @code.nil?
-      code_validator = EnumAttributeValidator.new('String', ["admin_not_found", "api_key_not_found", "app_not_found", "device_not_found", "domain_not_found", "email_provider_not_found", "email_template_not_found", "event_not_found", "function_not_found", "function_secret_key_not_found", "function_version_not_found", "metadata_field_not_found", "oauth2_app_not_found", "organization_member_not_found", "sms_provider_not_found", "sms_template_not_found", "social_connection_not_found", "user_not_found"])
-      return false unless code_validator.valid?(@code)
-      return false if @error.nil?
+      return false if @provider_id.nil?
+      return false if @created_at.nil?
+      return false if @last_login_at.nil?
+      return false if @provider_identifier.nil?
       true
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] code Object to be assigned
-    def code=(code)
-      validator = EnumAttributeValidator.new('String', ["admin_not_found", "api_key_not_found", "app_not_found", "device_not_found", "domain_not_found", "email_provider_not_found", "email_template_not_found", "event_not_found", "function_not_found", "function_secret_key_not_found", "function_version_not_found", "metadata_field_not_found", "oauth2_app_not_found", "organization_member_not_found", "sms_provider_not_found", "sms_template_not_found", "social_connection_not_found", "user_not_found"])
-      unless validator.valid?(code)
-        fail ArgumentError, "invalid value for \"code\", must be one of #{validator.allowable_values}."
-      end
-      @code = code
     end
 
     # Checks equality by comparing each attribute.
@@ -138,8 +136,10 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          code == o.code &&
-          error == o.error
+          provider_id == o.provider_id &&
+          created_at == o.created_at &&
+          last_login_at == o.last_login_at &&
+          provider_identifier == o.provider_identifier
     end
 
     # @see the `==` method
@@ -151,7 +151,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [code, error].hash
+      [provider_id, created_at, last_login_at, provider_identifier].hash
     end
 
     # Builds the object from hash
