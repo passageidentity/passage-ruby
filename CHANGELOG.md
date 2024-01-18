@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2024-01-18
+
+### Added
+
+- The `UserInfo` class has a new `'social_connections' =>:'UserSocialConnections'` field for GitHub and Google
+
 ## [0.3.0] - 2023-12-06
 
 ### Added
