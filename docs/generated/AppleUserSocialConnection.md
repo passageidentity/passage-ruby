@@ -1,4 +1,4 @@
-# OpenapiClient::GithubSocialConnection
+# OpenapiClient::AppleUserSocialConnection
 
 ## Properties
 
@@ -14,7 +14,7 @@
 ```ruby
 require 'openapi_client'
 
-instance = OpenapiClient::GithubSocialConnection.new(
+instance = OpenapiClient::AppleUserSocialConnection.new(
   provider_id: null,
   created_at: null,
   last_login_at: null,

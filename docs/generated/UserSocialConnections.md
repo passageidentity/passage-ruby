@@ -4,8 +4,9 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **google** | [**GoogleSocialConnection**](GoogleSocialConnection.md) |  | [optional] |
-| **github** | [**GithubSocialConnection**](GithubSocialConnection.md) |  | [optional] |
+| **apple** | [**AppleUserSocialConnection**](AppleUserSocialConnection.md) |  | [optional] |
+| **github** | [**GithubUserSocialConnection**](GithubUserSocialConnection.md) |  | [optional] |
+| **google** | [**GoogleUserSocialConnection**](GoogleUserSocialConnection.md) |  | [optional] |
 
 ## Example
 
@@ -13,8 +14,9 @@
 require 'openapi_client'
 
 instance = OpenapiClient::UserSocialConnections.new(
-  google: null,
-  github: null
+  apple: null,
+  github: null,
+  google: null
 )
 ```
 

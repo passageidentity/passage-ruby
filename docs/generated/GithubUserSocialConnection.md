@@ -1,4 +1,4 @@
-# OpenapiClient::GoogleSocialConnection
+# OpenapiClient::GithubUserSocialConnection
 
 ## Properties
 
@@ -14,7 +14,7 @@
 ```ruby
 require 'openapi_client'
 
-instance = OpenapiClient::GoogleSocialConnection.new(
+instance = OpenapiClient::GithubUserSocialConnection.new(
   provider_id: null,
   created_at: null,
   last_login_at: null,

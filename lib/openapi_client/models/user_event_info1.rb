@@ -14,24 +14,25 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class GoogleSocialConnection
-    # The external ID of the Social Connection.
-    attr_accessor :provider_id
-
+  class UserEventInfo1
     attr_accessor :created_at
 
-    attr_accessor :last_login_at
+    attr_accessor :id
 
-    # The email of connected social user.
-    attr_accessor :provider_identifier
+    attr_accessor :ip_addr
+
+    attr_accessor :type
+
+    attr_accessor :user_agent
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'provider_id' => :'provider_id',
         :'created_at' => :'created_at',
-        :'last_login_at' => :'last_login_at',
-        :'provider_identifier' => :'provider_identifier'
+        :'id' => :'id',
+        :'ip_addr' => :'ip_addr',
+        :'type' => :'type',
+        :'user_agent' => :'user_agent'
       }
     end
 
@@ -43,10 +44,11 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'provider_id' => :'String',
         :'created_at' => :'Time',
-        :'last_login_at' => :'Time',
-        :'provider_identifier' => :'String'
+        :'id' => :'String',
+        :'ip_addr' => :'String',
+        :'type' => :'String',
+        :'user_agent' => :'String'
       }
     end
 
@@ -60,22 +62,16 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::GoogleSocialConnection` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::UserEventInfo1` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::GoogleSocialConnection`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::UserEventInfo1`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
-
-      if attributes.key?(:'provider_id')
-        self.provider_id = attributes[:'provider_id']
-      else
-        self.provider_id = nil
-      end
 
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
@@ -83,16 +79,28 @@ module OpenapiClient
         self.created_at = nil
       end
 
-      if attributes.key?(:'last_login_at')
-        self.last_login_at = attributes[:'last_login_at']
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
       else
-        self.last_login_at = nil
+        self.id = nil
       end
 
-      if attributes.key?(:'provider_identifier')
-        self.provider_identifier = attributes[:'provider_identifier']
+      if attributes.key?(:'ip_addr')
+        self.ip_addr = attributes[:'ip_addr']
       else
-        self.provider_identifier = nil
+        self.ip_addr = nil
+      end
+
+      if attributes.key?(:'type')
+        self.type = attributes[:'type']
+      else
+        self.type = nil
+      end
+
+      if attributes.key?(:'user_agent')
+        self.user_agent = attributes[:'user_agent']
+      else
+        self.user_agent = nil
       end
     end
 
@@ -101,20 +109,24 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @provider_id.nil?
-        invalid_properties.push('invalid value for "provider_id", provider_id cannot be nil.')
-      end
-
       if @created_at.nil?
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
-      if @last_login_at.nil?
-        invalid_properties.push('invalid value for "last_login_at", last_login_at cannot be nil.')
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @provider_identifier.nil?
-        invalid_properties.push('invalid value for "provider_identifier", provider_identifier cannot be nil.')
+      if @ip_addr.nil?
+        invalid_properties.push('invalid value for "ip_addr", ip_addr cannot be nil.')
+      end
+
+      if @type.nil?
+        invalid_properties.push('invalid value for "type", type cannot be nil.')
+      end
+
+      if @user_agent.nil?
+        invalid_properties.push('invalid value for "user_agent", user_agent cannot be nil.')
       end
 
       invalid_properties
@@ -124,10 +136,11 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @provider_id.nil?
       return false if @created_at.nil?
-      return false if @last_login_at.nil?
-      return false if @provider_identifier.nil?
+      return false if @id.nil?
+      return false if @ip_addr.nil?
+      return false if @type.nil?
+      return false if @user_agent.nil?
       true
     end
 
@@ -136,10 +149,11 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          provider_id == o.provider_id &&
           created_at == o.created_at &&
-          last_login_at == o.last_login_at &&
-          provider_identifier == o.provider_identifier
+          id == o.id &&
+          ip_addr == o.ip_addr &&
+          type == o.type &&
+          user_agent == o.user_agent
     end
 
     # @see the `==` method
@@ -151,7 +165,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [provider_id, created_at, last_login_at, provider_identifier].hash
+      [created_at, id, ip_addr, type, user_agent].hash
     end
 
     # Builds the object from hash
