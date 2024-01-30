@@ -12,7 +12,7 @@
 | **login_count** | **Integer** |  |  |
 | **phone** | **String** |  |  |
 | **phone_verified** | **Boolean** |  |  |
-| **recent_events** | [**Array&lt;UserEventInfo&gt;**](UserEventInfo.md) |  |  |
+| **recent_events** | [**Array&lt;UserRecentEvent&gt;**](UserRecentEvent.md) |  |  |
 | **social_connections** | [**UserSocialConnections**](UserSocialConnections.md) |  |  |
 | **status** | [**UserStatus**](UserStatus.md) |  |  |
 | **updated_at** | **Time** |  |  |

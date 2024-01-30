@@ -15,15 +15,18 @@ require 'time'
 
 module OpenapiClient
   class UserSocialConnections
-    attr_accessor :google
+    attr_accessor :apple
 
     attr_accessor :github
+
+    attr_accessor :google
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'google' => :'google',
-        :'github' => :'github'
+        :'apple' => :'apple',
+        :'github' => :'github',
+        :'google' => :'google'
       }
     end
 
@@ -35,8 +38,9 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'google' => :'GoogleSocialConnection',
-        :'github' => :'GithubSocialConnection'
+        :'apple' => :'AppleUserSocialConnection',
+        :'github' => :'GithubUserSocialConnection',
+        :'google' => :'GoogleUserSocialConnection'
       }
     end
 
@@ -61,12 +65,16 @@ module OpenapiClient
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'google')
-        self.google = attributes[:'google']
+      if attributes.key?(:'apple')
+        self.apple = attributes[:'apple']
       end
 
       if attributes.key?(:'github')
         self.github = attributes[:'github']
+      end
+
+      if attributes.key?(:'google')
+        self.google = attributes[:'google']
       end
     end
 
@@ -90,8 +98,9 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          google == o.google &&
-          github == o.github
+          apple == o.apple &&
+          github == o.github &&
+          google == o.google
     end
 
     # @see the `==` method
@@ -103,7 +112,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [google, github].hash
+      [apple, github, google].hash
     end
 
     # Builds the object from hash
