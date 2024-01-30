@@ -1,4 +1,4 @@
-# OpenapiClient::UserEventInfo
+# OpenapiClient::UserRecentEvent
 
 ## Properties
 
@@ -15,7 +15,7 @@
 ```ruby
 require 'openapi_client'
 
-instance = OpenapiClient::UserEventInfo.new(
+instance = OpenapiClient::UserRecentEvent.new(
   created_at: null,
   id: null,
   ip_addr: null,

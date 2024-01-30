@@ -108,7 +108,7 @@ module OpenapiClient
         :'login_count' => :'Integer',
         :'phone' => :'String',
         :'phone_verified' => :'Boolean',
-        :'recent_events' => :'Array<UserEventInfo>',
+        :'recent_events' => :'Array<UserRecentEvent>',
         :'social_connections' => :'UserSocialConnections',
         :'status' => :'UserStatus',
         :'updated_at' => :'Time',
