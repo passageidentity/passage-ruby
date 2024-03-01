@@ -131,6 +131,7 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::UpdateOtpAuthMethod](docs/UpdateOtpAuthMethod.md)
  - [OpenapiClient::UpdatePasskeysAuthMethod](docs/UpdatePasskeysAuthMethod.md)
  - [OpenapiClient::UpdateUserRequest](docs/UpdateUserRequest.md)
+ - [OpenapiClient::UserEventStatus](docs/UserEventStatus.md)
  - [OpenapiClient::UserInfo](docs/UserInfo.md)
  - [OpenapiClient::UserMetadataField](docs/UserMetadataField.md)
  - [OpenapiClient::UserMetadataFieldType](docs/UserMetadataFieldType.md)
