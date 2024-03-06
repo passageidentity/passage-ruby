@@ -14,53 +14,30 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class UserRecentEvent
-    attr_accessor :created_at
+  class ListPaginatedUsersResponse
+    attr_accessor :_links
 
-    attr_accessor :completed_at
+    # time anchor (Unix timestamp) --> all users returned created before this timestamp
+    attr_accessor :created_before
 
-    attr_accessor :id
+    attr_accessor :limit
 
-    attr_accessor :ip_addr
+    attr_accessor :page
 
-    attr_accessor :status
+    # total number of users for a particular query
+    attr_accessor :total_users
 
-    attr_accessor :type
-
-    attr_accessor :user_agent
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    attr_accessor :users
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'created_at' => :'created_at',
-        :'completed_at' => :'completed_at',
-        :'id' => :'id',
-        :'ip_addr' => :'ip_addr',
-        :'status' => :'status',
-        :'type' => :'type',
-        :'user_agent' => :'user_agent'
+        :'_links' => :'_links',
+        :'created_before' => :'created_before',
+        :'limit' => :'limit',
+        :'page' => :'page',
+        :'total_users' => :'total_users',
+        :'users' => :'users'
       }
     end
 
@@ -72,20 +49,18 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'created_at' => :'Time',
-        :'completed_at' => :'Time',
-        :'id' => :'String',
-        :'ip_addr' => :'String',
-        :'status' => :'UserEventStatus',
-        :'type' => :'String',
-        :'user_agent' => :'String'
+        :'_links' => :'PaginatedLinks',
+        :'created_before' => :'Integer',
+        :'limit' => :'Integer',
+        :'page' => :'Integer',
+        :'total_users' => :'Integer',
+        :'users' => :'Array<ListPaginatedUsersItem>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'completed_at',
       ])
     end
 
@@ -93,57 +68,53 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::UserRecentEvent` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::ListPaginatedUsersResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::UserRecentEvent`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::ListPaginatedUsersResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.key?(:'_links')
+        self._links = attributes[:'_links']
       else
-        self.created_at = nil
+        self._links = nil
       end
 
-      if attributes.key?(:'completed_at')
-        self.completed_at = attributes[:'completed_at']
+      if attributes.key?(:'created_before')
+        self.created_before = attributes[:'created_before']
       else
-        self.completed_at = nil
+        self.created_before = nil
       end
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
+      if attributes.key?(:'limit')
+        self.limit = attributes[:'limit']
       else
-        self.id = nil
+        self.limit = nil
       end
 
-      if attributes.key?(:'ip_addr')
-        self.ip_addr = attributes[:'ip_addr']
+      if attributes.key?(:'page')
+        self.page = attributes[:'page']
       else
-        self.ip_addr = nil
+        self.page = nil
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
+      if attributes.key?(:'total_users')
+        self.total_users = attributes[:'total_users']
       else
-        self.status = nil
+        self.total_users = nil
       end
 
-      if attributes.key?(:'type')
-        self.type = attributes[:'type']
+      if attributes.key?(:'users')
+        if (value = attributes[:'users']).is_a?(Array)
+          self.users = value
+        end
       else
-        self.type = nil
-      end
-
-      if attributes.key?(:'user_agent')
-        self.user_agent = attributes[:'user_agent']
-      else
-        self.user_agent = nil
+        self.users = nil
       end
     end
 
@@ -152,28 +123,28 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      if @_links.nil?
+        invalid_properties.push('invalid value for "_links", _links cannot be nil.')
       end
 
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      if @created_before.nil?
+        invalid_properties.push('invalid value for "created_before", created_before cannot be nil.')
       end
 
-      if @ip_addr.nil?
-        invalid_properties.push('invalid value for "ip_addr", ip_addr cannot be nil.')
+      if @limit.nil?
+        invalid_properties.push('invalid value for "limit", limit cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      if @page.nil?
+        invalid_properties.push('invalid value for "page", page cannot be nil.')
       end
 
-      if @type.nil?
-        invalid_properties.push('invalid value for "type", type cannot be nil.')
+      if @total_users.nil?
+        invalid_properties.push('invalid value for "total_users", total_users cannot be nil.')
       end
 
-      if @user_agent.nil?
-        invalid_properties.push('invalid value for "user_agent", user_agent cannot be nil.')
+      if @users.nil?
+        invalid_properties.push('invalid value for "users", users cannot be nil.')
       end
 
       invalid_properties
@@ -183,12 +154,12 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @created_at.nil?
-      return false if @id.nil?
-      return false if @ip_addr.nil?
-      return false if @status.nil?
-      return false if @type.nil?
-      return false if @user_agent.nil?
+      return false if @_links.nil?
+      return false if @created_before.nil?
+      return false if @limit.nil?
+      return false if @page.nil?
+      return false if @total_users.nil?
+      return false if @users.nil?
       true
     end
 
@@ -197,13 +168,12 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          created_at == o.created_at &&
-          completed_at == o.completed_at &&
-          id == o.id &&
-          ip_addr == o.ip_addr &&
-          status == o.status &&
-          type == o.type &&
-          user_agent == o.user_agent
+          _links == o._links &&
+          created_before == o.created_before &&
+          limit == o.limit &&
+          page == o.page &&
+          total_users == o.total_users &&
+          users == o.users
     end
 
     # @see the `==` method
@@ -215,7 +185,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created_at, completed_at, id, ip_addr, status, type, user_agent].hash
+      [_links, created_before, limit, page, total_users, users].hash
     end
 
     # Builds the object from hash

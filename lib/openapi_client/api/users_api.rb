@@ -369,6 +369,105 @@ module OpenapiClient
       return data, status_code, headers
     end
 
+    # List Users
+    # List users for an app.
+    # @param app_id [String] App ID
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :page page to fetch (min&#x3D;1)
+    # @option opts [Integer] :limit number of users to fetch per page (max&#x3D;500)
+    # @option opts [Integer] :created_before Unix timestamp to anchor pagination results (fetches events that were created before the timestamp)
+    # @option opts [String] :order_by Comma separated list of &lt;field&gt;:&lt;ASC/DESC&gt; (example: order_by&#x3D;id:DESC,created_at:ASC) **cannot order_by &#x60;identifier&#x60;
+    # @option opts [String] :identifier search users email OR phone (pagination prepended operators identifier&#x3D;&lt;val&gt;, identifier&#x3D;&lt;ne:val&gt;, identifier&#x3D;&lt;gt:val&gt;, identifier&#x3D;&lt;lt:val&gt;, identifier&#x3D;&lt;like:val&gt;, identifier&#x3D;&lt;not_like:val&gt;)
+    # @option opts [String] :id search users id (pagination prepended operators id&#x3D;&lt;val&gt;, id&#x3D;&lt;ne:val&gt;, id&#x3D;&lt;gt:val&gt;, id&#x3D;&lt;lt:val&gt;, id&#x3D;&lt;like:val&gt;, id&#x3D;&lt;not_like:val&gt;)
+    # @option opts [Integer] :login_count search users login_count (pagination prepended operators login_count&#x3D;&lt;val&gt;, login_count&#x3D;&lt;ne:val&gt;, login_count&#x3D;&lt;gt:val&gt;, login_count&#x3D;&lt;lt:val&gt;)
+    # @option opts [String] :status search users by status (pagination prepended operators status&#x3D;&lt;val&gt;, status&#x3D;&lt;ne:val&gt;, status&#x3D;&lt;gt:val&gt;, status&#x3D;&lt;lt:val&gt;, status&#x3D;&lt;like:val&gt;, status&#x3D;&lt;not_like:val&gt;) -- valid values: (active, inactive, pending)
+    # @option opts [Boolean] :email_verified search users email_verified (pagination prepended operators email_verified&#x3D;&lt;val&gt;, email_verified&#x3D;&lt;ne:val&gt;, email_verified&#x3D;&lt;gt:val&gt;, email_verified&#x3D;&lt;lt:val&gt;)
+    # @option opts [String] :created_at search users created_at (pagination prepended operators created_at&#x3D;&lt;val&gt;, created_at&#x3D;&lt;ne:val&gt;, created_at&#x3D;&lt;gt:val&gt;, created_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required
+    # @option opts [String] :updated_at search users updated_at (pagination prepended operators updated_at&#x3D;&lt;val&gt;, updated_at&#x3D;&lt;ne:val&gt;, updated_at&#x3D;&lt;gt:val&gt;, updated_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required
+    # @option opts [String] :last_login_at search users last_login_at (pagination prepended operators last_login_at&#x3D;&lt;val&gt;, lat_login_at&#x3D;&lt;ne:val&gt;, last_login_at&#x3D;&lt;gt:val&gt;, last_login_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required
+    # @return [ListPaginatedUsersResponse]
+    def list_paginated_users(app_id, opts = {})
+      data, _status_code, _headers = list_paginated_users_with_http_info(app_id, opts)
+      data
+    end
+
+    # List Users
+    # List users for an app.
+    # @param app_id [String] App ID
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :page page to fetch (min&#x3D;1)
+    # @option opts [Integer] :limit number of users to fetch per page (max&#x3D;500)
+    # @option opts [Integer] :created_before Unix timestamp to anchor pagination results (fetches events that were created before the timestamp)
+    # @option opts [String] :order_by Comma separated list of &lt;field&gt;:&lt;ASC/DESC&gt; (example: order_by&#x3D;id:DESC,created_at:ASC) **cannot order_by &#x60;identifier&#x60;
+    # @option opts [String] :identifier search users email OR phone (pagination prepended operators identifier&#x3D;&lt;val&gt;, identifier&#x3D;&lt;ne:val&gt;, identifier&#x3D;&lt;gt:val&gt;, identifier&#x3D;&lt;lt:val&gt;, identifier&#x3D;&lt;like:val&gt;, identifier&#x3D;&lt;not_like:val&gt;)
+    # @option opts [String] :id search users id (pagination prepended operators id&#x3D;&lt;val&gt;, id&#x3D;&lt;ne:val&gt;, id&#x3D;&lt;gt:val&gt;, id&#x3D;&lt;lt:val&gt;, id&#x3D;&lt;like:val&gt;, id&#x3D;&lt;not_like:val&gt;)
+    # @option opts [Integer] :login_count search users login_count (pagination prepended operators login_count&#x3D;&lt;val&gt;, login_count&#x3D;&lt;ne:val&gt;, login_count&#x3D;&lt;gt:val&gt;, login_count&#x3D;&lt;lt:val&gt;)
+    # @option opts [String] :status search users by status (pagination prepended operators status&#x3D;&lt;val&gt;, status&#x3D;&lt;ne:val&gt;, status&#x3D;&lt;gt:val&gt;, status&#x3D;&lt;lt:val&gt;, status&#x3D;&lt;like:val&gt;, status&#x3D;&lt;not_like:val&gt;) -- valid values: (active, inactive, pending)
+    # @option opts [Boolean] :email_verified search users email_verified (pagination prepended operators email_verified&#x3D;&lt;val&gt;, email_verified&#x3D;&lt;ne:val&gt;, email_verified&#x3D;&lt;gt:val&gt;, email_verified&#x3D;&lt;lt:val&gt;)
+    # @option opts [String] :created_at search users created_at (pagination prepended operators created_at&#x3D;&lt;val&gt;, created_at&#x3D;&lt;ne:val&gt;, created_at&#x3D;&lt;gt:val&gt;, created_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required
+    # @option opts [String] :updated_at search users updated_at (pagination prepended operators updated_at&#x3D;&lt;val&gt;, updated_at&#x3D;&lt;ne:val&gt;, updated_at&#x3D;&lt;gt:val&gt;, updated_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required
+    # @option opts [String] :last_login_at search users last_login_at (pagination prepended operators last_login_at&#x3D;&lt;val&gt;, lat_login_at&#x3D;&lt;ne:val&gt;, last_login_at&#x3D;&lt;gt:val&gt;, last_login_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required
+    # @return [Array<(ListPaginatedUsersResponse, Integer, Hash)>] ListPaginatedUsersResponse data, response status code and response headers
+    def list_paginated_users_with_http_info(app_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: UsersApi.list_paginated_users ...'
+      end
+      # verify the required parameter 'app_id' is set
+      if @api_client.config.client_side_validation && app_id.nil?
+        fail ArgumentError, "Missing the required parameter 'app_id' when calling UsersApi.list_paginated_users"
+      end
+      # resource path
+      local_var_path = '/apps/{app_id}/users'.sub('{' + 'app_id' + '}', CGI.escape(app_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'created_before'] = opts[:'created_before'] if !opts[:'created_before'].nil?
+      query_params[:'order_by'] = opts[:'order_by'] if !opts[:'order_by'].nil?
+      query_params[:'identifier'] = opts[:'identifier'] if !opts[:'identifier'].nil?
+      query_params[:'id'] = opts[:'id'] if !opts[:'id'].nil?
+      query_params[:'login_count'] = opts[:'login_count'] if !opts[:'login_count'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'email_verified'] = opts[:'email_verified'] if !opts[:'email_verified'].nil?
+      query_params[:'created_at'] = opts[:'created_at'] if !opts[:'created_at'].nil?
+      query_params[:'updated_at'] = opts[:'updated_at'] if !opts[:'updated_at'].nil?
+      query_params[:'last_login_at'] = opts[:'last_login_at'] if !opts[:'last_login_at'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListPaginatedUsersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['bearerAuth']
+
+      new_options = opts.merge(
+        :operation => :"UsersApi.list_paginated_users",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: UsersApi#list_paginated_users\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Update User
     # Update a user's information.
     # @param app_id [String] App ID

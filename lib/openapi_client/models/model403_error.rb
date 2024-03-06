@@ -14,20 +14,10 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class UserRecentEvent
-    attr_accessor :created_at
+  class Model403Error
+    attr_accessor :code
 
-    attr_accessor :completed_at
-
-    attr_accessor :id
-
-    attr_accessor :ip_addr
-
-    attr_accessor :status
-
-    attr_accessor :type
-
-    attr_accessor :user_agent
+    attr_accessor :error
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -54,13 +44,8 @@ module OpenapiClient
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'created_at' => :'created_at',
-        :'completed_at' => :'completed_at',
-        :'id' => :'id',
-        :'ip_addr' => :'ip_addr',
-        :'status' => :'status',
-        :'type' => :'type',
-        :'user_agent' => :'user_agent'
+        :'code' => :'code',
+        :'error' => :'error'
       }
     end
 
@@ -72,20 +57,14 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'created_at' => :'Time',
-        :'completed_at' => :'Time',
-        :'id' => :'String',
-        :'ip_addr' => :'String',
-        :'status' => :'UserEventStatus',
-        :'type' => :'String',
-        :'user_agent' => :'String'
+        :'code' => :'String',
+        :'error' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'completed_at',
       ])
     end
 
@@ -93,57 +72,27 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::UserRecentEvent` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::Model403Error` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::UserRecentEvent`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::Model403Error`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
       else
-        self.created_at = nil
+        self.code = nil
       end
 
-      if attributes.key?(:'completed_at')
-        self.completed_at = attributes[:'completed_at']
+      if attributes.key?(:'error')
+        self.error = attributes[:'error']
       else
-        self.completed_at = nil
-      end
-
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
-      else
-        self.id = nil
-      end
-
-      if attributes.key?(:'ip_addr')
-        self.ip_addr = attributes[:'ip_addr']
-      else
-        self.ip_addr = nil
-      end
-
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      else
-        self.status = nil
-      end
-
-      if attributes.key?(:'type')
-        self.type = attributes[:'type']
-      else
-        self.type = nil
-      end
-
-      if attributes.key?(:'user_agent')
-        self.user_agent = attributes[:'user_agent']
-      else
-        self.user_agent = nil
+        self.error = nil
       end
     end
 
@@ -152,28 +101,12 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      if @code.nil?
+        invalid_properties.push('invalid value for "code", code cannot be nil.')
       end
 
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @ip_addr.nil?
-        invalid_properties.push('invalid value for "ip_addr", ip_addr cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @type.nil?
-        invalid_properties.push('invalid value for "type", type cannot be nil.')
-      end
-
-      if @user_agent.nil?
-        invalid_properties.push('invalid value for "user_agent", user_agent cannot be nil.')
+      if @error.nil?
+        invalid_properties.push('invalid value for "error", error cannot be nil.')
       end
 
       invalid_properties
@@ -183,13 +116,21 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @created_at.nil?
-      return false if @id.nil?
-      return false if @ip_addr.nil?
-      return false if @status.nil?
-      return false if @type.nil?
-      return false if @user_agent.nil?
+      return false if @code.nil?
+      code_validator = EnumAttributeValidator.new('String', ["cannot_create_organization_billing_portal_session", "cannot_create_transaction", "cannot_delete_admin", "cannot_delete_organization_member", "cannot_self_update_organization_member", "operation_not_allowed"])
+      return false unless code_validator.valid?(@code)
+      return false if @error.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] code Object to be assigned
+    def code=(code)
+      validator = EnumAttributeValidator.new('String', ["cannot_create_organization_billing_portal_session", "cannot_create_transaction", "cannot_delete_admin", "cannot_delete_organization_member", "cannot_self_update_organization_member", "operation_not_allowed"])
+      unless validator.valid?(code)
+        fail ArgumentError, "invalid value for \"code\", must be one of #{validator.allowable_values}."
+      end
+      @code = code
     end
 
     # Checks equality by comparing each attribute.
@@ -197,13 +138,8 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          created_at == o.created_at &&
-          completed_at == o.completed_at &&
-          id == o.id &&
-          ip_addr == o.ip_addr &&
-          status == o.status &&
-          type == o.type &&
-          user_agent == o.user_agent
+          code == o.code &&
+          error == o.error
     end
 
     # @see the `==` method
@@ -215,7 +151,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created_at, completed_at, id, ip_addr, status, type, user_agent].hash
+      [code, error].hash
     end
 
     # Builds the object from hash
