@@ -14,53 +14,25 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class UserRecentEvent
-    attr_accessor :created_at
+  class PaginatedLinks
+    attr_accessor :first
 
-    attr_accessor :completed_at
+    attr_accessor :last
 
-    attr_accessor :id
+    attr_accessor :_next
 
-    attr_accessor :ip_addr
+    attr_accessor :previous
 
-    attr_accessor :status
-
-    attr_accessor :type
-
-    attr_accessor :user_agent
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    attr_accessor :_self
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'created_at' => :'created_at',
-        :'completed_at' => :'completed_at',
-        :'id' => :'id',
-        :'ip_addr' => :'ip_addr',
-        :'status' => :'status',
-        :'type' => :'type',
-        :'user_agent' => :'user_agent'
+        :'first' => :'first',
+        :'last' => :'last',
+        :'_next' => :'next',
+        :'previous' => :'previous',
+        :'_self' => :'self'
       }
     end
 
@@ -72,20 +44,17 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'created_at' => :'Time',
-        :'completed_at' => :'Time',
-        :'id' => :'String',
-        :'ip_addr' => :'String',
-        :'status' => :'UserEventStatus',
-        :'type' => :'String',
-        :'user_agent' => :'String'
+        :'first' => :'Link',
+        :'last' => :'Link',
+        :'_next' => :'Link',
+        :'previous' => :'Link',
+        :'_self' => :'Link'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'completed_at',
       ])
     end
 
@@ -93,57 +62,45 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::UserRecentEvent` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::PaginatedLinks` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::UserRecentEvent`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::PaginatedLinks`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.key?(:'first')
+        self.first = attributes[:'first']
       else
-        self.created_at = nil
+        self.first = nil
       end
 
-      if attributes.key?(:'completed_at')
-        self.completed_at = attributes[:'completed_at']
+      if attributes.key?(:'last')
+        self.last = attributes[:'last']
       else
-        self.completed_at = nil
+        self.last = nil
       end
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
+      if attributes.key?(:'_next')
+        self._next = attributes[:'_next']
       else
-        self.id = nil
+        self._next = nil
       end
 
-      if attributes.key?(:'ip_addr')
-        self.ip_addr = attributes[:'ip_addr']
+      if attributes.key?(:'previous')
+        self.previous = attributes[:'previous']
       else
-        self.ip_addr = nil
+        self.previous = nil
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
+      if attributes.key?(:'_self')
+        self._self = attributes[:'_self']
       else
-        self.status = nil
-      end
-
-      if attributes.key?(:'type')
-        self.type = attributes[:'type']
-      else
-        self.type = nil
-      end
-
-      if attributes.key?(:'user_agent')
-        self.user_agent = attributes[:'user_agent']
-      else
-        self.user_agent = nil
+        self._self = nil
       end
     end
 
@@ -152,28 +109,24 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      if @first.nil?
+        invalid_properties.push('invalid value for "first", first cannot be nil.')
       end
 
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      if @last.nil?
+        invalid_properties.push('invalid value for "last", last cannot be nil.')
       end
 
-      if @ip_addr.nil?
-        invalid_properties.push('invalid value for "ip_addr", ip_addr cannot be nil.')
+      if @_next.nil?
+        invalid_properties.push('invalid value for "_next", _next cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      if @previous.nil?
+        invalid_properties.push('invalid value for "previous", previous cannot be nil.')
       end
 
-      if @type.nil?
-        invalid_properties.push('invalid value for "type", type cannot be nil.')
-      end
-
-      if @user_agent.nil?
-        invalid_properties.push('invalid value for "user_agent", user_agent cannot be nil.')
+      if @_self.nil?
+        invalid_properties.push('invalid value for "_self", _self cannot be nil.')
       end
 
       invalid_properties
@@ -183,12 +136,11 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @created_at.nil?
-      return false if @id.nil?
-      return false if @ip_addr.nil?
-      return false if @status.nil?
-      return false if @type.nil?
-      return false if @user_agent.nil?
+      return false if @first.nil?
+      return false if @last.nil?
+      return false if @_next.nil?
+      return false if @previous.nil?
+      return false if @_self.nil?
       true
     end
 
@@ -197,13 +149,11 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          created_at == o.created_at &&
-          completed_at == o.completed_at &&
-          id == o.id &&
-          ip_addr == o.ip_addr &&
-          status == o.status &&
-          type == o.type &&
-          user_agent == o.user_agent
+          first == o.first &&
+          last == o.last &&
+          _next == o._next &&
+          previous == o.previous &&
+          _self == o._self
     end
 
     # @see the `==` method
@@ -215,7 +165,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created_at, completed_at, id, ip_addr, status, type, user_agent].hash
+      [first, last, _next, previous, _self].hash
     end
 
     # Builds the object from hash
