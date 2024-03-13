@@ -659,7 +659,7 @@ module OpenapiClient
       return false if @rsa_public_key.nil?
       return false if @session_timeout_length.nil?
       return false if @type.nil?
-      type_validator = EnumAttributeValidator.new('String', ["complete", "flex"])
+      type_validator = EnumAttributeValidator.new('String', ["complete", "flex", "flex_v2"])
       return false unless type_validator.valid?(@type)
       return false if @user_metadata_schema.nil?
       return false if @technologies.nil?
@@ -671,7 +671,7 @@ module OpenapiClient
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] type Object to be assigned
     def type=(type)
-      validator = EnumAttributeValidator.new('String', ["complete", "flex"])
+      validator = EnumAttributeValidator.new('String', ["complete", "flex", "flex_v2"])
       unless validator.valid?(type)
         fail ArgumentError, "invalid value for \"type\", must be one of #{validator.allowable_values}."
       end
