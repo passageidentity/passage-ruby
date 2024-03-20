@@ -9,6 +9,7 @@ All URIs are relative to *https://api.passage.id/v1*
 | [**deactivate**](UsersApi.md#deactivate) | **PATCH** /apps/{app_id}/users/{user_id}/deactivate | Deactivate User |
 | [**delete**](UsersApi.md#delete) | **DELETE** /apps/{app_id}/users/{user_id} | Delete User |
 | [**get**](UsersApi.md#get) | **GET** /apps/{app_id}/users/{user_id} | Get User |
+| [**getByIdentifier**](UsersApi.md#get) | **GET** /apps/{app_id}/users | Get User By Identifier |
 | [**update**](UsersApi.md#update) | **PATCH** /apps/{app_id}/users/{user_id} | Update User |
 | [**delete_device**](UsersApi.md#delete_device) | **DELETE** /apps/{app_id}/users/{user_id}/devices/{device_id} | Delete a device for a user |
 | [**list_devices**](UsersApi.md#list_devices) | **GET** /apps/{app_id}/users/{user_id}/devices | List User Devices |
@@ -219,6 +220,50 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **user_id** | **String** | User ID |  |
+
+### Return type
+
+[**UserResponse**](UserResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+---
+
+## getByIdentifier
+
+> <UserResponse> get(identifier)
+
+Get User By Identifier
+
+Get information about a user.
+
+### Examples
+
+```ruby
+api_instance = Passage::UsersApi.new
+user_email = 'user_email_example' # String | User identifier
+
+begin
+  # Get User By Identifier
+  result = api_instance.user.get_by_identifier(user_email)
+  p result
+rescue OpenapiClient::ApiError => e
+  puts "Error when calling UsersApi->get_by_identifier: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **identifier** | **String** | User email or phone number |  |
 
 ### Return type
 
