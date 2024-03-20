@@ -117,7 +117,7 @@ module OpenapiClient
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @code.nil?
-      code_validator = EnumAttributeValidator.new('String', ["invalid_access_token"])
+      code_validator = EnumAttributeValidator.new('String', ["invalid_access_token", "invalid_nonce"])
       return false unless code_validator.valid?(@code)
       return false if @error.nil?
       true
@@ -126,7 +126,7 @@ module OpenapiClient
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] code Object to be assigned
     def code=(code)
-      validator = EnumAttributeValidator.new('String', ["invalid_access_token"])
+      validator = EnumAttributeValidator.new('String', ["invalid_access_token", "invalid_nonce"])
       unless validator.valid?(code)
         fail ArgumentError, "invalid value for \"code\", must be one of #{validator.allowable_values}."
       end
