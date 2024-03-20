@@ -17,20 +17,48 @@ module OpenapiClient
   class UserRecentEvent
     attr_accessor :created_at
 
+    attr_accessor :completed_at
+
     attr_accessor :id
 
     attr_accessor :ip_addr
+
+    attr_accessor :status
 
     attr_accessor :type
 
     attr_accessor :user_agent
 
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'created_at' => :'created_at',
+        :'completed_at' => :'completed_at',
         :'id' => :'id',
         :'ip_addr' => :'ip_addr',
+        :'status' => :'status',
         :'type' => :'type',
         :'user_agent' => :'user_agent'
       }
@@ -45,8 +73,10 @@ module OpenapiClient
     def self.openapi_types
       {
         :'created_at' => :'Time',
+        :'completed_at' => :'Time',
         :'id' => :'String',
         :'ip_addr' => :'String',
+        :'status' => :'UserEventStatus',
         :'type' => :'String',
         :'user_agent' => :'String'
       }
@@ -55,6 +85,7 @@ module OpenapiClient
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'completed_at',
       ])
     end
 
@@ -79,6 +110,12 @@ module OpenapiClient
         self.created_at = nil
       end
 
+      if attributes.key?(:'completed_at')
+        self.completed_at = attributes[:'completed_at']
+      else
+        self.completed_at = nil
+      end
+
       if attributes.key?(:'id')
         self.id = attributes[:'id']
       else
@@ -89,6 +126,12 @@ module OpenapiClient
         self.ip_addr = attributes[:'ip_addr']
       else
         self.ip_addr = nil
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      else
+        self.status = nil
       end
 
       if attributes.key?(:'type')
@@ -121,6 +164,10 @@ module OpenapiClient
         invalid_properties.push('invalid value for "ip_addr", ip_addr cannot be nil.')
       end
 
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
       if @type.nil?
         invalid_properties.push('invalid value for "type", type cannot be nil.')
       end
@@ -139,6 +186,7 @@ module OpenapiClient
       return false if @created_at.nil?
       return false if @id.nil?
       return false if @ip_addr.nil?
+      return false if @status.nil?
       return false if @type.nil?
       return false if @user_agent.nil?
       true
@@ -150,8 +198,10 @@ module OpenapiClient
       return true if self.equal?(o)
       self.class == o.class &&
           created_at == o.created_at &&
+          completed_at == o.completed_at &&
           id == o.id &&
           ip_addr == o.ip_addr &&
+          status == o.status &&
           type == o.type &&
           user_agent == o.user_agent
     end
@@ -165,7 +215,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created_at, id, ip_addr, type, user_agent].hash
+      [created_at, completed_at, id, ip_addr, status, type, user_agent].hash
     end
 
     # Builds the object from hash

@@ -96,6 +96,7 @@ Class | Method | HTTP request | Description
 *OpenapiClient::UsersApi* | [**deactivate_user**](docs/UsersApi.md#deactivate_user) | **PATCH** /apps/{app_id}/users/{user_id}/deactivate | Deactivate User
 *OpenapiClient::UsersApi* | [**delete_user**](docs/UsersApi.md#delete_user) | **DELETE** /apps/{app_id}/users/{user_id} | Delete User
 *OpenapiClient::UsersApi* | [**get_user**](docs/UsersApi.md#get_user) | **GET** /apps/{app_id}/users/{user_id} | Get User
+*OpenapiClient::UsersApi* | [**list_paginated_users**](docs/UsersApi.md#list_paginated_users) | **GET** /apps/{app_id}/users | List Users
 *OpenapiClient::UsersApi* | [**update_user**](docs/UsersApi.md#update_user) | **PATCH** /apps/{app_id}/users/{user_id} | Update User
 
 
@@ -113,7 +114,10 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::GoogleUserSocialConnection](docs/GoogleUserSocialConnection.md)
  - [OpenapiClient::LayoutConfig](docs/LayoutConfig.md)
  - [OpenapiClient::Layouts](docs/Layouts.md)
+ - [OpenapiClient::Link](docs/Link.md)
  - [OpenapiClient::ListDevicesResponse](docs/ListDevicesResponse.md)
+ - [OpenapiClient::ListPaginatedUsersItem](docs/ListPaginatedUsersItem.md)
+ - [OpenapiClient::ListPaginatedUsersResponse](docs/ListPaginatedUsersResponse.md)
  - [OpenapiClient::MagicLink](docs/MagicLink.md)
  - [OpenapiClient::MagicLinkAuthMethod](docs/MagicLinkAuthMethod.md)
  - [OpenapiClient::MagicLinkChannel](docs/MagicLinkChannel.md)
@@ -121,16 +125,17 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::MagicLinkType](docs/MagicLinkType.md)
  - [OpenapiClient::Model400Error](docs/Model400Error.md)
  - [OpenapiClient::Model401Error](docs/Model401Error.md)
+ - [OpenapiClient::Model403Error](docs/Model403Error.md)
  - [OpenapiClient::Model404Error](docs/Model404Error.md)
  - [OpenapiClient::Model500Error](docs/Model500Error.md)
+ - [OpenapiClient::Nonce](docs/Nonce.md)
  - [OpenapiClient::OtpAuthMethod](docs/OtpAuthMethod.md)
+ - [OpenapiClient::PaginatedLinks](docs/PaginatedLinks.md)
  - [OpenapiClient::PasskeysAuthMethod](docs/PasskeysAuthMethod.md)
  - [OpenapiClient::Technologies](docs/Technologies.md)
  - [OpenapiClient::TtlDisplayUnit](docs/TtlDisplayUnit.md)
- - [OpenapiClient::UpdateMagicLinkAuthMethod](docs/UpdateMagicLinkAuthMethod.md)
- - [OpenapiClient::UpdateOtpAuthMethod](docs/UpdateOtpAuthMethod.md)
- - [OpenapiClient::UpdatePasskeysAuthMethod](docs/UpdatePasskeysAuthMethod.md)
  - [OpenapiClient::UpdateUserRequest](docs/UpdateUserRequest.md)
+ - [OpenapiClient::UserEventStatus](docs/UserEventStatus.md)
  - [OpenapiClient::UserInfo](docs/UserInfo.md)
  - [OpenapiClient::UserMetadataField](docs/UserMetadataField.md)
  - [OpenapiClient::UserMetadataFieldType](docs/UserMetadataFieldType.md)
