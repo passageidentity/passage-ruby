@@ -57,7 +57,7 @@ module Passage
                   status_code: 404,
                   body: "user_not_found"
                 )
-
+        end
         return get(users.first().id)
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
