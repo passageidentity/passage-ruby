@@ -58,7 +58,7 @@ module Passage
                   body: "user_not_found"
                 )
         end
-        return get(users.first().id)
+        return get(user_id: users.first().id)
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
