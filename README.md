@@ -87,6 +87,27 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+## Retrieve User Info By Identifier
+
+To retrieve information about a user, you can also use the `get_by_identifier` method. You will need to use a Passage API key, which can be created in the Passage Console under your Application Settings. This API key grants your web server access to the Passage management APIs to get and update information about users. This API key must be protected and stored in an appropriate secure storage location. It should never be hard-coded in the repository.
+
+```ruby
+require 'passageidentity'
+
+class ApplicationController < ActionController::Base
+  PassageClient =
+    Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
+  def authorize!
+    begin
+      user_id = PassageClient.auth.authenticate_request(request)
+      user = PassageClient.user.get_by_identifier(identifier: @identifier)
+      # user is authorized
+    rescue Exception => e
+      # handle exception (user is not authorized)
+    end
+  end
+end
+```
 
 ## Activate/Deactivate User
 
