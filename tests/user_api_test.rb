@@ -41,7 +41,7 @@ class TestUserAPI < Test::Unit::TestCase
     user = PassageClient.user.get(user_id: $global_test_user.id)
     assert_equal $global_test_user.id, user.id
 
-    user_by_identifier = PassageClient.user.get_by_identifier(identifier: $global_test_user.email)
+    user_by_identifier = PassageClient.user.get_by_identifier(user_identifier: $global_test_user.email)
     assert_equal $global_test_user.id, user_by_identifier.id
 
     assert_equal user, user_by_identifier
@@ -51,9 +51,7 @@ class TestUserAPI < Test::Unit::TestCase
     user = PassageClient.user.get(user_id: $global_test_user.id)
     assert_equal $global_test_user.id, user.id
 
-    assert_raise (Faraday::Error) {PassageClient.user.get_by_identifier(identifier: "error@passage.id")}
-      
-
+    assert_raise (Passage::PassageError) {PassageClient.user.get_by_identifier(user_identifier: "error@passage.id")}
   end
 
   def test_deactivate_user()

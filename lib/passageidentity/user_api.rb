@@ -42,18 +42,18 @@ module Passage
       end
     end
 
-    def get_by_identifier(identifier:)
-      identifier_exists?(identifier)
+    def get_by_identifier(user_identifier:)
+      identifier_exists?(user_identifier)
 
       begin
         @req_opts[:limit] = 1
-        @req_opts[:identifier] = identifier
+        @req_opts[:identifier] = user_identifier
         response = @user_client.list_paginated_users(@app_id, @req_opts)
         users = response.users
 
         if users.length() == 0
           raise PassageError.new(
-                  message: "Passage User with identifer \"#{identifier}\" does not exist",
+                  message: "Passage User with identifer \"#{user_identifier}\" does not exist",
                   status_code: 404,
                   body: "user_not_found"
                 )
@@ -62,7 +62,7 @@ module Passage
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
           raise PassageError.new(
-                  message: "Passage User with identifer \"#{identifier}\" does not exist",
+                  message: "Passage User with identifer \"#{user_identifier}\" does not exist",
                   status_code: e.response[:status],
                   body: e.response[:body]
                 )
