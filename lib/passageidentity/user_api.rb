@@ -244,6 +244,12 @@ module Passage
       end
     end
 
+    def identifier_exists?(identifier)
+      if identifier.to_s.empty?
+        raise PassageError.new(message: "must supply a valid identifier")
+      end
+    end
+
     def device_exists?(device_id)
       if device_id.to_s.empty?
         raise PassageError.new(message: "must supply a valid device_id")

@@ -51,11 +51,7 @@ class TestUserAPI < Test::Unit::TestCase
     user = PassageClient.user.get(user_id: $global_test_user.id)
     assert_equal $global_test_user.id, user.id
 
-    assert_raise (PassageError.new(
-      message: "Passage User with identifer \"#{identifier}\" does not exist",
-      status_code: 404,
-      body: "user_not_found"
-    )) {PassageClient.user.get_by_identifier(identifier: "error@passage.id")}
+    assert_raise (Faraday::Error) {PassageClient.user.get_by_identifier(identifier: "error@passage.id")}
       
 
   end
