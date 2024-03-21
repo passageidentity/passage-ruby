@@ -37,6 +37,25 @@ class TestUserAPI < Test::Unit::TestCase
     assert_equal $global_test_user.id, user.id
   end
 
+  def test_get_user_by_identifier()
+    user = PassageClient.user.get(user_id: $global_test_user.id)
+    assert_equal $global_test_user.id, user.id
+
+    user_by_identifier = PassageClient.user.get_by_identifier(identifier: $global_test_user.email)
+    assert_equal $global_test_user.id, user_by_identifier.id
+
+    assert_equal user, user_by_identifier
+  end
+
+  def test_invalid_get_user_by_identifier()
+    user = PassageClient.user.get(user_id: $global_test_user.id)
+    assert_equal $global_test_user.id, user.id
+
+    assert_raises PassageError do
+    PassageClient.user.get_by_identifier(identifier: "error@passage.id")
+
+  end
+
   def test_deactivate_user()
     user = PassageClient.user.deactivate(user_id: $global_test_user.id)
     assert_equal $global_test_user.id, user.id

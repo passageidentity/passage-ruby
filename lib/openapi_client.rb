@@ -63,11 +63,11 @@ require 'openapi_client/models/web_authn_icons'
 require 'openapi_client/models/web_authn_type'
 
 # APIs
-require 'openapi_client/api/apps_api'
-require 'openapi_client/api/magic_links_api'
-require 'openapi_client/api/tokens_api'
-require 'openapi_client/api/user_devices_api'
-require 'openapi_client/api/users_api'
+require_relative 'openapi_client/api/apps_api'
+require_relative 'openapi_client/api/magic_links_api'
+require_relative 'openapi_client/api/tokens_api'
+require_relative 'openapi_client/api/user_devices_api'
+require_relative 'openapi_client/api/users_api'
 
 module OpenapiClient
   class << self
