@@ -47,7 +47,7 @@ module Passage
 
       begin
         @req_opts[:limit] = 1
-        @req_opts[:identifier] = user_identifier
+        @req_opts[:identifier] = user_identifier.downcase
         response = @user_client.list_paginated_users(@app_id, @req_opts)
         users = response.users
 
