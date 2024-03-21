@@ -52,7 +52,8 @@ class TestUserAPI < Test::Unit::TestCase
     assert_equal $global_test_user.id, user.id
 
     assert_raises PassageError do
-    PassageClient.user.get_by_identifier(identifier: "error@passage.id")
+      PassageClient.user.get_by_identifier(identifier: "error@passage.id")
+    end
 
   end
 
