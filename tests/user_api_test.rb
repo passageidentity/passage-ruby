@@ -47,6 +47,30 @@ class TestUserAPI < Test::Unit::TestCase
     assert_equal user, user_by_identifier
   end
 
+  def test_get_user_by_identifier_upper_case()
+    user = PassageClient.user.get(user_id: $global_test_user.id)
+    assert_equal $global_test_user.id, user.id
+
+    user_by_identifier = PassageClient.user.get_by_identifier(user_identifier: $global_test_user.email.upcase)
+    assert_equal $global_test_user.id, user_by_identifier.id
+
+    assert_equal user, user_by_identifier
+  end
+
+  def test_get_user_by_identifier_phone()
+    $phone = "+15005550007"
+    create_user = PassageClient.user.create(
+      phone: $phone,
+    )
+    user = PassageClient.user.get(user_id: create_user.id)
+    assert_equal create_user.id, user.id
+
+    user_by_identifier = PassageClient.user.get_by_identifier(user_identifier: $phone)
+    assert_equal create_user.id, user_by_identifier.id
+
+    assert_equal user, user_by_identifier
+  end
+
   def test_invalid_get_user_by_identifier()
     user = PassageClient.user.get(user_id: $global_test_user.id)
     assert_equal $global_test_user.id, user.id
