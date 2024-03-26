@@ -14,13 +14,10 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class MagicLinkAuthMethod
-    attr_accessor :enabled
+  class Model403Error
+    attr_accessor :code
 
-    # Maximum time (IN SECONDS) for the auth to expire.
-    attr_accessor :ttl
-
-    attr_accessor :ttl_display_unit
+    attr_accessor :error
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -47,9 +44,8 @@ module OpenapiClient
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'enabled' => :'enabled',
-        :'ttl' => :'ttl',
-        :'ttl_display_unit' => :'ttl_display_unit'
+        :'code' => :'code',
+        :'error' => :'error'
       }
     end
 
@@ -61,9 +57,8 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'enabled' => :'Boolean',
-        :'ttl' => :'Integer',
-        :'ttl_display_unit' => :'TtlDisplayUnit'
+        :'code' => :'String',
+        :'error' => :'String'
       }
     end
 
@@ -77,33 +72,27 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::MagicLinkAuthMethod` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::Model403Error` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::MagicLinkAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::Model403Error`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'enabled')
-        self.enabled = attributes[:'enabled']
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
       else
-        self.enabled = nil
+        self.code = nil
       end
 
-      if attributes.key?(:'ttl')
-        self.ttl = attributes[:'ttl']
+      if attributes.key?(:'error')
+        self.error = attributes[:'error']
       else
-        self.ttl = 300
-      end
-
-      if attributes.key?(:'ttl_display_unit')
-        self.ttl_display_unit = attributes[:'ttl_display_unit']
-      else
-        self.ttl_display_unit = nil
+        self.error = nil
       end
     end
 
@@ -112,20 +101,12 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @enabled.nil?
-        invalid_properties.push('invalid value for "enabled", enabled cannot be nil.')
+      if @code.nil?
+        invalid_properties.push('invalid value for "code", code cannot be nil.')
       end
 
-      if @ttl.nil?
-        invalid_properties.push('invalid value for "ttl", ttl cannot be nil.')
-      end
-
-      if @ttl < 60
-        invalid_properties.push('invalid value for "ttl", must be greater than or equal to 60.')
-      end
-
-      if @ttl_display_unit.nil?
-        invalid_properties.push('invalid value for "ttl_display_unit", ttl_display_unit cannot be nil.')
+      if @error.nil?
+        invalid_properties.push('invalid value for "error", error cannot be nil.')
       end
 
       invalid_properties
@@ -135,25 +116,21 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @enabled.nil?
-      return false if @ttl.nil?
-      return false if @ttl < 60
-      return false if @ttl_display_unit.nil?
+      return false if @code.nil?
+      code_validator = EnumAttributeValidator.new('String', ["cannot_create_organization_billing_portal_session", "cannot_create_transaction", "cannot_delete_admin", "cannot_delete_organization_member", "cannot_self_update_organization_member", "operation_not_allowed"])
+      return false unless code_validator.valid?(@code)
+      return false if @error.nil?
       true
     end
 
-    # Custom attribute writer method with validation
-    # @param [Object] ttl Value to be assigned
-    def ttl=(ttl)
-      if ttl.nil?
-        fail ArgumentError, 'ttl cannot be nil'
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] code Object to be assigned
+    def code=(code)
+      validator = EnumAttributeValidator.new('String', ["cannot_create_organization_billing_portal_session", "cannot_create_transaction", "cannot_delete_admin", "cannot_delete_organization_member", "cannot_self_update_organization_member", "operation_not_allowed"])
+      unless validator.valid?(code)
+        fail ArgumentError, "invalid value for \"code\", must be one of #{validator.allowable_values}."
       end
-
-      if ttl < 60
-        fail ArgumentError, 'invalid value for "ttl", must be greater than or equal to 60.'
-      end
-
-      @ttl = ttl
+      @code = code
     end
 
     # Checks equality by comparing each attribute.
@@ -161,9 +138,8 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          enabled == o.enabled &&
-          ttl == o.ttl &&
-          ttl_display_unit == o.ttl_display_unit
+          code == o.code &&
+          error == o.error
     end
 
     # @see the `==` method
@@ -175,7 +151,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [enabled, ttl, ttl_display_unit].hash
+      [code, error].hash
     end
 
     # Builds the object from hash

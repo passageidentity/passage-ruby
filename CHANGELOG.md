@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2024-03-21
+
+### Added
+
+- `GetUserByIdentifier` method has been added
+- `ListPaginatedUsersItem` model has been added
+
 ## [0.5.0] - 2024-01-30
 
 ### Added

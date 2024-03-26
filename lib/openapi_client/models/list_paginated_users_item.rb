@@ -14,13 +14,28 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class MagicLinkAuthMethod
-    attr_accessor :enabled
+  class ListPaginatedUsersItem
+    attr_accessor :created_at
 
-    # Maximum time (IN SECONDS) for the auth to expire.
-    attr_accessor :ttl
+    attr_accessor :email
 
-    attr_accessor :ttl_display_unit
+    attr_accessor :email_verified
+
+    attr_accessor :id
+
+    attr_accessor :last_login_at
+
+    attr_accessor :login_count
+
+    attr_accessor :phone
+
+    attr_accessor :phone_verified
+
+    attr_accessor :status
+
+    attr_accessor :updated_at
+
+    attr_accessor :user_metadata
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -47,9 +62,17 @@ module OpenapiClient
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'enabled' => :'enabled',
-        :'ttl' => :'ttl',
-        :'ttl_display_unit' => :'ttl_display_unit'
+        :'created_at' => :'created_at',
+        :'email' => :'email',
+        :'email_verified' => :'email_verified',
+        :'id' => :'id',
+        :'last_login_at' => :'last_login_at',
+        :'login_count' => :'login_count',
+        :'phone' => :'phone',
+        :'phone_verified' => :'phone_verified',
+        :'status' => :'status',
+        :'updated_at' => :'updated_at',
+        :'user_metadata' => :'user_metadata'
       }
     end
 
@@ -61,15 +84,24 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'enabled' => :'Boolean',
-        :'ttl' => :'Integer',
-        :'ttl_display_unit' => :'TtlDisplayUnit'
+        :'created_at' => :'Time',
+        :'email' => :'String',
+        :'email_verified' => :'Boolean',
+        :'id' => :'String',
+        :'last_login_at' => :'Time',
+        :'login_count' => :'Integer',
+        :'phone' => :'String',
+        :'phone_verified' => :'Boolean',
+        :'status' => :'UserStatus',
+        :'updated_at' => :'Time',
+        :'user_metadata' => :'Object'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'user_metadata'
       ])
     end
 
@@ -77,33 +109,81 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::MagicLinkAuthMethod` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::ListPaginatedUsersItem` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::MagicLinkAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::ListPaginatedUsersItem`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'enabled')
-        self.enabled = attributes[:'enabled']
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       else
-        self.enabled = nil
+        self.created_at = nil
       end
 
-      if attributes.key?(:'ttl')
-        self.ttl = attributes[:'ttl']
+      if attributes.key?(:'email')
+        self.email = attributes[:'email']
       else
-        self.ttl = 300
+        self.email = nil
       end
 
-      if attributes.key?(:'ttl_display_unit')
-        self.ttl_display_unit = attributes[:'ttl_display_unit']
+      if attributes.key?(:'email_verified')
+        self.email_verified = attributes[:'email_verified']
       else
-        self.ttl_display_unit = nil
+        self.email_verified = nil
+      end
+
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      else
+        self.id = nil
+      end
+
+      if attributes.key?(:'last_login_at')
+        self.last_login_at = attributes[:'last_login_at']
+      else
+        self.last_login_at = nil
+      end
+
+      if attributes.key?(:'login_count')
+        self.login_count = attributes[:'login_count']
+      else
+        self.login_count = nil
+      end
+
+      if attributes.key?(:'phone')
+        self.phone = attributes[:'phone']
+      else
+        self.phone = nil
+      end
+
+      if attributes.key?(:'phone_verified')
+        self.phone_verified = attributes[:'phone_verified']
+      else
+        self.phone_verified = nil
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      else
+        self.status = nil
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      else
+        self.updated_at = nil
+      end
+
+      if attributes.key?(:'user_metadata')
+        self.user_metadata = attributes[:'user_metadata']
+      else
+        self.user_metadata = nil
       end
     end
 
@@ -112,20 +192,44 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @enabled.nil?
-        invalid_properties.push('invalid value for "enabled", enabled cannot be nil.')
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
-      if @ttl.nil?
-        invalid_properties.push('invalid value for "ttl", ttl cannot be nil.')
+      if @email.nil?
+        invalid_properties.push('invalid value for "email", email cannot be nil.')
       end
 
-      if @ttl < 60
-        invalid_properties.push('invalid value for "ttl", must be greater than or equal to 60.')
+      if @email_verified.nil?
+        invalid_properties.push('invalid value for "email_verified", email_verified cannot be nil.')
       end
 
-      if @ttl_display_unit.nil?
-        invalid_properties.push('invalid value for "ttl_display_unit", ttl_display_unit cannot be nil.')
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @last_login_at.nil?
+        invalid_properties.push('invalid value for "last_login_at", last_login_at cannot be nil.')
+      end
+
+      if @login_count.nil?
+        invalid_properties.push('invalid value for "login_count", login_count cannot be nil.')
+      end
+
+      if @phone.nil?
+        invalid_properties.push('invalid value for "phone", phone cannot be nil.')
+      end
+
+      if @phone_verified.nil?
+        invalid_properties.push('invalid value for "phone_verified", phone_verified cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
       invalid_properties
@@ -135,25 +239,17 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @enabled.nil?
-      return false if @ttl.nil?
-      return false if @ttl < 60
-      return false if @ttl_display_unit.nil?
+      return false if @created_at.nil?
+      return false if @email.nil?
+      return false if @email_verified.nil?
+      return false if @id.nil?
+      return false if @last_login_at.nil?
+      return false if @login_count.nil?
+      return false if @phone.nil?
+      return false if @phone_verified.nil?
+      return false if @status.nil?
+      return false if @updated_at.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] ttl Value to be assigned
-    def ttl=(ttl)
-      if ttl.nil?
-        fail ArgumentError, 'ttl cannot be nil'
-      end
-
-      if ttl < 60
-        fail ArgumentError, 'invalid value for "ttl", must be greater than or equal to 60.'
-      end
-
-      @ttl = ttl
     end
 
     # Checks equality by comparing each attribute.
@@ -161,9 +257,17 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          enabled == o.enabled &&
-          ttl == o.ttl &&
-          ttl_display_unit == o.ttl_display_unit
+          created_at == o.created_at &&
+          email == o.email &&
+          email_verified == o.email_verified &&
+          id == o.id &&
+          last_login_at == o.last_login_at &&
+          login_count == o.login_count &&
+          phone == o.phone &&
+          phone_verified == o.phone_verified &&
+          status == o.status &&
+          updated_at == o.updated_at &&
+          user_metadata == o.user_metadata
     end
 
     # @see the `==` method
@@ -175,7 +279,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [enabled, ttl, ttl_display_unit].hash
+      [created_at, email, email_verified, id, last_login_at, login_count, phone, phone_verified, status, updated_at, user_metadata].hash
     end
 
     # Builds the object from hash

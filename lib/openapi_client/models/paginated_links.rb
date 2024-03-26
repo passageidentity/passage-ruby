@@ -14,42 +14,25 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class MagicLinkAuthMethod
-    attr_accessor :enabled
+  class PaginatedLinks
+    attr_accessor :first
 
-    # Maximum time (IN SECONDS) for the auth to expire.
-    attr_accessor :ttl
+    attr_accessor :last
 
-    attr_accessor :ttl_display_unit
+    attr_accessor :_next
 
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
+    attr_accessor :previous
 
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    attr_accessor :_self
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'enabled' => :'enabled',
-        :'ttl' => :'ttl',
-        :'ttl_display_unit' => :'ttl_display_unit'
+        :'first' => :'first',
+        :'last' => :'last',
+        :'_next' => :'next',
+        :'previous' => :'previous',
+        :'_self' => :'self'
       }
     end
 
@@ -61,9 +44,11 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'enabled' => :'Boolean',
-        :'ttl' => :'Integer',
-        :'ttl_display_unit' => :'TtlDisplayUnit'
+        :'first' => :'Link',
+        :'last' => :'Link',
+        :'_next' => :'Link',
+        :'previous' => :'Link',
+        :'_self' => :'Link'
       }
     end
 
@@ -77,33 +62,45 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::MagicLinkAuthMethod` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::PaginatedLinks` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::MagicLinkAuthMethod`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::PaginatedLinks`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'enabled')
-        self.enabled = attributes[:'enabled']
+      if attributes.key?(:'first')
+        self.first = attributes[:'first']
       else
-        self.enabled = nil
+        self.first = nil
       end
 
-      if attributes.key?(:'ttl')
-        self.ttl = attributes[:'ttl']
+      if attributes.key?(:'last')
+        self.last = attributes[:'last']
       else
-        self.ttl = 300
+        self.last = nil
       end
 
-      if attributes.key?(:'ttl_display_unit')
-        self.ttl_display_unit = attributes[:'ttl_display_unit']
+      if attributes.key?(:'_next')
+        self._next = attributes[:'_next']
       else
-        self.ttl_display_unit = nil
+        self._next = nil
+      end
+
+      if attributes.key?(:'previous')
+        self.previous = attributes[:'previous']
+      else
+        self.previous = nil
+      end
+
+      if attributes.key?(:'_self')
+        self._self = attributes[:'_self']
+      else
+        self._self = nil
       end
     end
 
@@ -112,20 +109,24 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @enabled.nil?
-        invalid_properties.push('invalid value for "enabled", enabled cannot be nil.')
+      if @first.nil?
+        invalid_properties.push('invalid value for "first", first cannot be nil.')
       end
 
-      if @ttl.nil?
-        invalid_properties.push('invalid value for "ttl", ttl cannot be nil.')
+      if @last.nil?
+        invalid_properties.push('invalid value for "last", last cannot be nil.')
       end
 
-      if @ttl < 60
-        invalid_properties.push('invalid value for "ttl", must be greater than or equal to 60.')
+      if @_next.nil?
+        invalid_properties.push('invalid value for "_next", _next cannot be nil.')
       end
 
-      if @ttl_display_unit.nil?
-        invalid_properties.push('invalid value for "ttl_display_unit", ttl_display_unit cannot be nil.')
+      if @previous.nil?
+        invalid_properties.push('invalid value for "previous", previous cannot be nil.')
+      end
+
+      if @_self.nil?
+        invalid_properties.push('invalid value for "_self", _self cannot be nil.')
       end
 
       invalid_properties
@@ -135,25 +136,12 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @enabled.nil?
-      return false if @ttl.nil?
-      return false if @ttl < 60
-      return false if @ttl_display_unit.nil?
+      return false if @first.nil?
+      return false if @last.nil?
+      return false if @_next.nil?
+      return false if @previous.nil?
+      return false if @_self.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] ttl Value to be assigned
-    def ttl=(ttl)
-      if ttl.nil?
-        fail ArgumentError, 'ttl cannot be nil'
-      end
-
-      if ttl < 60
-        fail ArgumentError, 'invalid value for "ttl", must be greater than or equal to 60.'
-      end
-
-      @ttl = ttl
     end
 
     # Checks equality by comparing each attribute.
@@ -161,9 +149,11 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          enabled == o.enabled &&
-          ttl == o.ttl &&
-          ttl_display_unit == o.ttl_display_unit
+          first == o.first &&
+          last == o.last &&
+          _next == o._next &&
+          previous == o.previous &&
+          _self == o._self
     end
 
     # @see the `==` method
@@ -175,7 +165,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [enabled, ttl, ttl_display_unit].hash
+      [first, last, _next, previous, _self].hash
     end
 
     # Builds the object from hash
