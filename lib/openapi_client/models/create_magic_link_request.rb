@@ -22,6 +22,7 @@ module OpenapiClient
     # language of the email to send (optional)
     attr_accessor :language
 
+    # must be a relative url
     attr_accessor :magic_link_path
 
     attr_accessor :phone
