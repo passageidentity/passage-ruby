@@ -7,6 +7,7 @@
 | **created_at** | **Time** |  |  |
 | **email** | **String** |  |  |
 | **email_verified** | **Boolean** |  |  |
+| **external_id** | **String** | The external ID of the user. Only set if the user was created in a Flex app. |  |
 | **id** | **String** |  |  |
 | **last_login_at** | **Time** |  |  |
 | **login_count** | **Integer** |  |  |
@@ -30,6 +31,7 @@ instance = OpenapiClient::UserInfo.new(
   created_at: null,
   email: null,
   email_verified: null,
+  external_id: null,
   id: null,
   last_login_at: null,
   login_count: null,

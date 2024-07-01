@@ -13,6 +13,7 @@
 | **auth_fallback_method_ttl** | **Integer** | Deprecated Property. Please refer to &#x60;auth_methods&#x60; to view settings for individual authentication methods. |  |
 | **auth_methods** | [**AuthMethods**](AuthMethods.md) |  |  |
 | **auth_origin** | **String** |  |  |
+| **auto_theme_enabled** | **Boolean** |  |  |
 | **created_at** | **Time** |  |  |
 | **default_language** | **String** |  |  |
 | **id** | **String** |  |  |
@@ -59,6 +60,7 @@ instance = OpenapiClient::AppInfo.new(
   auth_fallback_method_ttl: null,
   auth_methods: null,
   auth_origin: null,
+  auto_theme_enabled: null,
   created_at: null,
   default_language: null,
   id: null,
