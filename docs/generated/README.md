@@ -133,6 +133,7 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::PaginatedLinks](docs/PaginatedLinks.md)
  - [OpenapiClient::PasskeysAuthMethod](docs/PasskeysAuthMethod.md)
  - [OpenapiClient::Technologies](docs/Technologies.md)
+ - [OpenapiClient::ThemeType](docs/ThemeType.md)
  - [OpenapiClient::TtlDisplayUnit](docs/TtlDisplayUnit.md)
  - [OpenapiClient::UpdateUserRequest](docs/UpdateUserRequest.md)
  - [OpenapiClient::UserEventStatus](docs/UserEventStatus.md)
