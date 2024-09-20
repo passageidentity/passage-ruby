@@ -38,6 +38,9 @@ module OpenapiClient
 
     attr_accessor :auth_origin
 
+    # Deprecated Property. Please use `hosted_theme` to set hosted page theming instead.
+    attr_accessor :auto_theme_enabled
+
     attr_accessor :created_at
 
     attr_accessor :default_language
@@ -59,6 +62,8 @@ module OpenapiClient
 
     # the subdomain of the app's hosted login page
     attr_accessor :hosted_subdomain
+
+    attr_accessor :hosted_theme
 
     attr_accessor :id_token_lifetime
 
@@ -135,6 +140,7 @@ module OpenapiClient
         :'auth_fallback_method_ttl' => :'auth_fallback_method_ttl',
         :'auth_methods' => :'auth_methods',
         :'auth_origin' => :'auth_origin',
+        :'auto_theme_enabled' => :'auto_theme_enabled',
         :'created_at' => :'created_at',
         :'default_language' => :'default_language',
         :'id' => :'id',
@@ -145,6 +151,7 @@ module OpenapiClient
         :'name' => :'name',
         :'hosted' => :'hosted',
         :'hosted_subdomain' => :'hosted_subdomain',
+        :'hosted_theme' => :'hosted_theme',
         :'id_token_lifetime' => :'id_token_lifetime',
         :'passage_branding' => :'passage_branding',
         :'profile_management' => :'profile_management',
@@ -185,6 +192,7 @@ module OpenapiClient
         :'auth_fallback_method_ttl' => :'Integer',
         :'auth_methods' => :'AuthMethods',
         :'auth_origin' => :'String',
+        :'auto_theme_enabled' => :'Boolean',
         :'created_at' => :'Time',
         :'default_language' => :'String',
         :'id' => :'String',
@@ -195,6 +203,7 @@ module OpenapiClient
         :'name' => :'String',
         :'hosted' => :'Boolean',
         :'hosted_subdomain' => :'String',
+        :'hosted_theme' => :'ThemeType',
         :'id_token_lifetime' => :'Integer',
         :'passage_branding' => :'Boolean',
         :'profile_management' => :'Boolean',
@@ -299,6 +308,12 @@ module OpenapiClient
         self.auth_origin = nil
       end
 
+      if attributes.key?(:'auto_theme_enabled')
+        self.auto_theme_enabled = attributes[:'auto_theme_enabled']
+      else
+        self.auto_theme_enabled = nil
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       else
@@ -353,6 +368,12 @@ module OpenapiClient
         self.hosted_subdomain = attributes[:'hosted_subdomain']
       else
         self.hosted_subdomain = nil
+      end
+
+      if attributes.key?(:'hosted_theme')
+        self.hosted_theme = attributes[:'hosted_theme']
+      else
+        self.hosted_theme = nil
       end
 
       if attributes.key?(:'id_token_lifetime')
@@ -517,6 +538,10 @@ module OpenapiClient
         invalid_properties.push('invalid value for "auth_origin", auth_origin cannot be nil.')
       end
 
+      if @auto_theme_enabled.nil?
+        invalid_properties.push('invalid value for "auto_theme_enabled", auto_theme_enabled cannot be nil.')
+      end
+
       if @created_at.nil?
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
@@ -547,6 +572,10 @@ module OpenapiClient
 
       if @hosted_subdomain.nil?
         invalid_properties.push('invalid value for "hosted_subdomain", hosted_subdomain cannot be nil.')
+      end
+
+      if @hosted_theme.nil?
+        invalid_properties.push('invalid value for "hosted_theme", hosted_theme cannot be nil.')
       end
 
       if @passage_branding.nil?
@@ -637,6 +666,7 @@ module OpenapiClient
       return false if @auth_fallback_method_ttl.nil?
       return false if @auth_methods.nil?
       return false if @auth_origin.nil?
+      return false if @auto_theme_enabled.nil?
       return false if @created_at.nil?
       return false if @default_language.nil?
       return false if @id.nil?
@@ -645,6 +675,7 @@ module OpenapiClient
       return false if @name.nil?
       return false if @hosted.nil?
       return false if @hosted_subdomain.nil?
+      return false if @hosted_theme.nil?
       return false if @passage_branding.nil?
       return false if @profile_management.nil?
       return false if @public_signup.nil?
@@ -692,6 +723,7 @@ module OpenapiClient
           auth_fallback_method_ttl == o.auth_fallback_method_ttl &&
           auth_methods == o.auth_methods &&
           auth_origin == o.auth_origin &&
+          auto_theme_enabled == o.auto_theme_enabled &&
           created_at == o.created_at &&
           default_language == o.default_language &&
           id == o.id &&
@@ -702,6 +734,7 @@ module OpenapiClient
           name == o.name &&
           hosted == o.hosted &&
           hosted_subdomain == o.hosted_subdomain &&
+          hosted_theme == o.hosted_theme &&
           id_token_lifetime == o.id_token_lifetime &&
           passage_branding == o.passage_branding &&
           profile_management == o.profile_management &&
@@ -733,7 +766,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [additional_auth_origins, allowed_callback_urls, allowed_identifier, allowed_logout_urls, application_login_uri, auth_fallback_method, auth_fallback_method_ttl, auth_methods, auth_origin, created_at, default_language, id, layouts, login_url, light_logo_url, dark_logo_url, name, hosted, hosted_subdomain, id_token_lifetime, passage_branding, profile_management, public_signup, redirect_url, refresh_absolute_lifetime, refresh_enabled, refresh_inactivity_lifetime, require_email_verification, require_identifier_verification, required_identifier, role, rsa_public_key, secret, session_timeout_length, type, user_metadata_schema, technologies, element_customization, element_customization_dark].hash
+      [additional_auth_origins, allowed_callback_urls, allowed_identifier, allowed_logout_urls, application_login_uri, auth_fallback_method, auth_fallback_method_ttl, auth_methods, auth_origin, auto_theme_enabled, created_at, default_language, id, layouts, login_url, light_logo_url, dark_logo_url, name, hosted, hosted_subdomain, hosted_theme, id_token_lifetime, passage_branding, profile_management, public_signup, redirect_url, refresh_absolute_lifetime, refresh_enabled, refresh_inactivity_lifetime, require_email_verification, require_identifier_verification, required_identifier, role, rsa_public_key, secret, session_timeout_length, type, user_metadata_schema, technologies, element_customization, element_customization_dark].hash
     end
 
     # Builds the object from hash

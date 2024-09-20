@@ -11,6 +11,8 @@
 | **status** | [**UserEventStatus**](UserEventStatus.md) |  |  |
 | **type** | **String** |  |  |
 | **user_agent** | **String** |  |  |
+| **action** | [**UserEventAction**](UserEventAction.md) |  |  |
+| **social_login_type** | [**SocialConnectionType**](SocialConnectionType.md) |  |  |
 
 ## Example
 
@@ -24,7 +26,9 @@ instance = OpenapiClient::UserRecentEvent.new(
   ip_addr: null,
   status: null,
   type: null,
-  user_agent: null
+  user_agent: null,
+  action: null,
+  social_login_type: null
 )
 ```
 
