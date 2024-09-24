@@ -29,6 +29,10 @@ module OpenapiClient
 
     attr_accessor :user_agent
 
+    attr_accessor :action
+
+    attr_accessor :social_login_type
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -60,7 +64,9 @@ module OpenapiClient
         :'ip_addr' => :'ip_addr',
         :'status' => :'status',
         :'type' => :'type',
-        :'user_agent' => :'user_agent'
+        :'user_agent' => :'user_agent',
+        :'action' => :'action',
+        :'social_login_type' => :'social_login_type'
       }
     end
 
@@ -78,7 +84,9 @@ module OpenapiClient
         :'ip_addr' => :'String',
         :'status' => :'UserEventStatus',
         :'type' => :'String',
-        :'user_agent' => :'String'
+        :'user_agent' => :'String',
+        :'action' => :'UserEventAction',
+        :'social_login_type' => :'SocialConnectionType'
       }
     end
 
@@ -86,6 +94,7 @@ module OpenapiClient
     def self.openapi_nullable
       Set.new([
         :'completed_at',
+        :'social_login_type'
       ])
     end
 
@@ -145,6 +154,18 @@ module OpenapiClient
       else
         self.user_agent = nil
       end
+
+      if attributes.key?(:'action')
+        self.action = attributes[:'action']
+      else
+        self.action = nil
+      end
+
+      if attributes.key?(:'social_login_type')
+        self.social_login_type = attributes[:'social_login_type']
+      else
+        self.social_login_type = nil
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -176,6 +197,10 @@ module OpenapiClient
         invalid_properties.push('invalid value for "user_agent", user_agent cannot be nil.')
       end
 
+      if @action.nil?
+        invalid_properties.push('invalid value for "action", action cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -189,6 +214,7 @@ module OpenapiClient
       return false if @status.nil?
       return false if @type.nil?
       return false if @user_agent.nil?
+      return false if @action.nil?
       true
     end
 
@@ -203,7 +229,9 @@ module OpenapiClient
           ip_addr == o.ip_addr &&
           status == o.status &&
           type == o.type &&
-          user_agent == o.user_agent
+          user_agent == o.user_agent &&
+          action == o.action &&
+          social_login_type == o.social_login_type
     end
 
     # @see the `==` method
@@ -215,7 +243,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created_at, completed_at, id, ip_addr, status, type, user_agent].hash
+      [created_at, completed_at, id, ip_addr, status, type, user_agent, action, social_login_type].hash
     end
 
     # Builds the object from hash
