@@ -4,7 +4,7 @@
 
 # passage-ruby
 
-This Ruby SDK allows for verification of server-side authentication and user management for Ruby applications build with [Passage](https://passage.id).
+This Ruby SDK allows for verification of server-side authentication and user management for Ruby applications build with [Passage](https://passage.id). For more information, please visit [Passage Documentation](https://docs.passage.id).
 
 Install this package using [RubyGems](https://rubygems.org/gems/passageidentity).
 
@@ -61,9 +61,8 @@ require 'passageidentity'
 PassageClient =
   Passage::Client.new(app_id: PASSAGE_APP_ID)
 app_info = PassageClient.get_app()
-  
-```
 
+```
 
 ## Retrieve User Info
 
@@ -165,7 +164,6 @@ PassageClient =
 devices = PassageClient.user.list_devices(user_id: user_id)
 ```
 
-
 ## List User Devices
 
 You can list the devices associated with a particular Passage User.
@@ -183,7 +181,7 @@ end
 
 ## Create an Embeddable Magic Link
 
-To create a magic link, you should use the `create_magic_link` method. You can check out our guide on embeddable magic links in our [docs](https://docs.passage.id/guides/embedded-links).
+To create a magic link, you should use the `create_magic_link` method. You can check out our guide on embeddable magic links in our [docs](https://docs.passage.id/complete/magic-links).
 
 ```ruby
 require 'passageidentity'
@@ -203,19 +201,18 @@ magic_link =
 
 ## Available Functions
 
-
-Class | Method | Description
------------- | ------------- | -------------
-*ClientApi* | [**get_app**](docs/custom/ClientApi.md#get_app) |  Get App
-*ClientApi* | [**create_magic_link**](docs/custom/Passage/ClientApi.md#create_magic_link) | Create Embeddable Magic Link
-*AuthApi* | [**auth.authenticate_request**](docs/custom/AuthApi.md#authenticate_request) | Validates user jwt token
-*AuthApi* | [**auth.validate_jwt**](docs/custom/AuthApi.md#validate_jwt) | Validates user jwt token
-*UserAPI* | [**user.delete_device**](docs/custom/UserApi.md#delete_device) | Delete a device for a user
-*UserAPI* | [**user.list_devices**](docs/custom/UserApi.md#list_devices) | List User Devices
-*UserAPI* | [**user.activate**](docs/custom/UserApi.md#activate) | Activate User
-*UserAPI* | [**user.create**](docs/custom/UserApi.md#create) | Create User
-*UserAPI* | [**user.deactivate**](docs/custom/UserApi.md#deactivate) | Deactivate User
-*UserAPI* | [**user.delete**](docs/custom/UserApi.md#delete) | Delete User
-*UserAPI* | [**user.get**](docs/custom/UserApi.md#get) | Get User
-*UserAPI* | [**user.update**](docs/custom/UserApi.md#update) | Update User
-*UserAPI* | [**user.signout**](docs/custom/UserApi.md#signout) | Signout User
+| Class       | Method                                                                       | Description                  |
+| ----------- | ---------------------------------------------------------------------------- | ---------------------------- |
+| _ClientApi_ | [**get_app**](docs/custom/ClientApi.md#get_app)                              | Get App                      |
+| _ClientApi_ | [**create_magic_link**](docs/custom/Passage/ClientApi.md#create_magic_link)  | Create Embeddable Magic Link |
+| _AuthApi_   | [**auth.authenticate_request**](docs/custom/AuthApi.md#authenticate_request) | Validates user jwt token     |
+| _AuthApi_   | [**auth.validate_jwt**](docs/custom/AuthApi.md#validate_jwt)                 | Validates user jwt token     |
+| _UserAPI_   | [**user.delete_device**](docs/custom/UserApi.md#delete_device)               | Delete a device for a user   |
+| _UserAPI_   | [**user.list_devices**](docs/custom/UserApi.md#list_devices)                 | List User Devices            |
+| _UserAPI_   | [**user.activate**](docs/custom/UserApi.md#activate)                         | Activate User                |
+| _UserAPI_   | [**user.create**](docs/custom/UserApi.md#create)                             | Create User                  |
+| _UserAPI_   | [**user.deactivate**](docs/custom/UserApi.md#deactivate)                     | Deactivate User              |
+| _UserAPI_   | [**user.delete**](docs/custom/UserApi.md#delete)                             | Delete User                  |
+| _UserAPI_   | [**user.get**](docs/custom/UserApi.md#get)                                   | Get User                     |
+| _UserAPI_   | [**user.update**](docs/custom/UserApi.md#update)                             | Update User                  |
+| _UserAPI_   | [**user.signout**](docs/custom/UserApi.md#signout)                           | Signout User                 |
