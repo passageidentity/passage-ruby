@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.1] - 2024-09-26
+
+### Changed
+
+- Updated documentation links to point to new documentation
+
 ## [0.6.0] - 2024-03-21
 
 ### Added
@@ -35,12 +41,10 @@ All notable changes to this project will be documented in this file.
 - Generate types and api calls with openapi generator.
 - Version constant instead of parsing gemspec.
 
-
 ### Deprecate
 
 - `user.signout()` -> `auth.revoke_user_refresh_tokens()`
 - `auth.authenticate_request()` -> `auth.validate_jwt()`
-
 
 ### Possible Breaking Changes
 
