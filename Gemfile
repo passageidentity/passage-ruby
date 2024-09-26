@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in auth0.gemspec
-gemspec
+# Specify your gem's dependencies in passageidentity.gemspec
+passageidentity.gemspec
 
 group :development do
   gem 'rack'
