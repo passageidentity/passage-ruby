@@ -7,7 +7,6 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Updated documentation links to point to new documentation
-- Updated Gemfile to use passageidentity.gemspec
 
 ## [0.6.0] - 2024-03-21
 
