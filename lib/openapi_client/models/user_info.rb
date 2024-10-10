@@ -21,6 +21,9 @@ module OpenapiClient
 
     attr_accessor :email_verified
 
+    # The external ID of the user. Only set if the user was created in a Flex app.
+    attr_accessor :external_id
+
     attr_accessor :id
 
     attr_accessor :last_login_at
@@ -76,6 +79,7 @@ module OpenapiClient
         :'created_at' => :'created_at',
         :'email' => :'email',
         :'email_verified' => :'email_verified',
+        :'external_id' => :'external_id',
         :'id' => :'id',
         :'last_login_at' => :'last_login_at',
         :'login_count' => :'login_count',
@@ -103,6 +107,7 @@ module OpenapiClient
         :'created_at' => :'Time',
         :'email' => :'String',
         :'email_verified' => :'Boolean',
+        :'external_id' => :'String',
         :'id' => :'String',
         :'last_login_at' => :'Time',
         :'login_count' => :'Integer',
@@ -157,6 +162,12 @@ module OpenapiClient
         self.email_verified = attributes[:'email_verified']
       else
         self.email_verified = nil
+      end
+
+      if attributes.key?(:'external_id')
+        self.external_id = attributes[:'external_id']
+      else
+        self.external_id = nil
       end
 
       if attributes.key?(:'id')
@@ -261,6 +272,10 @@ module OpenapiClient
         invalid_properties.push('invalid value for "email_verified", email_verified cannot be nil.')
       end
 
+      if @external_id.nil?
+        invalid_properties.push('invalid value for "external_id", external_id cannot be nil.')
+      end
+
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
@@ -319,6 +334,7 @@ module OpenapiClient
       return false if @created_at.nil?
       return false if @email.nil?
       return false if @email_verified.nil?
+      return false if @external_id.nil?
       return false if @id.nil?
       return false if @last_login_at.nil?
       return false if @login_count.nil?
@@ -342,6 +358,7 @@ module OpenapiClient
           created_at == o.created_at &&
           email == o.email &&
           email_verified == o.email_verified &&
+          external_id == o.external_id &&
           id == o.id &&
           last_login_at == o.last_login_at &&
           login_count == o.login_count &&
@@ -366,7 +383,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created_at, email, email_verified, id, last_login_at, login_count, phone, phone_verified, recent_events, social_connections, status, updated_at, user_metadata, webauthn, webauthn_devices, webauthn_types].hash
+      [created_at, email, email_verified, external_id, id, last_login_at, login_count, phone, phone_verified, recent_events, social_connections, status, updated_at, user_metadata, webauthn, webauthn_devices, webauthn_types].hash
     end
 
     # Builds the object from hash
