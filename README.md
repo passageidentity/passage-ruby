@@ -1,218 +1,84 @@
-<img src="https://storage.googleapis.com/passage-docs/passage-logo-gradient.svg" alt="Passage logo" style="width:250px;"/>
+![passage-ruby](https://storage.googleapis.com/passage-docs/github-md-assets/passage-ruby.png)
 
-[![Gem Version](https://badge.fury.io/rb/passageidentity.svg)](https://badge.fury.io/rb/passageidentity)
+![Gem Version](https://img.shields.io/gem/v/passageidentity)
+![GitHub License](https://img.shields.io/github/license/passageidentity/passage-ruby)
+![Static Badge](https://img.shields.io/badge/Built_by_1Password-grey?logo=1password)
 
-# passage-ruby
+## About
 
-This Ruby SDK allows for verification of server-side authentication and user management for Ruby applications build with [Passage](https://passage.id). For more information, please visit [Passage Documentation](https://docs.passage.id).
+[Passage by 1Password](https://1password.com/product/passage) unlocks the passwordless future with a simpler, more secure passkey authentication experience. Passage handles the complexities of the [WebAuthn API](https://blog.1password.com/what-is-webauthn/), and allows you to implement passkeys with ease.
 
-Install this package using [RubyGems](https://rubygems.org/gems/passageidentity).
+Use [Passkey Flex](https://docs.passage.id/flex) to add passkeys to an existing authentication experience.
 
-```
+Use [Passkey Complete](https://docs.passage.id/complete) as a standalone passwordless auth solution.
+
+Use [Passkey Ready](https://docs.passage.id/passkey-ready) to determine if your users are ready for passkeys.
+
+### In passage-ruby
+
+Use passage-ruby to implement Passkey Complete into your Ruby backend to authenticate requests and manage users.
+
+| Product | Compatible |
+| --- | --- |
+| ![Passkey Flex](https://storage.googleapis.com/passage-docs/github-md-assets/passage-passkey-flex-icon.png) Passkey **Flex** | ✖️ For Passkey Flex, check out the [Passkey Flex APIs](https://docs.passage.id/flex/apis)
+| ![Passkey Complete](https://storage.googleapis.com/passage-docs/github-md-assets/passage-passkey-complete-icon.png) Passkey **Complete** | ✅
+| ![Passkey Ready](https://storage.googleapis.com/passage-docs/github-md-assets/passage-passkey-ready-icon.png) Passkey **Ready** | ✖️ For Passkey Ready, check out [Authentikit](https://www.npmjs.com/package/@passageidentity/authentikit)
+
+<br />
+
+## Getting Started
+
+### Check Prerequisites
+
+<p>
+ You'll need a free Passage account and a Passkey Complete app set up in <a href="https://console.passage.id/">Passage Console</a> to get started. <br />
+ <sub><a href="https://docs.passage.id/home#passage-console">Learn more about Passage Console →</a></sub>
+</p>
+
+### Install
+
+```shell
 gem install passageidentity
 ```
 
-## Instantiating the Passage Class
+### Import
 
-Initialize the Passage Client as follows:
+```ruby
+require 'passageidentity'
+```
+
+### Initialize
 
 ```ruby
 PassageClient =
   Passage::Client.new(
-    app_id: 'YOUR APP ID',
-    api_key: 'YOUR APIKEY',
+    app_id: 'YOUR_PASSAGE_APP_ID',
+    api_key: 'YOUR_PASSAGE_API_KEY',
     auth_strategy: Passage::HEADER_AUTH,
   )
 ```
 
-Passage has three arguments that can be used for initialization: `app_id`, `api_key`, and `auth_strategy`.
+### Go Passwordless
 
-- `app_id` is the Passage App ID that specifies which app should be authorized. It has no default value and must to be set upon initialization.
-- `api_key` is an API key for the Passage app, which can be generated in the 'App Settings' section of the [Passage Console](https://console.passage.id). It is an optional parameter and not required for authenticating requests. It is required to get or update user information.
-- `auth_strategy` defines where the Passage SDK should look for the authentication token. It is set by default to `Passage::COOKIE_AUTH`, but can be changed to `Passage::HEADER_AUTH`.
+Find all core functions, user management details, and more implementation guidance on our [Passkey Complete Ruby Documentation](https://docs.passage.id/complete/backend-sdks/ruby) page.
 
-## Authenticating a Request
+## Support & Feedback
 
-To authenticate an HTTP request in a Rails application, you can use the Passage library in a middleware function. You need to provide Passage with your App ID in order to verify the JWTs.
+We are here to help! Find additional docs, the best ways to get in touch with our team, and more within our [support resources](https://github.com/passageidentity/.github/blob/main/SUPPORT.md).
 
-```ruby
-require 'passageidentity'
+<br />
 
-class ApplicationController < ActionController::Base
-  PassageClient = Passage::Client.new(app_id: PASSAGE_APP_ID)
-  def authorize!
-    begin
-      user_id = PassageClient.auth.authenticate_request(request)
-      # user is authorized
-    rescue Exception => e
-      # handle exception (user is not authorized)
-    end
-  end
-end
-```
+---
 
-## Retrieve App Info
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://storage.googleapis.com/passage-docs/github-md-assets/passage-by-1password-dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="https://storage.googleapis.com/passage-docs/github-md-assets/passage-by-1password-light.png">
+      <img alt="Passage by 1Password Logo" src="https://storage.googleapis.com/passage-docs/github-md-assets/passage-by-1password-light.png">
+    </picture>
+</p>
 
-To retrieve information about an app , you should use the `get_app` method.
-
-```ruby
-require 'passageidentity'
-
-PassageClient =
-  Passage::Client.new(app_id: PASSAGE_APP_ID)
-app_info = PassageClient.get_app()
-
-```
-
-## Retrieve User Info
-
-To retrieve information about a user, you should use the `get` method. You will need to use a Passage API key, which can be created in the Passage Console under your Application Settings. This API key grants your web server access to the Passage management APIs to get and update information about users. This API key must be protected and stored in an appropriate secure storage location. It should never be hard-coded in the repository.
-
-```ruby
-require 'passageidentity'
-
-class ApplicationController < ActionController::Base
-  PassageClient =
-    Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
-  def authorize!
-    begin
-      user_id = PassageClient.auth.authenticate_request(request)
-      user = PassageClient.user.get(user_id: @user_id)
-      # user is authorized
-    rescue Exception => e
-      # handle exception (user is not authorized)
-    end
-  end
-end
-```
-
-## Retrieve User Info By Identifier
-
-To retrieve information about a user, you can also use the `get_by_identifier` method. You will need to use a Passage API key, which can be created in the Passage Console under your Application Settings. This API key grants your web server access to the Passage management APIs to get and update information about users. This API key must be protected and stored in an appropriate secure storage location. It should never be hard-coded in the repository.
-
-```ruby
-require 'passageidentity'
-
-class ApplicationController < ActionController::Base
-  PassageClient =
-    Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
-  def authorize!
-    begin
-      user_id = PassageClient.auth.authenticate_request(request)
-      user = PassageClient.user.get_by_identifier(identifier: @identifier)
-      # user is authorized
-    rescue Exception => e
-      # handle exception (user is not authorized)
-    end
-  end
-end
-```
-
-## Activate/Deactivate User
-
-You can activate or deactivate a user using the Passage SDK. These actions require an API Key and deactivating a user will prevent them from logging into your application
-with Passage.
-
-```ruby
-require 'passageidentity'
-
-PassageClient =
-  Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
-
-user = PassageClient.user.deactivate(user_id: user_id)
-user = PassageClient.user.activate(user_id: user_id)
-```
-
-## Create User
-
-You can create users using their email address or phone number. Note that their phone number must be in E164 format (example shown below).
-
-```ruby
-require 'passageidentity'
-
-PassageClient =
-  Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
-
-user = PassageClient.user.create(email: 'exampleEmail@domain.com')
-user = PassageClient.user.create(phone: '+15005550007')
-```
-
-## Delete User
-
-You can delete a user using the Passage SDK.
-
-```ruby
-require 'passageidentity'
-
-PassageClient =
-  Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
-
-success = PassageClient.user.delete(user_id: user_id)
-puts 'passage user was successfully deleted' if success
-```
-
-## List User Devices
-
-You can list the devices associated with a particular Passage User.
-
-```ruby
-require 'passageidentity'
-
-PassageClient =
-  Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
-
-devices = PassageClient.user.list_devices(user_id: user_id)
-```
-
-## List User Devices
-
-You can list the devices associated with a particular Passage User.
-
-```ruby
-require 'passageidentity'
-
-PassageClient = Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
-
-success = PassageClient.user.delete_device(user_id: user_id, device_id)
-if success
-    puts "passage user device was successfully deleted"
-end
-```
-
-## Create an Embeddable Magic Link
-
-To create a magic link, you should use the `create_magic_link` method. You can check out our guide on embeddable magic links in our [docs](https://docs.passage.id/complete/magic-links).
-
-```ruby
-require 'passageidentity'
-
-PassageClient =
-  Passage::Client.new(app_id: PASSAGE_APP_ID, api_key: PASSAGE_API_KEY)
-
-magic_link = PassageClient.create_magic_link(user_id: user_id)
-magic_link =
-  PassageClient.create_magic_link(
-    email: 'example@domain.com',
-    send: true,
-    channel: Passage::EMAIL_CHANNEL,
-    ttl: 120,
-  )
-```
-
-## Available Functions
-
-| Class       | Method                                                                       | Description                  |
-| ----------- | ---------------------------------------------------------------------------- | ---------------------------- |
-| _ClientApi_ | [**get_app**](docs/custom/ClientApi.md#get_app)                              | Get App                      |
-| _ClientApi_ | [**create_magic_link**](docs/custom/Passage/ClientApi.md#create_magic_link)  | Create Embeddable Magic Link |
-| _AuthApi_   | [**auth.authenticate_request**](docs/custom/AuthApi.md#authenticate_request) | Validates user jwt token     |
-| _AuthApi_   | [**auth.validate_jwt**](docs/custom/AuthApi.md#validate_jwt)                 | Validates user jwt token     |
-| _UserAPI_   | [**user.delete_device**](docs/custom/UserApi.md#delete_device)               | Delete a device for a user   |
-| _UserAPI_   | [**user.list_devices**](docs/custom/UserApi.md#list_devices)                 | List User Devices            |
-| _UserAPI_   | [**user.activate**](docs/custom/UserApi.md#activate)                         | Activate User                |
-| _UserAPI_   | [**user.create**](docs/custom/UserApi.md#create)                             | Create User                  |
-| _UserAPI_   | [**user.deactivate**](docs/custom/UserApi.md#deactivate)                     | Deactivate User              |
-| _UserAPI_   | [**user.delete**](docs/custom/UserApi.md#delete)                             | Delete User                  |
-| _UserAPI_   | [**user.get**](docs/custom/UserApi.md#get)                                   | Get User                     |
-| _UserAPI_   | [**user.update**](docs/custom/UserApi.md#update)                             | Update User                  |
-| _UserAPI_   | [**user.signout**](docs/custom/UserApi.md#signout)                           | Signout User                 |
+<p align="center">
+    <sub>Passage is a product by <a href="https://1password.com/product/passage">1Password</a>, the global leader in access management solutions with nearly 150k business customers.</sub><br />
+    <sub>This project is licensed under the MIT license. See the <a href="LICENSE">LICENSE</a> file for more info.</sub>
+</p>
