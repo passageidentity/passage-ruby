@@ -3,13 +3,13 @@ require_relative 'lib/passageidentity/version'
 Gem::Specification.new do |s|
   s.name = 'passageidentity'
   s.version = Passage::VERSION
-  s.summary = 'Passage SDK for biometric authentication'
+  s.summary = 'Passage Passkey Complete SDK'
   s.description =
-    'Enables verification of server-side authentication and user management for applications using Passage'
-  s.authors = ['Passage Identity']
+    'Passkey Complete for Ruby - Integrate into your Ruby API or service to enable a completely passwordless standalone auth solution with Passage by 1Password.'
+  s.authors = ['Passage by 1Password']
   s.email = 'support@passage.id'
   s.files = ['lib/passageidentity.rb']
-  s.homepage = 'https://rubygems.org/gems/passageidentity'
+  s.homepage = 'http://docs.passage.id/complete'
   s.license = 'MIT'
 
   s.metadata['source_code_uri'] =
