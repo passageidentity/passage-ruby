@@ -29,3 +29,5 @@ rm -rf ./lib/openapi_client.rb
 mv ./generated/lib/openapi_client.rb ./lib/openapi_client.rb
 
 rm -rf ./generated
+
+sed -i 's/require /require_relative /g' ./lib/openapi_client.rb
