@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.2] - 2024-10-22
+
+### Changed
+
+- Update to the new README template, updated license, updated metadata in gemspec file
+
 ## [0.6.1] - 2024-09-26
 
 ### Changed
