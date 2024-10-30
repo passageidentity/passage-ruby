@@ -1,10 +1,9 @@
-name: PR Checks
+name: Lint, Format, and Test
 
 on:
+  workflow_call:
   workflow_dispatch:
   pull_request:
-    branches:
-      - main
 
 env:
   API_KEY: ${{ secrets.API_KEY }}
@@ -13,21 +12,39 @@ env:
   TEST_USER_ID: ${{ secrets.TEST_USER_ID }}
 
 jobs:
-  build:
-    name: Test and Lint
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.1'
-
-    - name: Run Tests
-      run: |
-        bundle install
-        ruby tests/all.rb
-    - name: Run Linting
-      run: |
-        npm install -g prettier @prettier/plugin-ruby
-        prettier --check '**/*.rb'
+    - name: Install Rubocop
+      run: gem install rubocop
+    - name: Lint
+      run: rubocop -l
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+    - name: Install Rubocop
+      run: gem install rubocop
+    - name: Format
+      run: rubocop --format github
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+    - name: Install dependencies
+      run: bundle install
+    - name: Test
+      run: ruby tests/all.rb
