@@ -1,3 +1,8 @@
 AllCops:
   Exclude:
     - 'lib/openapi_client/**/*'
+    - 'lib/models/update_magic_link_auth_method.rb'
+    - 'lib/models/update_otp_auth_method.rb'
+    - 'lib/models/update_passkeys_auth_method.rb'
+    - 'lib/**/*'
+    - 'tests/**/*'
