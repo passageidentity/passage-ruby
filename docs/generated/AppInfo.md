@@ -13,6 +13,7 @@
 | **auth_fallback_method_ttl** | **Integer** | Deprecated Property. Please refer to &#x60;auth_methods&#x60; to view settings for individual authentication methods. |  |
 | **auth_methods** | [**AuthMethods**](AuthMethods.md) |  |  |
 | **auth_origin** | **String** |  |  |
+| **auto_theme_enabled** | **Boolean** | Deprecated Property. Please use &#x60;hosted_theme&#x60; to set hosted page theming instead. |  |
 | **created_at** | **Time** |  |  |
 | **default_language** | **String** |  |  |
 | **id** | **String** |  |  |
@@ -21,8 +22,9 @@
 | **light_logo_url** | **String** |  | [optional] |
 | **dark_logo_url** | **String** |  | [optional] |
 | **name** | **String** |  |  |
-| **hosted** | **Boolean** | whether or not the app&#39;s login page hosted by passage |  |
+| **hosted** | **Boolean** | whether or not the app&#39;s login page is hosted by Passage |  |
 | **hosted_subdomain** | **String** | the subdomain of the app&#39;s hosted login page |  |
+| **hosted_theme** | [**ThemeType**](ThemeType.md) |  |  |
 | **id_token_lifetime** | **Integer** |  | [optional] |
 | **passage_branding** | **Boolean** |  |  |
 | **profile_management** | **Boolean** |  |  |
@@ -59,6 +61,7 @@ instance = OpenapiClient::AppInfo.new(
   auth_fallback_method_ttl: null,
   auth_methods: null,
   auth_origin: null,
+  auto_theme_enabled: null,
   created_at: null,
   default_language: null,
   id: null,
@@ -69,6 +72,7 @@ instance = OpenapiClient::AppInfo.new(
   name: null,
   hosted: null,
   hosted_subdomain: null,
+  hosted_theme: null,
   id_token_lifetime: null,
   passage_branding: null,
   profile_management: null,
