@@ -27,12 +27,18 @@ ruby tests/all.rb
 ruby tests/*_test.rb
 ```
 
+Run Formatting:
+
+```
+gem install rubocop
+rubocop --format github
+```
+
 Run Linter:
 
 ```
-npm install -g prettier @prettier/plugin-ruby
-gem install bundler prettier_print syntax_tree syntax_tree-haml syntax_tree-rbs
-prettier --write '**/*.rb'
+gem install rubocop
+rubocop -l
 ```
 
 To test in the example app, change the Gemfile to include this path:

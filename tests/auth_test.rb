@@ -65,7 +65,6 @@ class TestAuthAPI < Test::Unit::TestCase
     assert_raises Passage::PassageError do
       PassageHeaderClient.auth.authenticate_request(no_header_request)
     end
-    invalid_header_request =
       Faraday.new(url: "https://test.com", headers: invalid_headers)
     assert_raises Passage::PassageError do
       PassageHeaderClient.auth.authenticate_request(no_header_request)

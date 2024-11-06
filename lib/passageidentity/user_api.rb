@@ -170,7 +170,7 @@ module Passage
       user_exists?(user_id)
 
       begin
-        response = @user_client.delete_user(@app_id, user_id, @req_opts)
+        @user_client.delete_user(@app_id, user_id, @req_opts)
         return true
       rescue Faraday::Error => e
         if e.is_a? Faraday::ResourceNotFound
@@ -194,7 +194,7 @@ module Passage
       device_exists?(device_id)
 
       begin
-        response = @user_device_client.delete_user_devices(@app_id, user_id, device_id, @req_opts)
+        @user_device_client.delete_user_devices(@app_id, user_id, device_id, @req_opts)
         return true
       rescue Faraday::Error => e
         raise PassageError.new(
@@ -225,7 +225,7 @@ module Passage
       user_exists?(user_id)
       begin
         tokens_client = OpenapiClient::TokensApi.new
-        response = tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
+        tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
         return true
       rescue Faraday::Error => e
         raise PassageError.new(

@@ -7,7 +7,9 @@ module Passage
     attr_reader :message
     attr_reader :error
 
-    def initialize(message:, status_code: nil, body: nil)
+    def initialize(message, status_code: nil, body: nil)
+      super(message)
+      
       @message = message
       @status_code = status_code
       @status_text =
