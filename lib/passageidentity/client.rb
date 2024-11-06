@@ -74,12 +74,13 @@ module Passage
         "magic_link_path"
       ] = magic_link_path unless magic_link_path.empty?
       magic_link_req["redirect_url"] = redirect_url unless redirect_url.empty?
+      magic_link_req["language"] = language
       magic_link_req["ttl"] = ttl unless ttl == 0
       magic_link_req["type"] = type
 
       begin
         gemspec = File.join(__dir__, "../../passageidentity.gemspec")
-        spec = Gem::Specification.load(gemspec)
+        Gem::Specification.load(gemspec)
         header_params = { "Passage-Version" => "passage-ruby #{Passage::VERSION}" }
         header_params["Authorization"] = "Bearer #{@api_key}" if @api_key != ""
         

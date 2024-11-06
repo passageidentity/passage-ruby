@@ -33,7 +33,6 @@ module Passage
       if @@app_cache[@app_id]
         @jwks, @auth_origin = @@app_cache[@app_id]
       else
-        app = fetch_app
         auth_gw_connection =
           Faraday.new(url: "https://auth.passage.id") do |f|
             f.request :json
@@ -80,7 +79,6 @@ module Passage
       else
         raise PassageError.new(message: "no authentication token")
       end
-      nil
     end
 
     def validate_jwt(token)
@@ -131,7 +129,7 @@ module Passage
     def revoke_user_refresh_tokens(user_id)
       begin
         client = OpenapiClient::TokensApi.new
-        response = client.revoke_user_refresh_tokens(@app_id, user_id)
+        client.revoke_user_refresh_tokens(@app_id, user_id)
         return true
       rescue Faraday::Error => e
         raise PassageError.new(

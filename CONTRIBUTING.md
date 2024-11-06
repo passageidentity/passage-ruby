@@ -61,7 +61,3 @@ You can check for the gem here:
 ```
 gem list -r passage
 ```
-
-```
-
-```
