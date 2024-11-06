@@ -1,0 +1,6 @@
+.github/
+
+# Ignore all generated files:
+docs/generated/
+lib/openapi_client/
+lib/openapi_client.rb

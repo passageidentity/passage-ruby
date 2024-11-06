@@ -2,11 +2,10 @@
 
 All URIs are relative to *https://api.passage.id/v1*
 
-| Method | HTTP request | Description |
-| ------ | ------------ | ----------- |
+| Method                                                           | HTTP request                                                  | Description                |
+| ---------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------- |
 | [**delete_user_devices**](UserDevicesApi.md#delete_user_devices) | **DELETE** /apps/{app_id}/users/{user_id}/devices/{device_id} | Delete a device for a user |
-| [**list_user_devices**](UserDevicesApi.md#list_user_devices) | **GET** /apps/{app_id}/users/{user_id}/devices | List User Devices |
-
+| [**list_user_devices**](UserDevicesApi.md#list_user_devices)     | **GET** /apps/{app_id}/users/{user_id}/devices                | List User Devices          |
 
 ## delete_user_devices
 
@@ -60,11 +59,11 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **app_id** | **String** | App ID |  |
-| **user_id** | **String** | User ID |  |
-| **device_id** | **String** | Device ID |  |
+| Name          | Type       | Description | Notes |
+| ------------- | ---------- | ----------- | ----- |
+| **app_id**    | **String** | App ID      |       |
+| **user_id**   | **String** | User ID     |       |
+| **device_id** | **String** | Device ID   |       |
 
 ### Return type
 
@@ -78,7 +77,6 @@ nil (empty response body)
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
 
 ## list_user_devices
 
@@ -132,10 +130,10 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **app_id** | **String** | App ID |  |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **app_id**  | **String** | App ID      |       |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -149,4 +147,3 @@ end
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-

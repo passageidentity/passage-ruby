@@ -2,18 +2,18 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **activated** | **Boolean** |  |  |
-| **app_id** | **String** |  |  |
-| **id** | **String** |  |  |
-| **identifier** | **String** |  |  |
-| **redirect_url** | **String** |  |  |
-| **secret** | **String** |  |  |
-| **ttl** | **Integer** |  |  |
-| **type** | [**MagicLinkType**](MagicLinkType.md) |  |  |
-| **url** | **String** |  |  |
-| **user_id** | **String** |  |  |
+| Name             | Type                                  | Description | Notes |
+| ---------------- | ------------------------------------- | ----------- | ----- |
+| **activated**    | **Boolean**                           |             |       |
+| **app_id**       | **String**                            |             |       |
+| **id**           | **String**                            |             |       |
+| **identifier**   | **String**                            |             |       |
+| **redirect_url** | **String**                            |             |       |
+| **secret**       | **String**                            |             |       |
+| **ttl**          | **Integer**                           |             |       |
+| **type**         | [**MagicLinkType**](MagicLinkType.md) |             |       |
+| **url**          | **String**                            |             |       |
+| **user_id**      | **String**                            |             |       |
 
 ## Example
 
@@ -33,4 +33,3 @@ instance = OpenapiClient::MagicLink.new(
   user_id: null
 )
 ```
-

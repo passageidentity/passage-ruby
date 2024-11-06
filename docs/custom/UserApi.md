@@ -2,18 +2,17 @@
 
 All URIs are relative to *https://api.passage.id/v1*
 
-| Method | HTTP request | Description |
-| ------ | ------------ | ----------- |
-| [**activate**](UsersApi.md#activate) | **PATCH** /apps/{app_id}/users/{user_id}/activate | Activate User |
-| [**create**](UsersApi.md#create) | **POST** /apps/{app_id}/users | Create User |
-| [**deactivate**](UsersApi.md#deactivate) | **PATCH** /apps/{app_id}/users/{user_id}/deactivate | Deactivate User |
-| [**delete**](UsersApi.md#delete) | **DELETE** /apps/{app_id}/users/{user_id} | Delete User |
-| [**get**](UsersApi.md#get) | **GET** /apps/{app_id}/users/{user_id} | Get User |
-| [**update**](UsersApi.md#update) | **PATCH** /apps/{app_id}/users/{user_id} | Update User |
-| [**delete_device**](UsersApi.md#delete_device) | **DELETE** /apps/{app_id}/users/{user_id}/devices/{device_id} | Delete a device for a user |
-| [**list_devices**](UsersApi.md#list_devices) | **GET** /apps/{app_id}/users/{user_id}/devices | List User Devices |
-| [**signout**](UsersApi.md#signout) | DELETE /apps/{app_id}/users/{user_id}/tokens | **Deprecated:** Signout a user |
-
+| Method                                         | HTTP request                                                  | Description                    |
+| ---------------------------------------------- | ------------------------------------------------------------- | ------------------------------ |
+| [**activate**](UsersApi.md#activate)           | **PATCH** /apps/{app_id}/users/{user_id}/activate             | Activate User                  |
+| [**create**](UsersApi.md#create)               | **POST** /apps/{app_id}/users                                 | Create User                    |
+| [**deactivate**](UsersApi.md#deactivate)       | **PATCH** /apps/{app_id}/users/{user_id}/deactivate           | Deactivate User                |
+| [**delete**](UsersApi.md#delete)               | **DELETE** /apps/{app_id}/users/{user_id}                     | Delete User                    |
+| [**get**](UsersApi.md#get)                     | **GET** /apps/{app_id}/users/{user_id}                        | Get User                       |
+| [**update**](UsersApi.md#update)               | **PATCH** /apps/{app_id}/users/{user_id}                      | Update User                    |
+| [**delete_device**](UsersApi.md#delete_device) | **DELETE** /apps/{app_id}/users/{user_id}/devices/{device_id} | Delete a device for a user     |
+| [**list_devices**](UsersApi.md#list_devices)   | **GET** /apps/{app_id}/users/{user_id}/devices                | List User Devices              |
+| [**signout**](UsersApi.md#signout)             | DELETE /apps/{app_id}/users/{user_id}/tokens                  | **Deprecated:** Signout a user |
 
 ## activate
 
@@ -40,9 +39,9 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -84,9 +83,9 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **create_user_request** | [**CreateUserRequest**](CreateUserRequest.md) | email, phone, user_metadata |  |
+| Name                    | Type                                          | Description                 | Notes |
+| ----------------------- | --------------------------------------------- | --------------------------- | ----- |
+| **create_user_request** | [**CreateUserRequest**](CreateUserRequest.md) | email, phone, user_metadata |       |
 
 ### Return type
 
@@ -126,12 +125,11 @@ rescue OpenapiClient::ApiError => e
 end
 ```
 
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -172,9 +170,9 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -216,9 +214,9 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -261,10 +259,10 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** | User ID |  |
-| **update_user_request** | [**UpdateUserRequest**](UpdateUserRequest.md) | user settings |  |
+| Name                    | Type                                          | Description   | Notes |
+| ----------------------- | --------------------------------------------- | ------------- | ----- |
+| **user_id**             | **String**                                    | User ID       |       |
+| **update_user_request** | [**UpdateUserRequest**](UpdateUserRequest.md) | user settings |       |
 
 ### Return type
 
@@ -306,10 +304,10 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** | User ID |  |
-| **device_id** | **String** | Device ID |  |
+| Name          | Type       | Description | Notes |
+| ------------- | ---------- | ----------- | ----- |
+| **user_id**   | **String** | User ID     |       |
+| **device_id** | **String** | Device ID   |       |
 
 ### Return type
 
@@ -323,7 +321,6 @@ nil (empty response body)
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
 
 ---
 
@@ -352,9 +349,9 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -398,12 +395,11 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 

@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **profile** | [**Array&lt;LayoutConfig&gt;**](LayoutConfig.md) |  |  |
-| **registration** | [**Array&lt;LayoutConfig&gt;**](LayoutConfig.md) |  |  |
+| Name             | Type                                             | Description | Notes |
+| ---------------- | ------------------------------------------------ | ----------- | ----- |
+| **profile**      | [**Array&lt;LayoutConfig&gt;**](LayoutConfig.md) |             |       |
+| **registration** | [**Array&lt;LayoutConfig&gt;**](LayoutConfig.md) |             |       |
 
 ## Example
 
@@ -17,4 +17,3 @@ instance = OpenapiClient::Layouts.new(
   registration: null
 )
 ```
-

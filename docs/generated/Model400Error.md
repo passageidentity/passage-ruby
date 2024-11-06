@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **code** | **String** |  |  |
-| **error** | **String** |  |  |
+| Name      | Type       | Description | Notes |
+| --------- | ---------- | ----------- | ----- |
+| **code**  | **String** |             |       |
+| **error** | **String** |             |       |
 
 ## Example
 
@@ -17,4 +17,3 @@ instance = OpenapiClient::Model400Error.new(
   error: null
 )
 ```
-

@@ -2,18 +2,18 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **channel** | [**MagicLinkChannel**](MagicLinkChannel.md) |  |  |
-| **email** | **String** |  |  |
-| **language** | **String** | language of the email to send (optional) | [optional] |
-| **magic_link_path** | **String** |  |  |
-| **phone** | **String** |  |  |
-| **redirect_url** | **String** |  |  |
-| **_send** | **Boolean** |  |  |
-| **ttl** | **Integer** |  |  |
-| **type** | [**MagicLinkType**](MagicLinkType.md) |  | [optional] |
-| **user_id** | **String** |  |  |
+| Name                | Type                                        | Description                              | Notes      |
+| ------------------- | ------------------------------------------- | ---------------------------------------- | ---------- |
+| **channel**         | [**MagicLinkChannel**](MagicLinkChannel.md) |                                          |            |
+| **email**           | **String**                                  |                                          |            |
+| **language**        | **String**                                  | language of the email to send (optional) | [optional] |
+| **magic_link_path** | **String**                                  |                                          |            |
+| **phone**           | **String**                                  |                                          |            |
+| **redirect_url**    | **String**                                  |                                          |            |
+| **\_send**          | **Boolean**                                 |                                          |            |
+| **ttl**             | **Integer**                                 |                                          |            |
+| **type**            | [**MagicLinkType**](MagicLinkType.md)       |                                          | [optional] |
+| **user_id**         | **String**                                  |                                          |            |
 
 ## Example
 
@@ -33,4 +33,3 @@ instance = OpenapiClient::CreateMagicLinkRequest.new(
   user_id: null
 )
 ```
-

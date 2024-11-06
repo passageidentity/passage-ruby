@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **apple** | [**AppleUserSocialConnection**](AppleUserSocialConnection.md) |  | [optional] |
-| **github** | [**GithubUserSocialConnection**](GithubUserSocialConnection.md) |  | [optional] |
-| **google** | [**GoogleUserSocialConnection**](GoogleUserSocialConnection.md) |  | [optional] |
+| Name       | Type                                                            | Description | Notes      |
+| ---------- | --------------------------------------------------------------- | ----------- | ---------- |
+| **apple**  | [**AppleUserSocialConnection**](AppleUserSocialConnection.md)   |             | [optional] |
+| **github** | [**GithubUserSocialConnection**](GithubUserSocialConnection.md) |             | [optional] |
+| **google** | [**GoogleUserSocialConnection**](GoogleUserSocialConnection.md) |             | [optional] |
 
 ## Example
 
@@ -19,4 +19,3 @@ instance = OpenapiClient::UserSocialConnections.new(
   google: null
 )
 ```
-

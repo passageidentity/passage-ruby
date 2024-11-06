@@ -35,7 +35,6 @@ gem install bundler prettier_print syntax_tree syntax_tree-haml syntax_tree-rbs
 prettier --write '**/*.rb'
 ```
 
-
 To test in the example app, change the Gemfile to include this path:
 
 ```
@@ -61,6 +60,8 @@ You can check for the gem here:
 
 ```
 gem list -r passage
+```
+
 ```
 
 ```

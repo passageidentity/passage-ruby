@@ -2,14 +2,14 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **_links** | [**PaginatedLinks**](PaginatedLinks.md) |  |  |
-| **created_before** | **Integer** | time anchor (Unix timestamp) --&gt; all users returned created before this timestamp |  |
-| **limit** | **Integer** |  |  |
-| **page** | **Integer** |  |  |
-| **total_users** | **Integer** | total number of users for a particular query |  |
-| **users** | [**Array&lt;ListPaginatedUsersItem&gt;**](ListPaginatedUsersItem.md) |  |  |
+| Name               | Type                                                                 | Description                                                                          | Notes |
+| ------------------ | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ----- |
+| **\_links**        | [**PaginatedLinks**](PaginatedLinks.md)                              |                                                                                      |       |
+| **created_before** | **Integer**                                                          | time anchor (Unix timestamp) --&gt; all users returned created before this timestamp |       |
+| **limit**          | **Integer**                                                          |                                                                                      |       |
+| **page**           | **Integer**                                                          |                                                                                      |       |
+| **total_users**    | **Integer**                                                          | total number of users for a particular query                                         |       |
+| **users**          | [**Array&lt;ListPaginatedUsersItem&gt;**](ListPaginatedUsersItem.md) |                                                                                      |       |
 
 ## Example
 
@@ -25,4 +25,3 @@ instance = OpenapiClient::ListPaginatedUsersResponse.new(
   users: null
 )
 ```
-

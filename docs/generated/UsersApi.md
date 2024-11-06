@@ -2,16 +2,15 @@
 
 All URIs are relative to *https://api.passage.id/v1*
 
-| Method | HTTP request | Description |
-| ------ | ------------ | ----------- |
-| [**activate_user**](UsersApi.md#activate_user) | **PATCH** /apps/{app_id}/users/{user_id}/activate | Activate User |
-| [**create_user**](UsersApi.md#create_user) | **POST** /apps/{app_id}/users | Create User |
-| [**deactivate_user**](UsersApi.md#deactivate_user) | **PATCH** /apps/{app_id}/users/{user_id}/deactivate | Deactivate User |
-| [**delete_user**](UsersApi.md#delete_user) | **DELETE** /apps/{app_id}/users/{user_id} | Delete User |
-| [**get_user**](UsersApi.md#get_user) | **GET** /apps/{app_id}/users/{user_id} | Get User |
-| [**list_paginated_users**](UsersApi.md#list_paginated_users) | **GET** /apps/{app_id}/users | List Users |
-| [**update_user**](UsersApi.md#update_user) | **PATCH** /apps/{app_id}/users/{user_id} | Update User |
-
+| Method                                                       | HTTP request                                        | Description     |
+| ------------------------------------------------------------ | --------------------------------------------------- | --------------- |
+| [**activate_user**](UsersApi.md#activate_user)               | **PATCH** /apps/{app_id}/users/{user_id}/activate   | Activate User   |
+| [**create_user**](UsersApi.md#create_user)                   | **POST** /apps/{app_id}/users                       | Create User     |
+| [**deactivate_user**](UsersApi.md#deactivate_user)           | **PATCH** /apps/{app_id}/users/{user_id}/deactivate | Deactivate User |
+| [**delete_user**](UsersApi.md#delete_user)                   | **DELETE** /apps/{app_id}/users/{user_id}           | Delete User     |
+| [**get_user**](UsersApi.md#get_user)                         | **GET** /apps/{app_id}/users/{user_id}              | Get User        |
+| [**list_paginated_users**](UsersApi.md#list_paginated_users) | **GET** /apps/{app_id}/users                        | List Users      |
+| [**update_user**](UsersApi.md#update_user)                   | **PATCH** /apps/{app_id}/users/{user_id}            | Update User     |
 
 ## activate_user
 
@@ -65,10 +64,10 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **app_id** | **String** | App ID |  |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **app_id**  | **String** | App ID      |       |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -82,7 +81,6 @@ end
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
 
 ## create_user
 
@@ -136,10 +134,10 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **app_id** | **String** | App ID |  |
-| **create_user_request** | [**CreateUserRequest**](CreateUserRequest.md) | email, phone, user_metadata |  |
+| Name                    | Type                                          | Description                 | Notes |
+| ----------------------- | --------------------------------------------- | --------------------------- | ----- |
+| **app_id**              | **String**                                    | App ID                      |       |
+| **create_user_request** | [**CreateUserRequest**](CreateUserRequest.md) | email, phone, user_metadata |       |
 
 ### Return type
 
@@ -153,7 +151,6 @@ end
 
 - **Content-Type**: application/json
 - **Accept**: application/json
-
 
 ## deactivate_user
 
@@ -207,10 +204,10 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **app_id** | **String** | App ID |  |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **app_id**  | **String** | App ID      |       |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -224,7 +221,6 @@ end
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
 
 ## delete_user
 
@@ -277,10 +273,10 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **app_id** | **String** | App ID |  |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **app_id**  | **String** | App ID      |       |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -294,7 +290,6 @@ nil (empty response body)
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
 
 ## get_user
 
@@ -348,10 +343,10 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **app_id** | **String** | App ID |  |
-| **user_id** | **String** | User ID |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **app_id**  | **String** | App ID      |       |
+| **user_id** | **String** | User ID     |       |
 
 ### Return type
 
@@ -365,7 +360,6 @@ end
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
 
 ## list_paginated_users
 
@@ -431,20 +425,20 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **app_id** | **String** | App ID |  |
-| **page** | **Integer** | page to fetch (min&#x3D;1) | [optional] |
-| **limit** | **Integer** | number of users to fetch per page (max&#x3D;500) | [optional] |
-| **created_before** | **Integer** | Unix timestamp to anchor pagination results (fetches events that were created before the timestamp) | [optional] |
-| **order_by** | **String** | Comma separated list of &lt;field&gt;:&lt;ASC/DESC&gt; (example: order_by&#x3D;id:DESC,created_at:ASC) **cannot order_by &#x60;identifier&#x60; | [optional] |
-| **identifier** | **String** | search users email OR phone (pagination prepended operators identifier&#x3D;&lt;val&gt;, identifier&#x3D;&lt;ne:val&gt;, identifier&#x3D;&lt;gt:val&gt;, identifier&#x3D;&lt;lt:val&gt;, identifier&#x3D;&lt;like:val&gt;, identifier&#x3D;&lt;not_like:val&gt;) | [optional] |
-| **id** | **String** | search users id (pagination prepended operators id&#x3D;&lt;val&gt;, id&#x3D;&lt;ne:val&gt;, id&#x3D;&lt;gt:val&gt;, id&#x3D;&lt;lt:val&gt;, id&#x3D;&lt;like:val&gt;, id&#x3D;&lt;not_like:val&gt;) | [optional] |
-| **login_count** | **Integer** | search users login_count (pagination prepended operators login_count&#x3D;&lt;val&gt;, login_count&#x3D;&lt;ne:val&gt;, login_count&#x3D;&lt;gt:val&gt;, login_count&#x3D;&lt;lt:val&gt;) | [optional] |
-| **status** | **String** | search users by status (pagination prepended operators status&#x3D;&lt;val&gt;, status&#x3D;&lt;ne:val&gt;, status&#x3D;&lt;gt:val&gt;, status&#x3D;&lt;lt:val&gt;, status&#x3D;&lt;like:val&gt;, status&#x3D;&lt;not_like:val&gt;) -- valid values: (active, inactive, pending) | [optional] |
-| **created_at** | **String** | search users created_at (pagination prepended operators created_at&#x3D;&lt;val&gt;, created_at&#x3D;&lt;ne:val&gt;, created_at&#x3D;&lt;gt:val&gt;, created_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required | [optional] |
-| **updated_at** | **String** | search users updated_at (pagination prepended operators updated_at&#x3D;&lt;val&gt;, updated_at&#x3D;&lt;ne:val&gt;, updated_at&#x3D;&lt;gt:val&gt;, updated_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required | [optional] |
-| **last_login_at** | **String** | search users last_login_at (pagination prepended operators last_login_at&#x3D;&lt;val&gt;, lat_login_at&#x3D;&lt;ne:val&gt;, last_login_at&#x3D;&lt;gt:val&gt;, last_login_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required | [optional] |
+| Name               | Type        | Description                                                                                                                                                                                                                                                                      | Notes      |
+| ------------------ | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **app_id**         | **String**  | App ID                                                                                                                                                                                                                                                                           |            |
+| **page**           | **Integer** | page to fetch (min&#x3D;1)                                                                                                                                                                                                                                                       | [optional] |
+| **limit**          | **Integer** | number of users to fetch per page (max&#x3D;500)                                                                                                                                                                                                                                 | [optional] |
+| **created_before** | **Integer** | Unix timestamp to anchor pagination results (fetches events that were created before the timestamp)                                                                                                                                                                              | [optional] |
+| **order_by**       | **String**  | Comma separated list of &lt;field&gt;:&lt;ASC/DESC&gt; (example: order_by&#x3D;id:DESC,created_at:ASC) \*\*cannot order_by &#x60;identifier&#x60;                                                                                                                                | [optional] |
+| **identifier**     | **String**  | search users email OR phone (pagination prepended operators identifier&#x3D;&lt;val&gt;, identifier&#x3D;&lt;ne:val&gt;, identifier&#x3D;&lt;gt:val&gt;, identifier&#x3D;&lt;lt:val&gt;, identifier&#x3D;&lt;like:val&gt;, identifier&#x3D;&lt;not_like:val&gt;)                 | [optional] |
+| **id**             | **String**  | search users id (pagination prepended operators id&#x3D;&lt;val&gt;, id&#x3D;&lt;ne:val&gt;, id&#x3D;&lt;gt:val&gt;, id&#x3D;&lt;lt:val&gt;, id&#x3D;&lt;like:val&gt;, id&#x3D;&lt;not_like:val&gt;)                                                                             | [optional] |
+| **login_count**    | **Integer** | search users login_count (pagination prepended operators login_count&#x3D;&lt;val&gt;, login_count&#x3D;&lt;ne:val&gt;, login_count&#x3D;&lt;gt:val&gt;, login_count&#x3D;&lt;lt:val&gt;)                                                                                        | [optional] |
+| **status**         | **String**  | search users by status (pagination prepended operators status&#x3D;&lt;val&gt;, status&#x3D;&lt;ne:val&gt;, status&#x3D;&lt;gt:val&gt;, status&#x3D;&lt;lt:val&gt;, status&#x3D;&lt;like:val&gt;, status&#x3D;&lt;not_like:val&gt;) -- valid values: (active, inactive, pending) | [optional] |
+| **created_at**     | **String**  | search users created_at (pagination prepended operators created_at&#x3D;&lt;val&gt;, created_at&#x3D;&lt;ne:val&gt;, created_at&#x3D;&lt;gt:val&gt;, created_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required                       | [optional] |
+| **updated_at**     | **String**  | search users updated_at (pagination prepended operators updated_at&#x3D;&lt;val&gt;, updated_at&#x3D;&lt;ne:val&gt;, updated_at&#x3D;&lt;gt:val&gt;, updated_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required                       | [optional] |
+| **last_login_at**  | **String**  | search users last_login_at (pagination prepended operators last_login_at&#x3D;&lt;val&gt;, lat_login_at&#x3D;&lt;ne:val&gt;, last_login_at&#x3D;&lt;gt:val&gt;, last_login_at&#x3D;&lt;lt:val&gt; -- valid timestamp in the format: 2006-01-02T15:04:05.000000Z required         | [optional] |
 
 ### Return type
 
@@ -458,7 +452,6 @@ end
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
 
 ## update_user
 
@@ -513,11 +506,11 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **app_id** | **String** | App ID |  |
-| **user_id** | **String** | User ID |  |
-| **update_user_request** | [**UpdateUserRequest**](UpdateUserRequest.md) | user settings |  |
+| Name                    | Type                                          | Description   | Notes |
+| ----------------------- | --------------------------------------------- | ------------- | ----- |
+| **app_id**              | **String**                                    | App ID        |       |
+| **user_id**             | **String**                                    | User ID       |       |
+| **update_user_request** | [**UpdateUserRequest**](UpdateUserRequest.md) | user settings |       |
 
 ### Return type
 
@@ -531,4 +524,3 @@ end
 
 - **Content-Type**: application/json
 - **Accept**: application/json
-

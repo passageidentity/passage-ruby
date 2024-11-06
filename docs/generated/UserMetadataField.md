@@ -2,14 +2,14 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **field_name** | **String** |  |  |
-| **friendly_name** | **String** |  |  |
-| **id** | **String** |  |  |
-| **profile** | **Boolean** |  |  |
-| **registration** | **Boolean** |  |  |
-| **type** | [**UserMetadataFieldType**](UserMetadataFieldType.md) |  |  |
+| Name              | Type                                                  | Description | Notes |
+| ----------------- | ----------------------------------------------------- | ----------- | ----- |
+| **field_name**    | **String**                                            |             |       |
+| **friendly_name** | **String**                                            |             |       |
+| **id**            | **String**                                            |             |       |
+| **profile**       | **Boolean**                                           |             |       |
+| **registration**  | **Boolean**                                           |             |       |
+| **type**          | [**UserMetadataFieldType**](UserMetadataFieldType.md) |             |       |
 
 ## Example
 
@@ -25,4 +25,3 @@ instance = OpenapiClient::UserMetadataField.new(
   type: null
 )
 ```
-

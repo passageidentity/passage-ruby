@@ -2,19 +2,19 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **created_at** | **Time** |  |  |
-| **email** | **String** |  |  |
-| **email_verified** | **Boolean** |  |  |
-| **id** | **String** |  |  |
-| **last_login_at** | **Time** |  |  |
-| **login_count** | **Integer** |  |  |
-| **phone** | **String** |  |  |
-| **phone_verified** | **Boolean** |  |  |
-| **status** | [**UserStatus**](UserStatus.md) |  |  |
-| **updated_at** | **Time** |  |  |
-| **user_metadata** | **Object** |  |  |
+| Name               | Type                            | Description | Notes |
+| ------------------ | ------------------------------- | ----------- | ----- |
+| **created_at**     | **Time**                        |             |       |
+| **email**          | **String**                      |             |       |
+| **email_verified** | **Boolean**                     |             |       |
+| **id**             | **String**                      |             |       |
+| **last_login_at**  | **Time**                        |             |       |
+| **login_count**    | **Integer**                     |             |       |
+| **phone**          | **String**                      |             |       |
+| **phone_verified** | **Boolean**                     |             |       |
+| **status**         | [**UserStatus**](UserStatus.md) |             |       |
+| **updated_at**     | **Time**                        |             |       |
+| **user_metadata**  | **Object**                      |             |       |
 
 ## Example
 
@@ -35,4 +35,3 @@ instance = OpenapiClient::ListPaginatedUsersItem.new(
   user_metadata: null
 )
 ```
-
