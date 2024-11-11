@@ -6,6 +6,10 @@ require 'jwt'
 require_relative 'client'
 require_relative '../openapi_client'
 
+# The Passage::Auth class provides methods for authenticating requests and tokens
+# using the Passage authentication service. It supports fetching and caching
+# JSON Web Keys (JWKS) for token verification, and provides methods for
+# validating JWTs and revoking user refresh tokens.
 module Passage
   class Auth
     @@app_cache = {}
