@@ -145,5 +145,62 @@ module Passage
         body: e.response[:body]
       )
     end
+
+    def create_magic_link(
+      user_id: '',
+      email: '',
+      phone: '',
+      channel: '',
+      send: false,
+      magic_link_path: '',
+      redirect_url: '',
+      language: '',
+      ttl: 60,
+      type: 'login'
+    )
+      magic_link_req = {}
+      magic_link_req['user_id'] = user_id unless user_id.empty?
+      magic_link_req['email'] = email unless email.empty?
+      magic_link_req['phone'] = phone unless phone.empty?
+
+      # check to see if the channel specified is valid before sending it off to the server
+      unless [PHONE_CHANNEL, EMAIL_CHANNEL].include? channel
+        raise PassageError.new(
+          message:
+            'channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL'
+        )
+      end
+      magic_link_req['channel'] = channel unless channel.empty?
+      magic_link_req['send'] = send
+      unless magic_link_path.empty?
+        magic_link_req[
+          'magic_link_path'
+        ] = magic_link_path
+      end
+      magic_link_req['redirect_url'] = redirect_url unless redirect_url.empty?
+      magic_link_req['language'] = language
+      magic_link_req['ttl'] = ttl unless ttl.zero?
+      magic_link_req['type'] = type
+
+      begin
+        gemspec = File.join(__dir__, '../../passageidentity.gemspec')
+        Gem::Specification.load(gemspec)
+        header_params = { 'Passage-Version' => "passage-ruby #{Passage::VERSION}" }
+        header_params['Authorization'] = "Bearer #{@api_key}" if @api_key != ''
+
+        opts = {}
+        opts[:header_params] = header_params
+        opts[:debug_auth_names] = ['header']
+
+        client = OpenapiClient::MagicLinksApi.new
+        client.create_magic_link(@app_id, magic_link_req, opts).magic_link
+      rescue Faraday::Error => e
+        raise PassageError.new(
+          message: 'failed to create Passage Magic Link',
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
+      end
+    end
   end
 end

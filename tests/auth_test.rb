@@ -74,4 +74,16 @@ class TestAuthAPI < Test::Unit::TestCase
       PassageHeaderClient.auth.authenticate_request(no_header_request)
     end
   end
+
+  def test_create_magic_link
+    magic_link =
+      PassageClient.auth.create_magic_link(
+        email: 'chris@passage.id',
+        channel: Passage::EMAIL_CHANNEL,
+        ttl: 122
+      )
+
+    assert_equal 122, magic_link.ttl
+    assert_equal 'chris@passage.id', magic_link.identifier
+  end
 end
