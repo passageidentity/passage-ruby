@@ -12,7 +12,6 @@ module Passage
   # JSON Web Keys (JWKS) for token verification, and provides methods for
   # validating JWTs and revoking user refresh tokens.
   class Auth
-
     def initialize(app_id, auth_strategy)
       @app_cache = {}
       @app_id = app_id
@@ -63,7 +62,7 @@ module Passage
         response =
           auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
         @jwks = response.body
-        
+
         !get_cache(@app_id) && set_cache(@app_id, [@jwks, @auth_origin])
       end
     end
@@ -72,7 +71,7 @@ module Passage
       warn '[DEPRECATION] `auth.authenticate_request()` is deprecated.  Please use `auth.validate_jwt()` instead.'
 
       # Get the token based on the strategy
-      
+
       if @auth_strategy.match?(Passage::COOKIE_STRATEGY)
         unless request.cookies.key?('psg_auth_token')
           raise PassageError.new(
