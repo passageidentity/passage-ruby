@@ -3,6 +3,7 @@
 require_relative 'client'
 
 module Passage
+  # The UserAPI class provides methods for interacting with Passage Users
   class UserAPI
     # This class will require an API key
     def initialize(app_id, api_key)

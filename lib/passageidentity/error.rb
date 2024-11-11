@@ -3,6 +3,7 @@
 require 'net/http'
 
 module Passage
+  # PassageError is a custom error class for handling errors in the PassageIdentity gem.
   class PassageError < StandardError
     attr_reader :status_code, :status_text, :message, :error
 

@@ -6,18 +6,27 @@ require 'jwt'
 require_relative 'client'
 require_relative '../openapi_client'
 
-# The Passage::Auth class provides methods for authenticating requests and tokens
-# using the Passage authentication service. It supports fetching and caching
-# JSON Web Keys (JWKS) for token verification, and provides methods for
-# validating JWTs and revoking user refresh tokens.
 module Passage
+  # The Passage::Auth class provides methods for authenticating requests and tokens
+  # using the Passage authentication service. It supports fetching and caching
+  # JSON Web Keys (JWKS) for token verification, and provides methods for
+  # validating JWTs and revoking user refresh tokens.
   class Auth
-    @@app_cache = {}
+    @app_cache = {}
+
     def initialize(app_id, auth_strategy)
       @app_id = app_id
       @auth_strategy = auth_strategy
 
       fetch_jwks
+    end
+
+    def get_cache(key)
+      @app_cache[key]
+    end
+
+    def set_cache(key, value)
+      @app_cache[key] = value
     end
 
     def fetch_app
@@ -34,8 +43,9 @@ module Passage
     end
 
     def fetch_jwks
-      if @@app_cache[@app_id]
-        @jwks, @auth_origin = @@app_cache[@app_id]
+      app_cache = get_cache(@app_id)
+      if app_cache
+        @jwks, @auth_origin = app_cache
       else
         auth_gw_connection =
           Faraday.new(url: 'https://auth.passage.id') do |f|
@@ -53,7 +63,8 @@ module Passage
         response =
           auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
         @jwks = response.body
-        @@app_cache[@app_id] ||= [@jwks, @auth_origin]
+        
+        get_cache(@app_id).nil && set_cache(@app_id, [@jwks, @auth_origin])
       end
     end
 
@@ -61,7 +72,8 @@ module Passage
       warn '[DEPRECATION] `auth.authenticate_request()` is deprecated.  Please use `auth.validate_jwt()` instead.'
 
       # Get the token based on the strategy
-      if @auth_strategy === Passage::COOKIE_STRATEGY
+      
+      if @auth_strategy.match?(Passage::COOKIE_STRATEGY)
         unless request.cookies.key?('psg_auth_token')
           raise PassageError.new(
             message:

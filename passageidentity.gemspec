@@ -21,13 +21,7 @@ Gem::Specification.new do |s|
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   s.require_paths = ['lib']
 
-  s.files =
-    Dir.chdir(File.expand_path(__dir__)) do
-      `git ls-files -z`.split("\x0").reject do |f|
-        f.match(%r{^(test|spec|features)/})
-      end
-    end
-
+  s.required_ruby_version = '>= 3.1.3'
   s.add_dependency 'faraday', '>= 0.17.0', '< 2.0'
   s.add_dependency 'jwt', '~> 2.3', '>= 2.3.0'
   s.add_dependency 'openssl', '~> 3.0', '>= 3.0.0'

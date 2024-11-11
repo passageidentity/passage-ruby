@@ -7,6 +7,8 @@ require 'rack'
 require 'test/unit'
 
 Dotenv.load('.env')
+
+# This is a test suite for the Passage Auth API using the Test::Unit framework.
 class TestAuthAPI < Test::Unit::TestCase
   PassageClient =
     Passage::Client.new(app_id: ENV['APP_ID'], api_key: ENV['API_KEY'])
@@ -42,9 +44,9 @@ class TestAuthAPI < Test::Unit::TestCase
   end
 
   def test_invalid_authenticate_request_cookie
-    envBadCookie = Rack::MockRequest.env_for('https://test.com')
-    envBadCookie['HTTP_COOKIE'] = 'psg_auth_token=invalid_token}'
-    bad_cookie_request = Rack::Request.new(envBadCookie)
+    env_bad_cookie = Rack::MockRequest.env_for('https://test.com')
+    env_bad_cookie['HTTP_COOKIE'] = 'psg_auth_token=invalid_token}'
+    bad_cookie_request = Rack::Request.new(env_bad_cookie)
     assert_raises Passage::PassageError do
       PassageClient.auth.authenticate_request(bad_cookie_request)
     end

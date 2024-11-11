@@ -8,17 +8,6 @@ require 'test/unit'
 Dotenv.load('.env')
 
 # This is a test suite for the Passage User API using the Test::Unit framework.
-# It includes tests for creating, deleting, retrieving, updating, and managing users.
-# The tests cover various functionalities such as:
-# - Creating and deleting users
-# - Retrieving users by ID and identifier (email or phone)
-# - Handling case sensitivity in identifiers
-# - Deactivating and activating users
-# - Updating user information
-# - Listing user devices
-# - Signing out users
-# 
-# The setup method creates a global test user before each test, and the teardown method deletes the global test user after each test.
 class TestUserAPI < Test::Unit::TestCase
   PassageClient =
     Passage::Client.new(app_id: ENV['APP_ID'], api_key: ENV['API_KEY'])

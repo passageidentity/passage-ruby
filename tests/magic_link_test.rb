@@ -6,6 +6,8 @@ require 'faraday'
 require 'test/unit'
 
 Dotenv.load('.env')
+
+# This is a test suite for the Passage Magic Link API using the Test::Unit framework.
 class TestMagicLinkAPI < Test::Unit::TestCase
   PassageClient =
     Passage::Client.new(app_id: ENV['APP_ID'], api_key: ENV['API_KEY'])
