@@ -72,7 +72,7 @@ module Passage
 
       # Get the token based on the strategy
 
-      if @auth_strategy.match?(Passage::COOKIE_STRATEGY)
+      if @auth_strategy == Passage::COOKIE_STRATEGY
         unless request.cookies.key?('psg_auth_token')
           raise PassageError.new(
             message:

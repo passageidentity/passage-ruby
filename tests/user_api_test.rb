@@ -32,7 +32,7 @@ class TestUserAPI < Test::Unit::TestCase
       )
     assert_equal 'chris+test-create-delete@passage.id', user.email
     assert_equal 'cool', user.user_metadata[:example1]
-    PassageClient.user.delete(user_id: user.id)
+    deleted = PassageClient.user.delete(user_id: user.id)
     assert_equal true, deleted
   end
 
@@ -79,7 +79,9 @@ class TestUserAPI < Test::Unit::TestCase
     user = PassageClient.user.get(user_id: $global_test_user.id)
     assert_equal $global_test_user.id, user.id
 
-    assert_raise Passage::PassageError PassageClient.user.get_by_identifier(user_identifier: 'error@passage.id')
+    assert_raise Passage::PassageError do
+      PassageClient.user.get_by_identifier(user_identifier: 'error@passage.id')
+    end
   end
 
   def test_deactivate_user
