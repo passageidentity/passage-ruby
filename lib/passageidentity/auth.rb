@@ -12,9 +12,9 @@ module Passage
   # JSON Web Keys (JWKS) for token verification, and provides methods for
   # validating JWTs and revoking user refresh tokens.
   class Auth
-    @app_cache = {}
 
     def initialize(app_id, auth_strategy)
+      @app_cache = {}
       @app_id = app_id
       @auth_strategy = auth_strategy
 
@@ -64,7 +64,7 @@ module Passage
           auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
         @jwks = response.body
         
-        get_cache(@app_id).nil && set_cache(@app_id, [@jwks, @auth_origin])
+        !get_cache(@app_id) && set_cache(@app_id, [@jwks, @auth_origin])
       end
     end
 
