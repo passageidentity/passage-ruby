@@ -38,7 +38,7 @@ Run Linter:
 
 ```
 gem install rubocop
-rubocop -l
+rubocop -A
 ```
 
 To test in the example app, change the Gemfile to include this path:
