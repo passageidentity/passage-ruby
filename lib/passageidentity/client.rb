@@ -14,7 +14,7 @@ module Passage
   EMAIL_CHANNEL = 'email'
   PHONE_CHANNEL = 'phone'
 
-  # The Passage::Client class provides methods for interacting with the Passage
+  # The Passage::Client class provides methods for interacting with Passage
   class Client
     attr_reader :auth, :user
 

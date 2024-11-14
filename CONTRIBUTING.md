@@ -27,13 +27,6 @@ ruby tests/all.rb
 ruby tests/*_test.rb
 ```
 
-Run Formatting:
-
-```
-gem install rubocop
-rubocop --format github
-```
-
 Run Linter:
 
 ```

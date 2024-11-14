@@ -6,34 +6,9 @@ AllCops:
     - 'lib/models/update_otp_auth_method.rb'
     - 'lib/models/update_passkeys_auth_method.rb'
 
-Naming/AccessorMethodName:
-  Enabled: false
-
-Style/GlobalVars:
-  Enabled: false
-
 Metrics/ClassLength:
   Max: 300
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
   
 Layout/LineLength:
-  Exclude: 
-    - 'passageidentity.gemspec'
-
-ParameterLists:
-  Exclude:
-    - 'lib/passageidentity/client.rb'
-    
-Metrics/CyclomaticComplexity:
-  Exclude:
-    - 'lib/passageidentity/client.rb'
-    
-Metrics/PerceivedComplexity:
-  Exclude:
-    - 'lib/passageidentity/client.rb'
+  Max: 120
     
