@@ -8,9 +8,6 @@ require_relative '../openapi_client'
 
 module Passage
   # The Passage::Auth class provides methods for authenticating requests and tokens
-  # using the Passage authentication service. It supports fetching and caching
-  # JSON Web Keys (JWKS) for token verification, and provides methods for
-  # validating JWTs and revoking user refresh tokens.
   class Auth
     def initialize(app_id, auth_strategy)
       @app_cache = {}
@@ -18,14 +15,6 @@ module Passage
       @auth_strategy = auth_strategy
 
       fetch_jwks
-    end
-
-    def get_cache(key)
-      @app_cache[key]
-    end
-
-    def set_cache(key, value)
-      @app_cache[key] = value
     end
 
     def fetch_app
@@ -201,6 +190,16 @@ module Passage
           body: e.response[:body]
         )
       end
+    end
+
+    private
+
+    def get_cache(key)
+      @app_cache[key]
+    end
+
+    def set_cache(key, value)
+      @app_cache[key] = value
     end
   end
 end

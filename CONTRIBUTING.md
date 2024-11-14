@@ -27,18 +27,11 @@ ruby tests/all.rb
 ruby tests/*_test.rb
 ```
 
-Run Formatting:
-
-```
-gem install rubocop
-rubocop --format github
-```
-
 Run Linter:
 
 ```
 gem install rubocop
-rubocop -l
+rubocop -A
 ```
 
 To test in the example app, change the Gemfile to include this path:
