@@ -1,0 +1,17 @@
+{
+	"name": "Ruby",
+	"image": "mcr.microsoft.com/devcontainers/ruby:1-3.3-bullseye",
+	"features": {
+		"ghcr.io/itsmechlark/features/act:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"arahata.linter-actionlint",
+				"misogi.ruby-rubocop"
+			]
+		}
+	},
+	"postCreateCommand": "bundle install && gem install test-unit rubocop"
+}
