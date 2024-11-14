@@ -5,6 +5,7 @@ require_relative 'client'
 module Passage
   # The UserAPI class provides methods for interacting with Passage Users
   class UserAPI
+    # rubocop:disable Metrics/AbcSize
     # This class will require an API key
     def initialize(app_id, api_key)
       @app_id = app_id
@@ -256,5 +257,6 @@ module Passage
 
       raise PassageError.new(message: 'must supply a valid device_id')
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end

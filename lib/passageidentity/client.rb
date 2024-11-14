@@ -36,13 +36,16 @@ module Passage
       @user = Passage::UserAPI.new(@app_id, @api_key)
     end
 
+    # rubocop:disable Naming/AccessorMethodName
     def get_app
       client = OpenapiClient::AppsApi.new
       client.get_app(@app_id).app
     rescue StandardError => e
       raise e
     end
+    # rubocop:enable Naming/AccessorMethodName
 
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/ParameterLists, Metrics/AbcSize
     def create_magic_link(
       user_id: '',
       email: '',
@@ -99,5 +102,6 @@ module Passage
         )
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/ParameterLists, Metrics/AbcSize
   end
 end

@@ -9,6 +9,7 @@ require_relative '../openapi_client'
 module Passage
   # The Passage::Auth class provides methods for authenticating requests and tokens
   class Auth
+    # rubocop:disable Metrics/AbcSize
     def initialize(app_id, auth_strategy)
       @app_cache = {}
       @app_id = app_id
@@ -136,7 +137,7 @@ module Passage
     end
 
     private
-    
+
     def get_cache(key)
       @app_cache[key]
     end
@@ -144,5 +145,6 @@ module Passage
     def set_cache(key, value)
       @app_cache[key] = value
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end
