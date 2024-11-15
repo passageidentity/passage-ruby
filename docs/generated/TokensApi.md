@@ -2,9 +2,10 @@
 
 All URIs are relative to *https://api.passage.id/v1*
 
-| Method                                                                    | HTTP request                                     | Description            |
-| ------------------------------------------------------------------------- | ------------------------------------------------ | ---------------------- |
+| Method | HTTP request | Description |
+| ------ | ------------ | ----------- |
 | [**revoke_user_refresh_tokens**](TokensApi.md#revoke_user_refresh_tokens) | **DELETE** /apps/{app_id}/users/{user_id}/tokens | Revokes refresh tokens |
+
 
 ## revoke_user_refresh_tokens
 
@@ -57,10 +58,10 @@ end
 
 ### Parameters
 
-| Name        | Type       | Description | Notes |
-| ----------- | ---------- | ----------- | ----- |
-| **app_id**  | **String** | App ID      |       |
-| **user_id** | **String** | User ID     |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **app_id** | **String** | App ID |  |
+| **user_id** | **String** | User ID |  |
 
 ### Return type
 
@@ -74,3 +75,4 @@ nil (empty response body)
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+

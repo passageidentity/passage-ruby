@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name           | Type                          | Description | Notes |
-| -------------- | ----------------------------- | ----------- | ----- |
-| **magic_link** | [**MagicLink**](MagicLink.md) |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **magic_link** | [**MagicLink**](MagicLink.md) |  |  |
 
 ## Example
 
@@ -15,3 +15,4 @@ instance = OpenapiClient::MagicLinkResponse.new(
   magic_link: null
 )
 ```
+

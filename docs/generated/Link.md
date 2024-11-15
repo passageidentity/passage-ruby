@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name     | Type       | Description | Notes |
-| -------- | ---------- | ----------- | ----- |
-| **href** | **String** |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **href** | **String** |  |  |
 
 ## Example
 
@@ -15,3 +15,4 @@ instance = OpenapiClient::Link.new(
   href: null
 )
 ```
+

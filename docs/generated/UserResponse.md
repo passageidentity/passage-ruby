@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name     | Type                        | Description | Notes |
-| -------- | --------------------------- | ----------- | ----- |
-| **user** | [**UserInfo**](UserInfo.md) |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **user** | [**UserInfo**](UserInfo.md) |  |  |
 
 ## Example
 
@@ -15,3 +15,4 @@ instance = OpenapiClient::UserResponse.new(
   user: null
 )
 ```
+

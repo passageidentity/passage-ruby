@@ -2,9 +2,10 @@
 
 All URIs are relative to *https://api.passage.id/v1*
 
-| Method                                                      | HTTP request                        | Description                  |
-| ----------------------------------------------------------- | ----------------------------------- | ---------------------------- |
+| Method | HTTP request | Description |
+| ------ | ------------ | ----------- |
 | [**create_magic_link**](MagicLinksApi.md#create_magic_link) | **POST** /apps/{app_id}/magic-links | Create Embeddable Magic Link |
+
 
 ## create_magic_link
 
@@ -58,10 +59,10 @@ end
 
 ### Parameters
 
-| Name                          | Type                                                    | Description        | Notes |
-| ----------------------------- | ------------------------------------------------------- | ------------------ | ----- |
-| **app_id**                    | **String**                                              | App ID             |       |
-| **create_magic_link_request** | [**CreateMagicLinkRequest**](CreateMagicLinkRequest.md) | magic link request |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **app_id** | **String** | App ID |  |
+| **create_magic_link_request** | [**CreateMagicLinkRequest**](CreateMagicLinkRequest.md) | magic link request |  |
 
 ### Return type
 
@@ -75,3 +76,4 @@ end
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+

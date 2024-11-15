@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name      | Type       | Description | Notes |
-| --------- | ---------- | ----------- | ----- |
-| **light** | **String** |             |       |
-| **dark**  | **String** |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **light** | **String** |  |  |
+| **dark** | **String** |  |  |
 
 ## Example
 
@@ -17,3 +17,4 @@ instance = OpenapiClient::WebAuthnIcons.new(
   dark: null
 )
 ```
+

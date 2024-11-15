@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name    | Type                      | Description | Notes |
-| ------- | ------------------------- | ----------- | ----- |
-| **app** | [**AppInfo**](AppInfo.md) |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **app** | [**AppInfo**](AppInfo.md) |  |  |
 
 ## Example
 
@@ -15,3 +15,4 @@ instance = OpenapiClient::AppResponse.new(
   app: null
 )
 ```
+
