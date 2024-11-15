@@ -190,7 +190,24 @@ module Passage
       end
     end
 
+    def revoke_device(user_id:, device_id:)
+      user_exists?(user_id)
+      device_exists?(device_id)
+
+      begin
+        @user_device_client.delete_user_devices(@app_id, user_id, device_id, @req_opts)
+        true
+      rescue Faraday::Error => e
+        raise PassageError.new(
+          'failed to delete Passage User Device',
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
+      end
+    end
+
     def delete_device(user_id:, device_id:)
+      warn '[DEPRECATION] `user.delete_device` is deprecated.  Please use `user.revoke_device()` instead.'
       user_exists?(user_id)
       device_exists?(device_id)
 
@@ -222,7 +239,7 @@ module Passage
     end
 
     def signout(user_id:)
-      warn '[DEPRECATION] `user.signout()` is deprecated.  Please use `auth.revoke_user_refresh_tokens()` instead.'
+      warn '[DEPRECATION] `user.signout()` is deprecated.  Please use `user.revoke_user_refresh_tokens()` instead.'
       user_exists?(user_id)
       begin
         tokens_client = OpenapiClient::TokensApi.new
@@ -235,6 +252,18 @@ module Passage
           body: e.response[:body]
         )
       end
+    end
+
+    def revoke_user_refresh_tokens(user_id)
+      client = OpenapiClient::TokensApi.new
+      client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
+      true
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        message: "failed to revoke user's refresh tokens",
+        status_code: e.response[:status],
+        body: e.response[:body]
+      )
     end
 
     private
