@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-require "faraday"
+require 'faraday'
 
-require_relative "passageidentity/client"
+require_relative 'passageidentity/client'
 
+# This file defines the Passage module and requires necessary dependencies.
+# The Passage module serves as a namespace for the Passage Identity functionality.
 module Passage
 end
