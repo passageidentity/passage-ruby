@@ -24,17 +24,6 @@ class TestAuthAPI < Test::Unit::TestCase
     assert_equal ENV['TEST_USER_ID'], user_id
   end
 
-  def test_valid_authenticate_token
-    user_id = PassageClient.auth.authenticate_token(ENV['PSG_JWT'])
-    assert_equal ENV['TEST_USER_ID'], user_id
-  end
-
-  def test_invalid_authenticate_token
-    assert_raises Passage::PassageError do
-      PassageClient.auth.authenticate_token('invalid_token')
-    end
-  end
-
   def test_valid_authenticate_request_cookie
     env = Rack::MockRequest.env_for('https://test.com')
     env['HTTP_COOKIE'] = "psg_auth_token=#{ENV['PSG_JWT']}"
@@ -85,5 +74,20 @@ class TestAuthAPI < Test::Unit::TestCase
 
     assert_equal 122, magic_link.ttl
     assert_equal 'chris@passage.id', magic_link.identifier
+  end
+
+  def test_invalid_create_magic_link
+    bad_magic_link =
+      PassageClient.auth.create_magic_link(
+        email: 'chris@passage.id',
+        ttl: 122
+      )
+
+    assert_equal 122, magic_link.ttl
+    assert_equal 'chris@passage.id', magic_link.identifier
+
+    assert_raises Passage::PassageError do
+      PassageClient.auth.create_magic_link(bad_magic_link)
+    end
   end
 end
