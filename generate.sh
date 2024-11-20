@@ -8,14 +8,10 @@ fi
 
 file="$1"
 
-npm install @openapitools/openapi-generator-cli -g
-
-mkdir generated
-
-openapi-generator-cli generate \
-  -i "$file" \
+docker run --rm -v "${PWD}:/local" -u $(id -u) openapitools/openapi-generator-cli:latest generate \
+  -i "/local/$file" \
   -g ruby \
-  -o ./generated \
+  -o /local/generated \
   --additional-properties=modelPropertyNaming=original,library=faraday
 
 rm -rf ./docs/generated

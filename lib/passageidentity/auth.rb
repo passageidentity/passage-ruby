@@ -9,6 +9,7 @@ require_relative '../openapi_client'
 module Passage
   # The Passage::Auth class provides methods for authenticating requests and tokens
   class Auth
+    # rubocop:disable Metrics/AbcSize
     def initialize(app_id, auth_strategy)
       @app_cache = {}
       @app_id = app_id
@@ -122,6 +123,19 @@ module Passage
 
     private
 
+    def fetch_app
+      client = OpenapiClient::AppsApi.new
+      response = client.get_app(@app_id)
+
+      response.app
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        message: 'failed to fetch passage app',
+        status_code: e.response[:status],
+        body: e.response[:body]
+      )
+    end
+
     def fetch_jwks
       app_cache = get_cache(@app_id)
       if app_cache
@@ -146,19 +160,6 @@ module Passage
 
         !get_cache(@app_id) && set_cache(@app_id, [@jwks, @auth_origin])
       end
-    end
-
-    def fetch_app
-      client = OpenapiClient::AppsApi.new
-      response = client.get_app(@app_id)
-
-      response.app
-    rescue Faraday::Error => e
-      raise PassageError.new(
-        message: 'failed to fetch passage app',
-        status_code: e.response[:status],
-        body: e.response[:body]
-      )
     end
 
     def authenticate_token(token)
@@ -196,6 +197,18 @@ module Passage
       raise PassageError.new(message: e.message)
     end
 
+    def revoke_user_refresh_tokens(user_id)
+      client = OpenapiClient::TokensApi.new
+      client.revoke_user_refresh_tokens(@app_id, user_id)
+      true
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        message: "failed to revoke user's refresh tokens",
+        status_code: e.response[:status],
+        body: e.response[:body]
+      )
+    end
+
     def get_cache(key)
       @app_cache[key]
     end
@@ -203,5 +216,6 @@ module Passage
     def set_cache(key, value)
       @app_cache[key] = value
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end

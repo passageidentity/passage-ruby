@@ -5,6 +5,7 @@ require_relative 'client'
 module Passage
   # The UserAPI class provides methods for interacting with Passage Users
   class UserAPI
+    # rubocop:disable Metrics/AbcSize
     # This class will require an API key
     def initialize(app_id, api_key)
       @app_id = app_id
@@ -239,7 +240,7 @@ module Passage
     end
 
     def signout(user_id:)
-      warn '[DEPRECATION] `user.signout()` is deprecated.  Please use `user.revoke_user_refresh_tokens()` instead.'
+      warn '[DEPRECATION] `user.signout()` is deprecated.  Please use `auth.revoke_user_refresh_tokens()` instead.'
       user_exists?(user_id)
       begin
         tokens_client = OpenapiClient::TokensApi.new
@@ -285,5 +286,6 @@ module Passage
 
       raise PassageError.new(message: 'must supply a valid device_id')
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end

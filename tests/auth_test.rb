@@ -22,6 +22,20 @@ class TestAuthAPI < Test::Unit::TestCase
   def test_valid_jwt
     user_id = PassageClient.auth.validate_jwt(ENV['PSG_JWT'])
     assert_equal ENV['TEST_USER_ID'], user_id
+<<<<<<< HEAD
+=======
+  end
+
+  def test_valid_authenticate_token
+    user_id = PassageClient.auth.authenticate_token(ENV['PSG_JWT'])
+    assert_equal ENV['TEST_USER_ID'], user_id
+  end
+
+  def test_invalid_authenticate_token
+    assert_raises Passage::PassageError do
+      PassageClient.auth.authenticate_token('invalid_token')
+    end
+>>>>>>> origin/main
   end
 
   def test_valid_authenticate_request_cookie

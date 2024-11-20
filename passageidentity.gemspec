@@ -6,8 +6,10 @@ Gem::Specification.new do |s|
   s.name = 'passageidentity'
   s.version = Passage::VERSION
   s.summary = 'Passage Passkey Complete SDK'
+  # rubocop:disable Layout/LineLength
   s.description =
     'Passkey Complete for Ruby - Integrate into your Ruby API or service to enable a completely passwordless standalone auth solution with Passage by 1Password.'
+  # rubocop:enable Layout/LineLength
   s.authors = ['Passage by 1Password']
   s.email = 'support@passage.id'
   s.files = ['lib/passageidentity.rb']
