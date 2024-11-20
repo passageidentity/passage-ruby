@@ -2,12 +2,12 @@
 
 ## Properties
 
-| Name                    | Type       | Description                               | Notes |
-| ----------------------- | ---------- | ----------------------------------------- | ----- |
-| **provider_id**         | **String** | The external ID of the Social Connection. |       |
-| **created_at**          | **Time**   |                                           |       |
-| **last_login_at**       | **Time**   |                                           |       |
-| **provider_identifier** | **String** | The email of connected social user.       |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **provider_id** | **String** | The external ID of the Social Connection. |  |
+| **created_at** | **Time** |  |  |
+| **last_login_at** | **Time** |  |  |
+| **provider_identifier** | **String** | The email of connected social user. |  |
 
 ## Example
 
@@ -21,3 +21,4 @@ instance = OpenapiClient::GithubUserSocialConnection.new(
   provider_identifier: null
 )
 ```
+

@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name                 | Type                                    | Description                                       | Notes            |
-| -------------------- | --------------------------------------- | ------------------------------------------------- | ---------------- |
-| **enabled**          | **Boolean**                             |                                                   |                  |
-| **ttl**              | **Integer**                             | Maximum time (IN SECONDS) for the auth to expire. | [default to 300] |
-| **ttl_display_unit** | [**TtlDisplayUnit**](TtlDisplayUnit.md) |                                                   |                  |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **enabled** | **Boolean** |  |  |
+| **ttl** | **Integer** | Maximum time (IN SECONDS) for the auth to expire. | [default to 300] |
+| **ttl_display_unit** | [**TtlDisplayUnit**](TtlDisplayUnit.md) |  |  |
 
 ## Example
 
@@ -19,3 +19,4 @@ instance = OpenapiClient::OtpAuthMethod.new(
   ttl_display_unit: null
 )
 ```
+

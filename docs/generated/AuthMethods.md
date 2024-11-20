@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name           | Type                                              | Description | Notes |
-| -------------- | ------------------------------------------------- | ----------- | ----- |
-| **passkeys**   | [**PasskeysAuthMethod**](PasskeysAuthMethod.md)   |             |       |
-| **otp**        | [**OtpAuthMethod**](OtpAuthMethod.md)             |             |       |
-| **magic_link** | [**MagicLinkAuthMethod**](MagicLinkAuthMethod.md) |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **passkeys** | [**PasskeysAuthMethod**](PasskeysAuthMethod.md) |  |  |
+| **otp** | [**OtpAuthMethod**](OtpAuthMethod.md) |  |  |
+| **magic_link** | [**MagicLinkAuthMethod**](MagicLinkAuthMethod.md) |  |  |
 
 ## Example
 
@@ -19,3 +19,4 @@ instance = OpenapiClient::AuthMethods.new(
   magic_link: null
 )
 ```
+

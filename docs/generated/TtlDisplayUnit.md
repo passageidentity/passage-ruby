@@ -12,3 +12,4 @@ require 'openapi_client'
 
 instance = OpenapiClient::TtlDisplayUnit.new()
 ```
+

@@ -2,13 +2,13 @@
 
 ## Properties
 
-| Name   | Type        | Description | Notes |
-| ------ | ----------- | ----------- | ----- |
-| **h**  | **Integer** |             |       |
-| **id** | **String**  |             |       |
-| **w**  | **Integer** |             |       |
-| **x**  | **Integer** |             |       |
-| **y**  | **Integer** |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **h** | **Integer** |  |  |
+| **id** | **String** |  |  |
+| **w** | **Integer** |  |  |
+| **x** | **Integer** |  |  |
+| **y** | **Integer** |  |  |
 
 ## Example
 
@@ -23,3 +23,4 @@ instance = OpenapiClient::LayoutConfig.new(
   y: null
 )
 ```
+

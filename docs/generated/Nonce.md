@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name      | Type       | Description | Notes |
-| --------- | ---------- | ----------- | ----- |
-| **nonce** | **String** |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **nonce** | **String** |  |  |
 
 ## Example
 
@@ -15,3 +15,4 @@ instance = OpenapiClient::Nonce.new(
   nonce: null
 )
 ```
+

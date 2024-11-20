@@ -2,15 +2,15 @@
 
 ## Properties
 
-| Name             | Type                                      | Description | Notes |
-| ---------------- | ----------------------------------------- | ----------- | ----- |
-| **created_at**   | **Time**                                  |             |       |
-| **completed_at** | **Time**                                  |             |       |
-| **id**           | **String**                                |             |       |
-| **ip_addr**      | **String**                                |             |       |
-| **status**       | [**UserEventStatus**](UserEventStatus.md) |             |       |
-| **type**         | **String**                                |             |       |
-| **user_agent**   | **String**                                |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **created_at** | **Time** |  |  |
+| **completed_at** | **Time** |  |  |
+| **id** | **String** |  |  |
+| **ip_addr** | **String** |  |  |
+| **status** | [**UserEventStatus**](UserEventStatus.md) |  |  |
+| **type** | **String** |  |  |
+| **user_agent** | **String** |  |  |
 
 ## Example
 
@@ -27,3 +27,4 @@ instance = OpenapiClient::UserRecentEvent.new(
   user_agent: null
 )
 ```
+

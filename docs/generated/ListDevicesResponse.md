@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name        | Type                                                   | Description | Notes |
-| ----------- | ------------------------------------------------------ | ----------- | ----- |
-| **devices** | [**Array&lt;WebAuthnDevices&gt;**](WebAuthnDevices.md) |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **devices** | [**Array&lt;WebAuthnDevices&gt;**](WebAuthnDevices.md) |  |  |
 
 ## Example
 
@@ -15,3 +15,4 @@ instance = OpenapiClient::ListDevicesResponse.new(
   devices: null
 )
 ```
+

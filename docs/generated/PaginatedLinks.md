@@ -2,13 +2,13 @@
 
 ## Properties
 
-| Name         | Type                | Description | Notes |
-| ------------ | ------------------- | ----------- | ----- |
-| **first**    | [**Link**](Link.md) |             |       |
-| **last**     | [**Link**](Link.md) |             |       |
-| **\_next**   | [**Link**](Link.md) |             |       |
-| **previous** | [**Link**](Link.md) |             |       |
-| **\_self**   | [**Link**](Link.md) |             |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **first** | [**Link**](Link.md) |  |  |
+| **last** | [**Link**](Link.md) |  |  |
+| **_next** | [**Link**](Link.md) |  |  |
+| **previous** | [**Link**](Link.md) |  |  |
+| **_self** | [**Link**](Link.md) |  |  |
 
 ## Example
 
@@ -23,3 +23,4 @@ instance = OpenapiClient::PaginatedLinks.new(
   _self: null
 )
 ```
+

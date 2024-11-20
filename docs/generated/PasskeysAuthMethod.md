@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name        | Type        | Description | Notes             |
-| ----------- | ----------- | ----------- | ----------------- |
-| **enabled** | **Boolean** |             | [default to true] |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **enabled** | **Boolean** |  | [default to true] |
 
 ## Example
 
@@ -15,3 +15,4 @@ instance = OpenapiClient::PasskeysAuthMethod.new(
   enabled: null
 )
 ```
+

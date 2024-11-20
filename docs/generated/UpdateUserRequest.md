@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name              | Type       | Description | Notes      |
-| ----------------- | ---------- | ----------- | ---------- |
-| **email**         | **String** |             | [optional] |
-| **phone**         | **String** |             | [optional] |
-| **user_metadata** | **Object** |             | [optional] |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **email** | **String** |  | [optional] |
+| **phone** | **String** |  | [optional] |
+| **user_metadata** | **Object** |  | [optional] |
 
 ## Example
 
@@ -19,3 +19,4 @@ instance = OpenapiClient::UpdateUserRequest.new(
   user_metadata: null
 )
 ```
+

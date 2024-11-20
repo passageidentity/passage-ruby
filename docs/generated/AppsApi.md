@@ -2,9 +2,10 @@
 
 All URIs are relative to *https://api.passage.id/v1*
 
-| Method                            | HTTP request           | Description |
-| --------------------------------- | ---------------------- | ----------- |
-| [**get_app**](AppsApi.md#get_app) | **GET** /apps/{app_id} | Get App     |
+| Method | HTTP request | Description |
+| ------ | ------------ | ----------- |
+| [**get_app**](AppsApi.md#get_app) | **GET** /apps/{app_id} | Get App |
+
 
 ## get_app
 
@@ -57,9 +58,9 @@ end
 
 ### Parameters
 
-| Name       | Type       | Description | Notes |
-| ---------- | ---------- | ----------- | ----- |
-| **app_id** | **String** | App ID      |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **app_id** | **String** | App ID |  |
 
 ### Return type
 
@@ -73,3 +74,4 @@ end
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
