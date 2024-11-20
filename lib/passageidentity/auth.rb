@@ -121,7 +121,7 @@ module Passage
         )
       end
     end
-    # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/ParameterLists
 
     private
 
@@ -197,18 +197,6 @@ module Passage
       raise PassageError.new(message: e.message)
     rescue JWT::DecodeError => e
       raise PassageError.new(message: e.message)
-    end
-
-    def revoke_user_refresh_tokens(user_id)
-      client = OpenapiClient::TokensApi.new
-      client.revoke_user_refresh_tokens(@app_id, user_id)
-      true
-    rescue Faraday::Error => e
-      raise PassageError.new(
-        message: "failed to revoke user's refresh tokens",
-        status_code: e.response[:status],
-        body: e.response[:body]
-      )
     end
 
     def get_cache(key)
