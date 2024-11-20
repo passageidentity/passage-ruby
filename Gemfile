@@ -6,11 +6,13 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'dotenv'
-  gem 'prettier_print'
-  gem 'rack'
-  gem 'rubocop'
-  gem 'syntax_tree'
-  gem 'syntax_tree-haml'
-  gem 'syntax_tree-rbs'
+  gem 'dotenv', '~> 3.1'
+  gem 'prettier_print', '~> 1.2'
+  gem 'rack', '~> 3.1'
+  gem 'rake', '~> 13.2'
+  gem 'rubocop', '~> 1.68'
+  gem 'syntax_tree', '~> 6.2'
+  gem 'syntax_tree-haml', '~> 4.0'
+  gem 'syntax_tree-rbs', '~> 1.0'
+  gem 'test-unit', '~> 3.6'
 end
