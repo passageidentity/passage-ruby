@@ -59,7 +59,7 @@ module Passage
       type: 'login'
     )
       warn '[DEPRECATION] `create_magic_link()` is deprecated.  Please use `auth.create_magic_link()` instead.'
-      
+
       magic_link_req = {}
       magic_link_req['user_id'] = user_id unless user_id.empty?
       magic_link_req['email'] = email unless email.empty?
