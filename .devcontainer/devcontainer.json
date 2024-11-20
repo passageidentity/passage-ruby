@@ -13,5 +13,5 @@
 			]
 		}
 	},
-	"postCreateCommand": "bundle install && gem install test-unit rubocop"
+	"postCreateCommand": "bundle install"
 }
