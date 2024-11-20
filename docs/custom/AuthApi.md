@@ -2,11 +2,12 @@
 
 All URIs are relative to *https://api.passage.id/v1*
 
-| Method                                                                  | Description                            |
-| ----------------------------------------------------------------------- | -------------------------------------- |
-| [**authenticate_request**](AuthApi.md#authenticate_request)             | **Deprecated:** Revokes refresh tokens |
-| [**revoke_user_refresh_tokens**](AuthApi.md#revoke_user_refresh_tokens) | Revokes user tokens                    |
-| [**validate_jwt**](AuthApi.md#validate_jwt)                             | Validates jwt token                    |
+| Method | Description |
+| ------ | ----------- |
+| [**authenticate_request**](AuthApi.md#authenticate_request) |  **Deprecated:** Revokes refresh tokens |
+| [**revoke_user_refresh_tokens**](AuthApi.md#revoke_user_refresh_tokens) | Revokes user tokens |
+| [**validate_jwt**](AuthApi.md#validate_jwt) |  Validates jwt token
+
 
 ---
 
@@ -15,6 +16,7 @@ All URIs are relative to *https://api.passage.id/v1*
 > authenticate_request(request)
 
 Validates that request has the correct jwt token
+
 
 ### Examples
 
@@ -39,9 +41,9 @@ end
 
 ### Parameters
 
-| Name        | Type              | Description | Notes |
-| ----------- | ----------------- | ----------- | ----- |
-| **request** | **RequestObject** | request     |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **request** | **RequestObject** | request |  |
 
 ### Return type
 
@@ -50,6 +52,7 @@ end
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+
 
 ---
 
@@ -81,9 +84,9 @@ end
 
 ### Parameters
 
-| Name        | Type       | Description | Notes |
-| ----------- | ---------- | ----------- | ----- |
-| **user_id** | **string** | user id     |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **user_id** | **string** | user id |  |
 
 ### Return type
 
@@ -92,6 +95,8 @@ boolean
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+
+
 
 ---
 
@@ -122,9 +127,9 @@ end
 
 ### Parameters
 
-| Name      | Type       | Description | Notes |
-| --------- | ---------- | ----------- | ----- |
-| **token** | **String** | jwt token   |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **token** | **String** | jwt token |  |
 
 ### Return type
 
@@ -133,3 +138,4 @@ end
 ### Authorization
 
 [bearerAuth](../README.md#bearerAuth)
+

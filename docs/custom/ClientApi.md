@@ -2,10 +2,11 @@
 
 All URIs are relative to *https://api.passage.id/v1*
 
-| Method                                                  | HTTP request                        | Description                  |
-| ------------------------------------------------------- | ----------------------------------- | ---------------------------- |
-| [**get_app**](ClientApi.md#get_app)                     | **GET** /apps/{app_id}              | Get App                      |
+| Method | HTTP request | Description |
+| ------ | ------------ | ----------- |
+| [**get_app**](ClientApi.md#get_app) | **GET** /apps/{app_id} | Get App |
 | [**create_magic_link**](ClientApi.md#create_magic_link) | **POST** /apps/{app_id}/magic-links | Create Embeddable Magic Link |
+
 
 ## get_app
 
@@ -29,11 +30,12 @@ rescue OpenapiClient::ApiError => e
 end
 ```
 
+
 ### Parameters
 
-| Name       | Type       | Description | Notes |
-| ---------- | ---------- | ----------- | ----- |
-| **app_id** | **String** | App ID      |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **app_id** | **String** | App ID |  |
 
 ### Return type
 
@@ -49,6 +51,7 @@ end
 - **Accept**: application/json
 
 ---
+
 
 ## create_magic_link
 
@@ -82,11 +85,12 @@ This returns an Array which contains the response data, status code and headers.
 
 > <Array(<MagicLinkResponse>, Integer, Hash)> create_magic_link_with_http_info(app_id, create_magic_link_request)
 
+
 ### Parameters
 
-| Name                          | Type                                                    | Description        | Notes |
-| ----------------------------- | ------------------------------------------------------- | ------------------ | ----- |
-| **create_magic_link_request** | [**CreateMagicLinkRequest**](CreateMagicLinkRequest.md) | magic link request |       |
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_magic_link_request** | [**CreateMagicLinkRequest**](CreateMagicLinkRequest.md) | magic link request |  |
 
 ### Return type
 
@@ -100,3 +104,4 @@ This returns an Array which contains the response data, status code and headers.
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+
