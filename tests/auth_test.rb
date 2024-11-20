@@ -24,14 +24,9 @@ class TestAuthAPI < Test::Unit::TestCase
     assert_equal ENV['TEST_USER_ID'], user_id
   end
 
-  def test_valid_authenticate_token
-    user_id = PassageClient.auth.authenticate_token(ENV['PSG_JWT'])
-    assert_equal ENV['TEST_USER_ID'], user_id
-  end
-
-  def test_invalid_authenticate_token
+  def test_invalid_jwt
     assert_raises Passage::PassageError do
-      PassageClient.auth.authenticate_token('invalid_token')
+      PassageClient.auth.validate_jwt('invalid_token')
     end
   end
 
@@ -88,17 +83,11 @@ class TestAuthAPI < Test::Unit::TestCase
   end
 
   def test_invalid_create_magic_link
-    bad_magic_link =
+    assert_raises Passage::PassageError do
       PassageClient.auth.create_magic_link(
         email: 'chris@passage.id',
         ttl: 122
       )
-
-    assert_equal 122, magic_link.ttl
-    assert_equal 'chris@passage.id', magic_link.identifier
-
-    assert_raises Passage::PassageError do
-      PassageClient.auth.create_magic_link(bad_magic_link)
     end
   end
 end

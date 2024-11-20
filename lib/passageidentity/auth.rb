@@ -64,6 +64,7 @@ module Passage
       )
     end
 
+    # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/ParameterLists
     def create_magic_link(
       user_id: '',
       email: '',
@@ -120,6 +121,7 @@ module Passage
         )
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
 
     private
 
