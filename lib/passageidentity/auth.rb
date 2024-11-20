@@ -10,9 +10,10 @@ module Passage
   # The Passage::Auth class provides methods for authenticating requests and tokens
   class Auth
     # rubocop:disable Metrics/AbcSize
-    def initialize(app_id, auth_strategy)
+    def initialize(app_id, api_key, auth_strategy)
       @app_cache = {}
       @app_id = app_id
+      @api_key = api_key
       @auth_strategy = auth_strategy
 
       fetch_jwks

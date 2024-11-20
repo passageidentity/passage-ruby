@@ -30,7 +30,7 @@ module Passage
       @auth_strategy = auth_strategy
 
       # initialize auth class
-      @auth = Passage::Auth.new(@app_id, @auth_strategy)
+      @auth = Passage::Auth.new(@app_id, @api_key, @auth_strategy)
 
       # initialize user class
       @user = Passage::UserAPI.new(@app_id, @api_key)
