@@ -53,7 +53,7 @@ module Passage
 
     def revoke_user_refresh_tokens(user_id)
       # rubocop:disable Layout/LineLength
-      warn '[DEPRECATION] `auth.revoke_user_refresh_tokens()` is deprecated. Please use `user.revoke_user_refresh_tokens()` instead.'
+      warn '[DEPRECATION] `auth.revoke_user_refresh_tokens()` is deprecated. Please use `user.revoke_refresh_tokens()` instead.'
       # rubocop:enable Layout/LineLength
 
       client = OpenapiClient::TokensApi.new

@@ -255,7 +255,7 @@ module Passage
       end
     end
 
-    def revoke_user_refresh_tokens(user_id)
+    def revoke_refresh_tokens(user_id)
       client = OpenapiClient::TokensApi.new
       client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
       true
