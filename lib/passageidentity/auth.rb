@@ -3,12 +3,15 @@
 require 'openssl'
 require 'base64'
 require 'jwt'
+require 'rubygems/deprecate'
 require_relative 'client'
 require_relative '../openapi_client'
 
 module Passage
   # The Passage::Auth class provides methods for authenticating requests and tokens
   class Auth
+    extend Gem::Deprecate
+
     # rubocop:disable Metrics/AbcSize
     def initialize(app_id, api_key, auth_strategy)
       @app_cache = {}
@@ -20,10 +23,7 @@ module Passage
     end
 
     def authenticate_request(request)
-      warn '[DEPRECATION] `auth.authenticate_request()` is deprecated.  Please use `auth.validate_jwt()` instead.'
-
       # Get the token based on the strategy
-
       if @auth_strategy == Passage::COOKIE_STRATEGY
         unless request.cookies.key?('psg_auth_token')
           raise PassageError.new(
@@ -39,10 +39,7 @@ module Passage
         @token = headers['Authorization'].split(' ').last
       end
 
-      # authenticate the token
-      return authenticate_token(@token) if @token
-
-      raise PassageError.new(message: 'no authentication token')
+      validate_jwt(@token)
     end
 
     def validate_jwt(token)
@@ -52,19 +49,8 @@ module Passage
     end
 
     def revoke_user_refresh_tokens(user_id)
-      # rubocop:disable Layout/LineLength
-      warn '[DEPRECATION] `auth.revoke_user_refresh_tokens()` is deprecated. Please use `user.revoke_refresh_tokens()` instead.'
-      # rubocop:enable Layout/LineLength
-
-      client = OpenapiClient::TokensApi.new
-      client.revoke_user_refresh_tokens(@app_id, user_id)
-      true
-    rescue Faraday::Error => e
-      raise PassageError.new(
-        message: "failed to revoke user's refresh tokens",
-        status_code: e.response[:status],
-        body: e.response[:body]
-      )
+      puts 'in the deprecarted method'
+      UserAPI.revoke_refresh_tokens(user_id)
     end
 
     # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/ParameterLists
@@ -210,5 +196,8 @@ module Passage
       @app_cache[key] = value
     end
     # rubocop:enable Metrics/AbcSize
+
+    deprecate(:authenticate_request, :validate_jwt, 2024, 12)
+    deprecate(:revoke_user_refresh_tokens, 'Passage::UserAPI.revoke_refresh_tokens', 2024, 12)
   end
 end

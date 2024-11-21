@@ -19,6 +19,16 @@ class TestAuthAPI < Test::Unit::TestCase
       auth_strategy: Passage::HEADER_STRATEGY
     )
 
+  def setup
+    @test_user =
+      PassageClient.user.create(
+        email: 'chris+test-ruby@passage.id',
+        user_metadata: {
+          example1: 'cool'
+        }
+      )
+  end
+
   def test_valid_jwt
     user_id = PassageClient.auth.validate_jwt(ENV['PSG_JWT'])
     assert_equal ENV['TEST_USER_ID'], user_id
@@ -89,5 +99,14 @@ class TestAuthAPI < Test::Unit::TestCase
         ttl: 122
       )
     end
+  end
+
+  def test_revoke_user_refresh_tokens
+    success = PassageClient.auth.revoke_user_refresh_tokens(@test_user.id)
+    assert_equal true, success
+  end
+
+  def teardown
+    PassageClient.user.delete(user_id: @test_user.id)
   end
 end
