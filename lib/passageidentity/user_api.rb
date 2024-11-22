@@ -230,11 +230,10 @@ module Passage
     end
 
     def signout(user_id:)
-      revoke_refresh_tokens(user_id)
+      revoke_refresh_tokens(user_id: user_id)
     end
 
     def revoke_refresh_tokens(user_id:)
-      puts 'REVOKE'
       user_exists?(user_id)
 
       begin

@@ -49,8 +49,21 @@ module Passage
     end
 
     def revoke_user_refresh_tokens(user_id)
-      puts 'in the deprecarted method'
-      UserAPI.revoke_refresh_tokens(user_id)
+      warn 'NOTE: Passage::Auth#revoke_user_refresh_tokens is deprecated;
+        use Passage::User#revoke_refresh_tokens instead. It will be removed on or after 2024-12.'
+      user_exists?(user_id)
+
+      begin
+        tokens_client = OpenapiClient::TokensApi.new
+        tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
+        true
+      rescue Faraday::Error => e
+        raise PassageError.new(
+          "failed to revoke user's refresh tokens",
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
+      end
     end
 
     # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/ParameterLists
@@ -188,6 +201,12 @@ module Passage
       raise PassageError.new(message: e.message)
     end
 
+    def user_exists?(user_id)
+      return unless user_id.to_s.empty?
+
+      raise PassageError.new(message: 'must supply a valid user_id')
+    end
+
     def get_cache(key)
       @app_cache[key]
     end
@@ -198,6 +217,5 @@ module Passage
     # rubocop:enable Metrics/AbcSize
 
     deprecate(:authenticate_request, :validate_jwt, 2024, 12)
-    deprecate(:revoke_user_refresh_tokens, 'Passage::UserAPI.revoke_refresh_tokens', 2024, 12)
   end
 end

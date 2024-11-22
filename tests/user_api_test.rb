@@ -117,7 +117,7 @@ class TestUserAPI < Test::Unit::TestCase
   end
 
   def test_signout
-    success = PassageClient.user.signout(@test_user.id)
+    success = PassageClient.user.signout(user_id: @test_user.id)
     assert_equal true, success
   end
 
