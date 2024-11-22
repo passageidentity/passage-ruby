@@ -76,5 +76,6 @@ module Passage
     # rubocop:enable Metrics/ParameterLists
 
     deprecate(:create_magic_link, 'Passage::Auth.create_magic_link', 2024, 12)
+    deprecate(:get_app, :none, 2024, 12)
   end
 end

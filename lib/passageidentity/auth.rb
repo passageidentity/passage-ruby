@@ -20,6 +20,13 @@ module Passage
       @auth_strategy = auth_strategy
 
       fetch_jwks
+
+      header_params = { 'Passage-Version' => "passage-ruby #{Passage::VERSION}" }
+      header_params['Authorization'] = "Bearer #{@api_key}" if @api_key != ''
+
+      @req_opts = {}
+      @req_opts[:header_params] = header_params
+      @req_opts[:debug_auth_names] = ['header']
     end
 
     def authenticate_request(request)
@@ -53,17 +60,15 @@ module Passage
         use Passage::User#revoke_refresh_tokens instead. It will be removed on or after 2024-12.'
       user_exists?(user_id)
 
-      begin
-        tokens_client = OpenapiClient::TokensApi.new
-        tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
-        true
-      rescue Faraday::Error => e
-        raise PassageError.new(
-          "failed to revoke user's refresh tokens",
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
-      end
+      client = OpenapiClient::TokensApi.new
+      client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
+      true
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        message: "failed to revoke user's refresh tokens",
+        status_code: e.response[:status],
+        body: e.response[:body]
+      )
     end
 
     # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/ParameterLists
@@ -104,17 +109,8 @@ module Passage
       magic_link_req['type'] = type
 
       begin
-        gemspec = File.join(__dir__, '../../passageidentity.gemspec')
-        Gem::Specification.load(gemspec)
-        header_params = { 'Passage-Version' => "passage-ruby #{Passage::VERSION}" }
-        header_params['Authorization'] = "Bearer #{@api_key}" if @api_key != ''
-
-        opts = {}
-        opts[:header_params] = header_params
-        opts[:debug_auth_names] = ['header']
-
         client = OpenapiClient::MagicLinksApi.new
-        client.create_magic_link(@app_id, magic_link_req, opts).magic_link
+        client.create_magic_link(@app_id, magic_link_req, @req_opts).magic_link
       rescue Faraday::Error => e
         raise PassageError.new(
           message: 'failed to create Passage Magic Link',
@@ -124,8 +120,6 @@ module Passage
       end
     end
     # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/ParameterLists
-
-    private
 
     def fetch_app
       client = OpenapiClient::AppsApi.new
@@ -200,6 +194,8 @@ module Passage
     rescue JWT::DecodeError => e
       raise PassageError.new(message: e.message)
     end
+
+    private
 
     def user_exists?(user_id)
       return unless user_id.to_s.empty?
