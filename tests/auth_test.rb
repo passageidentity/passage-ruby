@@ -22,7 +22,7 @@ class TestAuthAPI < Test::Unit::TestCase
   def setup
     @test_user =
       PassageClient.user.create(
-        email: 'chris+test-ruby@passage.id',
+        email: 'passage+test-ruby@passage.id',
         user_metadata: {
           example1: 'cool'
         }
@@ -83,19 +83,19 @@ class TestAuthAPI < Test::Unit::TestCase
   def test_create_magic_link
     magic_link =
       PassageClient.auth.create_magic_link(
-        email: 'chris@passage.id',
+        email: 'passage@passage.id',
         channel: Passage::EMAIL_CHANNEL,
         ttl: 122
       )
 
     assert_equal 122, magic_link.ttl
-    assert_equal 'chris@passage.id', magic_link.identifier
+    assert_equal 'passage@passage.id', magic_link.identifier
   end
 
   def test_invalid_create_magic_link
     assert_raises Passage::PassageError do
       PassageClient.auth.create_magic_link(
-        email: 'chris@passage.id',
+        email: 'passage@passage.id',
         ttl: 122
       )
     end

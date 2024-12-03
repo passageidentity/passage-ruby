@@ -26,7 +26,13 @@ module Passage
 
       # check for valid auth strategy
       unless [COOKIE_STRATEGY, HEADER_STRATEGY].include? auth_strategy
-        raise PassageError.new(message: 'invalid auth strategy.')
+        raise PassageError.new(
+          status_code: 400,
+          body: {
+            error: 'Invalid auth strategy',
+            code: 400
+          }
+        )
       end
 
       @auth_strategy = auth_strategy

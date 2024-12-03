@@ -31,19 +31,10 @@ module Passage
         response = @user_client.get_user(@app_id, user_id, @req_opts)
         response.user
       rescue Faraday::Error => e
-        if e.is_a? Faraday::ResourceNotFound
-          raise PassageError.new(
-            message: "Passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        else
-          raise PassageError.new(
-            message: 'failed to get Passage User.',
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        end
+        raise PassageError.new(
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
       end
     end
 
@@ -58,26 +49,19 @@ module Passage
 
         if users.empty?
           raise PassageError.new(
-            message: "Passage User with identifer \"#{user_identifier}\" does not exist",
             status_code: 404,
-            body: 'user_not_found'
+            body: {
+              error: "Passage User with identifer \"#{user_identifier}\" does not exist",
+              code: 404
+            }
           )
         end
         get(user_id: users.first.id)
       rescue Faraday::Error => e
-        if e.is_a? Faraday::ResourceNotFound
-          raise PassageError.new(
-            message: "Passage User with identifer \"#{user_identifier}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        else
-          raise PassageError.new(
-            message: 'failed to get Passage User.',
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        end
+        raise PassageError.new(
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
       end
     end
 
@@ -88,19 +72,10 @@ module Passage
         response = @user_client.activate_user(@app_id, user_id, @req_opts)
         response.user
       rescue Faraday::Error => e
-        if e.is_a? Faraday::ResourceNotFound
-          raise PassageError.new(
-            message: "Passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        else
-          raise PassageError.new(
-            message: 'failed to activate Passage User.',
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        end
+        raise PassageError.new(
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
       end
     end
 
@@ -111,19 +86,10 @@ module Passage
         response = @user_client.deactivate_user(@app_id, user_id, @req_opts)
         response.user
       rescue Faraday::Error => e
-        if e.is_a? Faraday::ResourceNotFound
-          raise PassageError.new(
-            message: "Passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        else
-          raise PassageError.new(
-            message: 'failed to deactivate Passage User.',
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        end
+        raise PassageError.new(
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
       end
     end
 
@@ -160,19 +126,11 @@ module Passage
         @user_client.delete_user(@app_id, user_id, @req_opts)
         true
       rescue Faraday::Error => e
-        if e.is_a? Faraday::ResourceNotFound
-          raise PassageError.new(
-            "passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        else
-          raise PassageError.new(
-            'failed to delete Passage User',
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        end
+        raise PassageError.new(
+          'failed to delete Passage User',
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
       end
     end
 
@@ -185,7 +143,6 @@ module Passage
         true
       rescue Faraday::Error => e
         raise PassageError.new(
-          'failed to delete Passage User Device',
           status_code: e.response[:status],
           body: e.response[:body]
         )
@@ -204,7 +161,6 @@ module Passage
         response.devices
       rescue Faraday::Error => e
         raise PassageError.new(
-          'failed to delete Passage User Device',
           status_code: e.response[:status],
           body: e.response[:body]
         )
@@ -224,7 +180,6 @@ module Passage
         true
       rescue Faraday::Error => e
         raise PassageError.new(
-          "failed to revoke user's refresh tokens",
           status_code: e.response[:status],
           body: e.response[:body]
         )
@@ -242,7 +197,6 @@ module Passage
         response.user
       rescue Faraday::Error => e
         raise PassageError.new(
-          'failed to create Passage User',
           status_code: e.response[:status],
           body: e.response[:body]
         )
@@ -259,38 +213,47 @@ module Passage
         response = @user_client.update_user(@app_id, user_id, options, @req_opts)
         response.user
       rescue Faraday::Error => e
-        if e.is_a? Faraday::ResourceNotFound
-          raise PassageError.new(
-            message: "Passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        else
-          raise PassageError.new(
-            'failed to update Passage User',
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        end
+        raise PassageError.new(
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
       end
     end
 
     def user_exists?(user_id)
       return unless user_id.to_s.empty?
 
-      raise PassageError.new(message: 'must supply a valid user_id')
+      raise PassageError.new(
+        status_code: 404,
+        body: {
+          error: 'must supply a valid user_id',
+          code: 404
+        }
+      )
     end
 
     def identifier_exists?(identifier)
       return unless identifier.to_s.empty?
 
-      raise PassageError.new(message: 'must supply a valid identifier')
+      raise PassageError.new(
+        status_code: 400,
+        body: {
+          error: 'must supply a valid identifier',
+          code: 400
+        }
+      )
     end
 
     def device_exists?(device_id)
       return unless device_id.to_s.empty?
 
-      raise PassageError.new(message: 'must supply a valid device_id')
+      raise PassageError.new(
+        status_code: 400,
+        body: {
+          error: 'must supply a valid device_id',
+          code: 400
+        }
+      )
     end
     # rubocop:enable Metrics/AbcSize
 

@@ -34,14 +34,25 @@ module Passage
       if @auth_strategy == Passage::COOKIE_STRATEGY
         unless request.cookies.key?('psg_auth_token')
           raise PassageError.new(
-            message:
-              'missing authentication token: expected "psg_auth_token" cookie'
+            status_code: 400,
+            body: {
+              error: 'missing authentication token: expected "psg_auth_token" cookie',
+              code: 403
+            }
           )
         end
         @token = request.cookies['psg_auth_token']
       else
         headers = request.headers
-        raise PassageError.new(message: 'no authentication token in header') unless headers.key?('Authorization')
+        unless headers.key?('Authorization')
+          raise PassageError.new(
+            status_code: 400,
+            body: {
+              error: 'no authentication token in header',
+              code: 403
+            }
+          )
+        end
 
         @token = headers['Authorization'].split(' ').last
       end
@@ -52,7 +63,13 @@ module Passage
     def validate_jwt(token)
       return authenticate_token(token) if token
 
-      raise PassageError.new(message: 'no authentication token')
+      raise PassageError.new(
+        status_code: 400,
+        body: {
+          error: 'no authentication token',
+          code: 403
+        }
+      )
     end
 
     def revoke_user_refresh_tokens(user_id)
@@ -65,7 +82,6 @@ module Passage
       true
     rescue Faraday::Error => e
       raise PassageError.new(
-        message: "failed to revoke user's refresh tokens",
         status_code: e.response[:status],
         body: e.response[:body]
       )
@@ -92,8 +108,11 @@ module Passage
       # check to see if the channel specified is valid before sending it off to the server
       unless [PHONE_CHANNEL, EMAIL_CHANNEL].include? channel
         raise PassageError.new(
-          message:
-            'channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL'
+          status_code: 400,
+          body: {
+            error: 'channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL',
+            code: 400
+          }
         )
       end
       magic_link_req['channel'] = channel unless channel.empty?
@@ -113,7 +132,6 @@ module Passage
         client.create_magic_link(@app_id, magic_link_req, @req_opts).magic_link
       rescue Faraday::Error => e
         raise PassageError.new(
-          message: 'failed to create Passage Magic Link',
           status_code: e.response[:status],
           body: e.response[:body]
         )
@@ -128,7 +146,6 @@ module Passage
       response.app
     rescue Faraday::Error => e
       raise PassageError.new(
-        message: 'failed to fetch passage app',
         status_code: e.response[:status],
         body: e.response[:body]
       )
@@ -183,16 +200,15 @@ module Passage
           }
         )
       claims[0]['sub']
-    rescue JWT::InvalidIssuerError => e
-      raise PassageError.new(message: e.message)
-    rescue JWT::InvalidAudError => e
-      raise PassageError.new(message: e.message)
-    rescue JWT::ExpiredSignature => e
-      raise PassageError.new(message: e.message)
-    rescue JWT::IncorrectAlgorithm => e
-      raise PassageError.new(message: e.message)
-    rescue JWT::DecodeError => e
-      raise PassageError.new(message: e.message)
+    rescue JWT::InvalidIssuerError, JWT::InvalidAudError, JWT::ExpiredSignature, JWT::IncorrectAlgorithm,
+           JWT::DecodeError => e
+      raise PassageError.new(
+        status_code: 400,
+        body: {
+          error: e.message,
+          code: 400
+        }
+      )
     end
 
     private
@@ -200,7 +216,13 @@ module Passage
     def user_exists?(user_id)
       return unless user_id.to_s.empty?
 
-      raise PassageError.new(message: 'must supply a valid user_id')
+      raise PassageError.new(
+        status_code: 400,
+        body: {
+          error: 'Must supply a valid user_id',
+          code: 400
+        }
+      )
     end
 
     def get_cache(key)

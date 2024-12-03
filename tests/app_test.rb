@@ -20,12 +20,12 @@ class TestAppAPI < Test::Unit::TestCase
   def test_create_magic_link
     magic_link =
       PassageClient.create_magic_link(
-        email: 'chris@passage.id',
+        email: 'passage@passage.id',
         channel: Passage::EMAIL_CHANNEL,
         ttl: 122
       )
 
     assert_equal 122, magic_link.ttl
-    assert_equal 'chris@passage.id', magic_link.identifier
+    assert_equal 'passage@passage.id', magic_link.identifier
   end
 end
