@@ -94,7 +94,7 @@ module Passage
     end
 
     def update(user_id:, email: '', phone: '', user_metadata: {})
-      warn '[DEPRECATED] the `update` method parameters will change to `userId: string, ' \
+      warn '[DEPRECATED] the `update` method parameters will change to `user_id: string, ' \
            'options: UpdateUserArgs`. Parameters will change on or after 2025-1.'
 
       user_exists?(user_id)
