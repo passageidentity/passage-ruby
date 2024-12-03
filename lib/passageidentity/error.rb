@@ -5,22 +5,14 @@ require 'net/http'
 module Passage
   # PassageError is a custom error class for handling errors
   class PassageError < StandardError
-    attr_reader :status_code, :status_text, :message, :error
+    attr_reader :status_code, :message, :error_code
 
-    def initialize(message:, status_code: nil, body: nil)
-      super(message)
+    def initialize(status_code, body)
+      super
 
-      @message = message
       @status_code = status_code
-      @status_text =
-        (
-          if status_code.nil?
-            nil
-          else
-            Net::HTTPResponse::CODE_TO_OBJ[status_code.to_s]
-          end
-        )
-      @error = body.nil? ? nil : body['error']
+      @error_code = body['code']
+      @message = body['error']
     end
   end
 end
