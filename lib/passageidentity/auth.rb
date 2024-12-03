@@ -213,5 +213,8 @@ module Passage
     # rubocop:enable Metrics/AbcSize
 
     deprecate(:authenticate_request, :validate_jwt, 2024, 12)
+    deprecate(:authenticate_token, :none, 2024, 12)
+    deprecate(:fetch_app, :none, 2024, 12)
+    deprecate(:fetch_jwks, :none, 2024, 12)
   end
 end
