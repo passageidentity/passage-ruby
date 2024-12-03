@@ -104,7 +104,7 @@ module Passage
       updates['phone'] = phone unless phone.empty?
       updates['user_metadata'] = user_metadata unless user_metadata.empty?
 
-      update_v2(user_id, updates)
+      update_v2(user_id: user_id, options: updates)
     end
 
     def create(email: '', phone: '', user_metadata: {})
