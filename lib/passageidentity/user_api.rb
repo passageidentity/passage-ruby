@@ -128,47 +128,29 @@ module Passage
     end
 
     def update(user_id:, email: '', phone: '', user_metadata: {})
+      warn '[DEPRECATED] the `update` method parameters will change to `userId: string, ' \
+           'options: UpdateUserArgs`. Parameters will change on or after 2025-1.'
+
       user_exists?(user_id)
 
       updates = {}
       updates['email'] = email unless email.empty?
       updates['phone'] = phone unless phone.empty?
       updates['user_metadata'] = user_metadata unless user_metadata.empty?
-      begin
-        response = @user_client.update_user(@app_id, user_id, updates, @req_opts)
-        response.user
-      rescue Faraday::Error => e
-        if e.is_a? Faraday::ResourceNotFound
-          raise PassageError.new(
-            message: "Passage User with ID \"#{user_id}\" does not exist",
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        else
-          raise PassageError.new(
-            'failed to update Passage User',
-            status_code: e.response[:status],
-            body: e.response[:body]
-          )
-        end
-      end
+
+      update_v2(user_id, updates)
     end
 
     def create(email: '', phone: '', user_metadata: {})
+      warn '[DEPRECATED] the `create` method parameters will change to `args: CreateUserArgs`.' \
+      'Parameters will change on or after 2025-1.'
+
       create = {}
       create['email'] = email unless email.empty?
       create['phone'] = phone unless phone.empty?
       create['user_metadata'] = user_metadata unless user_metadata.empty?
-      begin
-        response = @user_client.create_user(@app_id, create, @req_opts)
-        response.user
-      rescue Faraday::Error => e
-        raise PassageError.new(
-          'failed to create Passage User',
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
-      end
+
+      create_v2(args: create)
     end
 
     def delete(user_id:)
@@ -251,6 +233,48 @@ module Passage
 
     private
 
+    def create_v2(args: {})
+      warn '[DEPRECATED] the `create` method parameters will change to `args: CreateUserArgs`.' \
+      'Parameters will change on or after 2025-1.'
+
+      begin
+        response = @user_client.create_user(@app_id, args, @req_opts)
+        response.user
+      rescue Faraday::Error => e
+        raise PassageError.new(
+          'failed to create Passage User',
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
+      end
+    end
+
+    def update_v2(user_id:, options: {})
+      warn '[DEPRECATED] the `update` method parameters will change to `userId: string, ' \
+           'options: UpdateUserArgs`. Parameters will change on or after 2025-1.'
+
+      user_exists?(user_id)
+
+      begin
+        response = @user_client.update_user(@app_id, user_id, options, @req_opts)
+        response.user
+      rescue Faraday::Error => e
+        if e.is_a? Faraday::ResourceNotFound
+          raise PassageError.new(
+            message: "Passage User with ID \"#{user_id}\" does not exist",
+            status_code: e.response[:status],
+            body: e.response[:body]
+          )
+        else
+          raise PassageError.new(
+            'failed to update Passage User',
+            status_code: e.response[:status],
+            body: e.response[:body]
+          )
+        end
+      end
+    end
+
     def user_exists?(user_id)
       return unless user_id.to_s.empty?
 
@@ -270,7 +294,7 @@ module Passage
     end
     # rubocop:enable Metrics/AbcSize
 
-    deprecate(:signout, :revoke_refresh_tokens, 2024, 12)
-    deprecate(:delete_device, :revoke_device, 2024, 12)
+    deprecate(:signout, :revoke_refresh_tokens, 2025, 1)
+    deprecate(:delete_device, :revoke_device, 2025, 1)
   end
 end
