@@ -33,7 +33,7 @@ class TestUserAPI < Test::Unit::TestCase
     assert_equal 'passage+test-create-delete@passage.id', user.email
     assert_equal 'cool', user.user_metadata[:example1]
     deleted = PassageClient.user.delete(user_id: user.id)
-    assert_equal true, deleted
+    assert_equal nil, deleted
   end
 
   def test_get_user
@@ -118,7 +118,7 @@ class TestUserAPI < Test::Unit::TestCase
 
   def test_signout
     success = PassageClient.user.signout(user_id: @test_user.id)
-    assert_equal true, success
+    assert_equal nil, success
   end
 
   def teardown

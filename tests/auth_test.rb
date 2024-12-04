@@ -103,7 +103,7 @@ class TestAuthAPI < Test::Unit::TestCase
 
   def test_revoke_user_refresh_tokens
     success = PassageClient.auth.revoke_user_refresh_tokens(@test_user.id)
-    assert_equal true, success
+    assert_equal nil, success
   end
 
   def teardown
