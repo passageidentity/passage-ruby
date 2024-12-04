@@ -52,7 +52,7 @@ module Passage
             status_code: 404,
             body: {
               error: "Passage User with identifer \"#{user_identifier}\" does not exist",
-              code: 404
+              code: 'user_not_found'
             }
           )
         end
@@ -124,7 +124,6 @@ module Passage
 
       begin
         @user_client.delete_user(@app_id, user_id, @req_opts)
-        true
       rescue Faraday::Error => e
         raise PassageError.new(
           'failed to delete Passage User',
@@ -140,7 +139,6 @@ module Passage
 
       begin
         @user_device_client.delete_user_devices(@app_id, user_id, device_id, @req_opts)
-        true
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -177,7 +175,6 @@ module Passage
       begin
         tokens_client = OpenapiClient::TokensApi.new
         tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
-        true
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -227,7 +224,7 @@ module Passage
         status_code: 404,
         body: {
           error: 'must supply a valid user_id',
-          code: 404
+          code: 'user_not_found'
         }
       )
     end
@@ -239,7 +236,7 @@ module Passage
         status_code: 400,
         body: {
           error: 'must supply a valid identifier',
-          code: 400
+          code: 'identifier_not_found'
         }
       )
     end
@@ -251,7 +248,7 @@ module Passage
         status_code: 400,
         body: {
           error: 'must supply a valid device_id',
-          code: 400
+          code: 'device_not_found'
         }
       )
     end

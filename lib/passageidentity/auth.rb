@@ -37,7 +37,7 @@ module Passage
             status_code: 400,
             body: {
               error: 'missing authentication token: expected "psg_auth_token" cookie',
-              code: 403
+              code: 'missing_auth_token'
             }
           )
         end
@@ -49,7 +49,7 @@ module Passage
             status_code: 400,
             body: {
               error: 'no authentication token in header',
-              code: 403
+              code: 'missing_auth_token'
             }
           )
         end
@@ -61,13 +61,39 @@ module Passage
     end
 
     def validate_jwt(token)
-      return authenticate_token(token) if token
+      if token.nil?
+        raise PassageError.new(
+          status_code: 400,
+          body: {
+            error: 'no authentication token',
+            code: 'missing_auth_token'
+          }
+        )
+      end
 
+      exists = jwk_exists(token)
+      fetch_jwks unless exists
+
+      claims =
+        JWT.decode(
+          token,
+          nil,
+          true,
+          {
+            aud: @auth_origin,
+            verify_aud: true,
+            algorithms: ['RS256'],
+            jwks: @jwks
+          }
+        )
+      claims[0]['sub']
+    rescue JWT::InvalidIssuerError, JWT::InvalidAudError, JWT::ExpiredSignature, JWT::IncorrectAlgorithm,
+           JWT::DecodeError => e
       raise PassageError.new(
         status_code: 400,
         body: {
-          error: 'no authentication token',
-          code: 403
+          error: e.message,
+          code: 'jwt_error'
         }
       )
     end
@@ -79,7 +105,6 @@ module Passage
 
       client = OpenapiClient::TokensApi.new
       client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
-      true
     rescue Faraday::Error => e
       raise PassageError.new(
         status_code: e.response[:status],
@@ -111,7 +136,7 @@ module Passage
           status_code: 400,
           body: {
             error: 'channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL',
-            code: 400
+            code: 'bad_request_data'
           }
         )
       end
@@ -178,37 +203,7 @@ module Passage
     end
 
     def authenticate_token(token)
-      kid = JWT.decode(token, nil, false)[1]['kid']
-      exists = false
-      (@jwks['keys']).each do |jwk|
-        if jwk['kid'] == kid
-          exists = true
-          break
-        end
-      end
-      fetch_jwks unless exists
-      claims =
-        JWT.decode(
-          token,
-          nil,
-          true,
-          {
-            aud: @auth_origin,
-            verify_aud: true,
-            algorithms: ['RS256'],
-            jwks: @jwks
-          }
-        )
-      claims[0]['sub']
-    rescue JWT::InvalidIssuerError, JWT::InvalidAudError, JWT::ExpiredSignature, JWT::IncorrectAlgorithm,
-           JWT::DecodeError => e
-      raise PassageError.new(
-        status_code: 400,
-        body: {
-          error: e.message,
-          code: 400
-        }
-      )
+      validate_jwt(token)
     end
 
     private
@@ -220,7 +215,7 @@ module Passage
         status_code: 400,
         body: {
           error: 'Must supply a valid user_id',
-          code: 400
+          code: 'user_not_found'
         }
       )
     end
@@ -231,6 +226,11 @@ module Passage
 
     def set_cache(key, value)
       @app_cache[key] = value
+    end
+
+    def jwk_exists(token)
+      kid = JWT.decode(token, nil, false)[1]['kid']
+      @jwks['keys'].any? { |jwk| jwk['kid'] == kid }
     end
     # rubocop:enable Metrics/AbcSize
 
