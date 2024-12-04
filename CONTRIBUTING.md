@@ -60,3 +60,9 @@ You can check for the gem here:
 ```
 gem list -r passage
 ```
+
+## Enable cache locally
+
+```
+rails dev:cache
+```

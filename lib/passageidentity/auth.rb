@@ -152,14 +152,13 @@ module Passage
     end
 
     def fetch_jwks
-      app_cache = get_cache(@app_id)
+      app_cache = cache(@app_id)
       if app_cache
         @jwks, @auth_origin = app_cache
       else
         auth_gw_connection =
           Faraday.new(url: 'https://auth.passage.id') do |f|
             f.request :json
-            f.request :retry
             f.response :raise_error
             f.response :json
             f.adapter :net_http
@@ -173,20 +172,14 @@ module Passage
           auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
         @jwks = response.body
 
-        !get_cache(@app_id) && set_cache(@app_id, [@jwks, @auth_origin])
+        !cache(@app_id) && cache(key: @app_id, jwks: @jwks)
       end
     end
 
     def authenticate_token(token)
       kid = JWT.decode(token, nil, false)[1]['kid']
-      exists = false
-      (@jwks['keys']).each do |jwk|
-        if jwk['kid'] == kid
-          exists = true
-          break
-        end
-      end
-      fetch_jwks unless exists
+      fetch_jwks unless jwks.find { |key| key['kid'] == kid }
+
       claims =
         JWT.decode(
           token,
@@ -225,12 +218,12 @@ module Passage
       )
     end
 
-    def get_cache(key)
-      @app_cache[key]
+    def cache(key)
+      ::Rails.cache.read(key)
     end
 
-    def set_cache(key, value)
-      @app_cache[key] = value
+    def cache=(key:, jwks:)
+      ::Rails.cache.write(key, jwks, expires_in: 1.hour)
     end
     # rubocop:enable Metrics/AbcSize
 
