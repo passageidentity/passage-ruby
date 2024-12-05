@@ -15,7 +15,6 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
   s.required_ruby_version = '>= 3.1.3'
 
-  s.metadata['homepage_uri'] = s.homepage
   s.metadata['source_code_uri'] = 'https://github.com/passageidentity/passage-ruby'
   s.metadata['changelog_uri'] = 'https://github.com/passageidentity/passage-ruby/CHANGELOG.md'
 
