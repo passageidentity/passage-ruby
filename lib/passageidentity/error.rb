@@ -13,8 +13,15 @@ module Passage
       @status_code = status_code
       @error_code = body['code']
       @message = body['error']
-      @status_text = nil
-      @error = nil
+     @status_text =
+        (
+          if status_code.nil?
+            nil
+          else
+            Net::HTTPResponse::CODE_TO_OBJ[status_code.to_s]
+          end
+        )
+      @error = body.nil? ? nil : body['error']
     end
   end
 end

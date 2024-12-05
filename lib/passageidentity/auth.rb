@@ -90,10 +90,10 @@ module Passage
     rescue JWT::InvalidIssuerError, JWT::InvalidAudError, JWT::ExpiredSignature, JWT::IncorrectAlgorithm,
            JWT::DecodeError => e
       raise PassageError.new(
-        status_code: 400,
+        status_code: 401,
         body: {
           error: e.message,
-          code: 'jwt_error'
+          code: 'invalid_jwt'
         }
       )
     end
