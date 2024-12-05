@@ -19,12 +19,8 @@ Gem::Specification.new do |s|
   s.metadata['source_code_uri'] = 'https://github.com/passageidentity/passage-ruby'
   s.metadata['changelog_uri'] = 'https://github.com/passageidentity/passage-ruby/CHANGELOG.md'
 
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  s.files = ['lib/passageidentity.rb']
+  s.files = Dir['lib/**/*.rb']
   s.require_paths = ['lib']
-  s.bindir = 'exe'
-  s.executables = s.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
 
   s.add_dependency 'faraday', '>= 0.17.0', '< 2.0'
   s.add_dependency 'jwt', '~> 2.3', '>= 2.3.0'
