@@ -178,7 +178,7 @@ module Passage
 
     def authenticate_token(token)
       kid = JWT.decode(token, nil, false)[1]['kid']
-      fetch_jwks unless jwks.find { |key| key['kid'] == kid }
+      fetch_jwks unless @jwks['keys'].find { |key| key['kid'] == kid }
 
       claims =
         JWT.decode(
@@ -219,11 +219,11 @@ module Passage
     end
 
     def cache(key)
-      ::Rails.cache.read(key)
+      @app_cache[key]
     end
 
     def cache=(key:, jwks:)
-      ::Rails.cache.write(key, jwks, expires_in: 1.hour)
+      @app_cache[key] = jwks
     end
     # rubocop:enable Metrics/AbcSize
 

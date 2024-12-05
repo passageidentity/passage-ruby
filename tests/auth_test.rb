@@ -107,9 +107,6 @@ class TestAuthAPI < Test::Unit::TestCase
   end
 
   def test_jwks_cache
-    puts "App Cache: #{PassageClient.auth.app_cache}"
-    # puts "RAILS Cache: #{Rails.cache.read(ENV['APP_ID'])}"
-
     success = PassageClient.auth.revoke_user_refresh_tokens(@test_user.id)
     assert_equal true, success
   end
