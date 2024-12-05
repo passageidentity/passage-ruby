@@ -124,6 +124,7 @@ module Passage
 
       begin
         @user_client.delete_user(@app_id, user_id, @req_opts)
+        true
       rescue Faraday::Error => e
         raise PassageError.new(
           'failed to delete Passage User',
@@ -149,6 +150,7 @@ module Passage
 
     def delete_device(user_id:, device_id:)
       revoke_device(user_id, device_id)
+      true
     end
 
     def list_devices(user_id:)
@@ -167,6 +169,7 @@ module Passage
 
     def signout(user_id:)
       revoke_refresh_tokens(user_id: user_id)
+      true
     end
 
     def revoke_refresh_tokens(user_id:)
