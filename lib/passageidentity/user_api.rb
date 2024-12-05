@@ -186,8 +186,6 @@ module Passage
     private
 
     def create_v2(args: {})
-      warn '[DEPRECATED] the `create` method parameters will change to `args: CreateUserArgs`.' \
-      'Parameters will change on or after 2025-1.'
 
       begin
         response = @user_client.create_user(@app_id, args, @req_opts)
@@ -201,10 +199,7 @@ module Passage
     end
 
     def update_v2(user_id:, options: {})
-      warn '[DEPRECATED] the `update` method parameters will change to `userId: string, ' \
-           'options: UpdateUserArgs`. Parameters will change on or after 2025-1.'
 
-      user_exists?(user_id)
 
       begin
         response = @user_client.update_user(@app_id, user_id, options, @req_opts)
