@@ -5,10 +5,11 @@ AllCops:
     - 'lib/models/update_magic_link_auth_method.rb'
     - 'lib/models/update_otp_auth_method.rb'
     - 'lib/models/update_passkeys_auth_method.rb'
+    - 'docs/generated/*'
 
 Metrics/ClassLength:
   Max: 300
-  
+
 Layout/LineLength:
   Max: 120
 

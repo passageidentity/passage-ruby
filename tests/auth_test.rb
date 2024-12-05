@@ -19,19 +19,24 @@ class TestAuthAPI < Test::Unit::TestCase
       auth_strategy: Passage::HEADER_STRATEGY
     )
 
+  def setup
+    @test_user =
+      PassageClient.user.create(
+        email: 'passage+test-ruby@passage.id',
+        user_metadata: {
+          example1: 'cool'
+        }
+      )
+  end
+
   def test_valid_jwt
     user_id = PassageClient.auth.validate_jwt(ENV['PSG_JWT'])
     assert_equal ENV['TEST_USER_ID'], user_id
   end
 
-  def test_valid_authenticate_token
-    user_id = PassageClient.auth.authenticate_token(ENV['PSG_JWT'])
-    assert_equal ENV['TEST_USER_ID'], user_id
-  end
-
-  def test_invalid_authenticate_token
+  def test_invalid_jwt
     assert_raises Passage::PassageError do
-      PassageClient.auth.authenticate_token('invalid_token')
+      PassageClient.auth.validate_jwt('invalid_token')
     end
   end
 
@@ -73,5 +78,35 @@ class TestAuthAPI < Test::Unit::TestCase
     assert_raises Passage::PassageError do
       PassageHeaderClient.auth.authenticate_request(no_header_request)
     end
+  end
+
+  def test_create_magic_link
+    magic_link =
+      PassageClient.auth.create_magic_link(
+        email: 'passage@passage.id',
+        channel: Passage::EMAIL_CHANNEL,
+        ttl: 122
+      )
+
+    assert_equal 122, magic_link.ttl
+    assert_equal 'passage@passage.id', magic_link.identifier
+  end
+
+  def test_invalid_create_magic_link
+    assert_raises Passage::PassageError do
+      PassageClient.auth.create_magic_link(
+        email: 'passage@passage.id',
+        ttl: 122
+      )
+    end
+  end
+
+  def test_revoke_user_refresh_tokens
+    success = PassageClient.auth.revoke_user_refresh_tokens(@test_user.id)
+    assert_equal nil, success
+  end
+
+  def teardown
+    PassageClient.user.delete(user_id: @test_user.id)
   end
 end

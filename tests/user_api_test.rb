@@ -15,7 +15,7 @@ class TestUserAPI < Test::Unit::TestCase
   def setup
     @test_user =
       PassageClient.user.create(
-        email: 'chris+test-ruby@passage.id',
+        email: 'passage+test-ruby@passage.id',
         user_metadata: {
           example1: 'cool'
         }
@@ -25,12 +25,12 @@ class TestUserAPI < Test::Unit::TestCase
   def test_create_delete_user
     user =
       PassageClient.user.create(
-        email: 'chris+test-create-delete@passage.id',
+        email: 'passage+test-create-delete@passage.id',
         user_metadata: {
           example1: 'cool'
         }
       )
-    assert_equal 'chris+test-create-delete@passage.id', user.email
+    assert_equal 'passage+test-create-delete@passage.id', user.email
     assert_equal 'cool', user.user_metadata[:example1]
     deleted = PassageClient.user.delete(user_id: user.id)
     assert_equal true, deleted
@@ -97,7 +97,7 @@ class TestUserAPI < Test::Unit::TestCase
   end
 
   def test_update_user
-    new_email = 'chris+update_test-ruby@passage.id'
+    new_email = 'passage+update_test-ruby@passage.id'
     user =
       PassageClient.user.update(
         user_id: @test_user.id,
