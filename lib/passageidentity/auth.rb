@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'active_support'
 require 'openssl'
 require 'base64'
 require 'jwt'
@@ -14,7 +15,7 @@ module Passage
 
     # rubocop:disable Metrics/AbcSize
     def initialize(app_id, api_key, auth_strategy)
-      @app_cache = {}
+      @app_cache = ActiveSupport::Cache::MemoryStore.new
       @app_id = app_id
       @api_key = api_key
       @auth_strategy = auth_strategy
@@ -197,7 +198,7 @@ module Passage
           auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
         @jwks = response.body
 
-        !cache(@app_id) && cache(key: @app_id, jwks: @jwks)
+        cache(key: @app_id, jwks: @jwks)
       end
     end
 
@@ -220,11 +221,11 @@ module Passage
     end
 
     def cache(key)
-      @app_cache[key]
+      @app_cache.read(key)
     end
 
     def cache=(key:, jwks:)
-      @app_cache[key] = jwks
+      @app_cache.write(key, jwks)
     end
 
     def jwk_exists(token)

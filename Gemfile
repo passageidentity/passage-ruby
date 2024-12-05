@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
+  gem 'activesupport', '~> 8.0'
   gem 'dotenv', '~> 3.1'
   gem 'prettier_print', '~> 1.2'
   gem 'rack', '~> 3.1'
