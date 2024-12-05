@@ -75,6 +75,16 @@ module Passage
       exists = jwk_exists(token)
       fetch_jwks unless exists
 
+      unless get_cache(@app_id)
+        raise PassageError.new(
+          status_code: 401,
+          body: {
+            error: 'invalid authentication token',
+            code: 'invalid_jwks'
+          }
+        )
+      end
+
       claims =
         JWT.decode(
           token,
@@ -178,7 +188,8 @@ module Passage
     end
 
     def fetch_jwks
-      app_cache = cache(@app_id)
+      app_cache = get_cache(@app_id)
+
       if app_cache
         @jwks, @auth_origin = app_cache
       else
@@ -196,9 +207,11 @@ module Passage
         @auth_origin = app.auth_origin
         response =
           auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
-        @jwks = response.body
 
-        cache(key: @app_id, jwks: @jwks)
+        if response.success?
+          @jwks = response.body
+          set_cache(key: @app_id, jwks: @jwks)
+        end
       end
     end
 
@@ -220,11 +233,11 @@ module Passage
       )
     end
 
-    def cache(key)
+    def get_cache(key)
       @app_cache.read(key)
     end
 
-    def cache=(key:, jwks:)
+    def set_cache(key:, jwks:)
       @app_cache.write(key, jwks)
     end
 
