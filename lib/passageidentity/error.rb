@@ -7,13 +7,13 @@ module Passage
   class PassageError < StandardError
     attr_reader :status_code, :error_code, :message, :status_text, :error
 
-    def initialize(message:, status_code: nil, body: nil)
+    def initialize(message: nil, status_code: nil, body: nil)
       super(message)
 
       @status_code = status_code
       @error_code = body['code']
       @message = body['error']
-     @status_text =
+      @status_text =
         (
           if status_code.nil?
             nil

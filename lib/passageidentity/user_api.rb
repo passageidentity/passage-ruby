@@ -186,30 +186,23 @@ module Passage
     private
 
     def create_v2(args: {})
-
-      begin
-        response = @user_client.create_user(@app_id, args, @req_opts)
-        response.user
-      rescue Faraday::Error => e
-        raise PassageError.new(
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
-      end
+      response = @user_client.create_user(@app_id, args, @req_opts)
+      response.user
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        status_code: e.response[:status],
+        body: e.response[:body]
+      )
     end
 
     def update_v2(user_id:, options: {})
-
-
-      begin
-        response = @user_client.update_user(@app_id, user_id, options, @req_opts)
-        response.user
-      rescue Faraday::Error => e
-        raise PassageError.new(
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
-      end
+      response = @user_client.update_user(@app_id, user_id, options, @req_opts)
+      response.user
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        status_code: e.response[:status],
+        body: e.response[:body]
+      )
     end
 
     def user_exists?(user_id)
