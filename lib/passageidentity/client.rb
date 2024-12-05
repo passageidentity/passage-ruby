@@ -30,7 +30,7 @@ module Passage
           status_code: 400,
           body: {
             error: 'Invalid auth strategy',
-            code: 400
+            code: 'invalid_auth_strategy'
           }
         )
       end

@@ -52,7 +52,7 @@ module Passage
             status_code: 404,
             body: {
               error: "Passage User with identifer \"#{user_identifier}\" does not exist",
-              code: 404
+              code: 'user_not_found'
             }
           )
         end
@@ -94,7 +94,7 @@ module Passage
     end
 
     def update(user_id:, email: '', phone: '', user_metadata: {})
-      warn '[DEPRECATED] the `update` method parameters will change to `userId: string, ' \
+      warn '[DEPRECATED] the `update` method parameters will change to `user_id: string, ' \
            'options: UpdateUserArgs`. Parameters will change on or after 2025-1.'
 
       user_exists?(user_id)
@@ -140,7 +140,6 @@ module Passage
 
       begin
         @user_device_client.delete_user_devices(@app_id, user_id, device_id, @req_opts)
-        true
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -151,6 +150,7 @@ module Passage
 
     def delete_device(user_id:, device_id:)
       revoke_device(user_id, device_id)
+      true
     end
 
     def list_devices(user_id:)
@@ -169,6 +169,7 @@ module Passage
 
     def signout(user_id:)
       revoke_refresh_tokens(user_id: user_id)
+      true
     end
 
     def revoke_refresh_tokens(user_id:)
@@ -177,7 +178,6 @@ module Passage
       begin
         tokens_client = OpenapiClient::TokensApi.new
         tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
-        true
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -189,35 +189,23 @@ module Passage
     private
 
     def create_v2(args: {})
-      warn '[DEPRECATED] the `create` method parameters will change to `args: CreateUserArgs`.' \
-      'Parameters will change on or after 2025-1.'
-
-      begin
-        response = @user_client.create_user(@app_id, args, @req_opts)
-        response.user
-      rescue Faraday::Error => e
-        raise PassageError.new(
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
-      end
+      response = @user_client.create_user(@app_id, args, @req_opts)
+      response.user
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        status_code: e.response[:status],
+        body: e.response[:body]
+      )
     end
 
     def update_v2(user_id:, options: {})
-      warn '[DEPRECATED] the `update` method parameters will change to `userId: string, ' \
-           'options: UpdateUserArgs`. Parameters will change on or after 2025-1.'
-
-      user_exists?(user_id)
-
-      begin
-        response = @user_client.update_user(@app_id, user_id, options, @req_opts)
-        response.user
-      rescue Faraday::Error => e
-        raise PassageError.new(
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
-      end
+      response = @user_client.update_user(@app_id, user_id, options, @req_opts)
+      response.user
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        status_code: e.response[:status],
+        body: e.response[:body]
+      )
     end
 
     def user_exists?(user_id)
@@ -227,7 +215,7 @@ module Passage
         status_code: 404,
         body: {
           error: 'must supply a valid user_id',
-          code: 404
+          code: 'user_not_found'
         }
       )
     end
@@ -239,7 +227,7 @@ module Passage
         status_code: 400,
         body: {
           error: 'must supply a valid identifier',
-          code: 400
+          code: 'identifier_not_found'
         }
       )
     end
@@ -251,7 +239,7 @@ module Passage
         status_code: 400,
         body: {
           error: 'must supply a valid device_id',
-          code: 400
+          code: 'device_not_found'
         }
       )
     end
