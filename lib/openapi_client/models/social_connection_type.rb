@@ -14,13 +14,13 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class WebAuthnType
-    PASSKEY = "passkey".freeze
-    SECURITY_KEY = "security_key".freeze
-    PLATFORM = "platform".freeze
+  class SocialConnectionType
+    APPLE = "apple".freeze
+    GITHUB = "github".freeze
+    GOOGLE = "google".freeze
 
     def self.all_vars
-      @all_vars ||= [PASSKEY, SECURITY_KEY, PLATFORM].freeze
+      @all_vars ||= [APPLE, GITHUB, GOOGLE].freeze
     end
 
     # Builds the enum from string
@@ -34,8 +34,8 @@ module OpenapiClient
     # @param [String] The enum value in the form of the string
     # @return [String] The enum value
     def build_from_hash(value)
-      return value if WebAuthnType.all_vars.include?(value)
-      raise "Invalid ENUM value #{value} for class #WebAuthnType"
+      return value if SocialConnectionType.all_vars.include?(value)
+      raise "Invalid ENUM value #{value} for class #SocialConnectionType"
     end
   end
 end
