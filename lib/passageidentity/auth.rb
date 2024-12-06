@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'active_support'
 require 'openssl'
 require 'base64'
 require 'jwt'
@@ -14,7 +15,7 @@ module Passage
 
     # rubocop:disable Metrics/AbcSize
     def initialize(app_id, api_key, auth_strategy)
-      @app_cache = {}
+      @app_cache = ActiveSupport::Cache::MemoryStore.new
       @app_id = app_id
       @api_key = api_key
       @auth_strategy = auth_strategy
@@ -71,8 +72,15 @@ module Passage
         )
       end
 
-      exists = jwk_exists(token)
-      fetch_jwks unless exists
+      unless get_cache(@app_id)
+        raise PassageError.new(
+          status_code: 401,
+          body: {
+            error: 'invalid authentication token',
+            code: 'invalid_jwks'
+          }
+        )
+      end
 
       claims =
         JWT.decode(
@@ -178,13 +186,13 @@ module Passage
 
     def fetch_jwks
       app_cache = get_cache(@app_id)
+
       if app_cache
         @jwks, @auth_origin = app_cache
       else
         auth_gw_connection =
           Faraday.new(url: 'https://auth.passage.id') do |f|
             f.request :json
-            f.request :retry
             f.response :raise_error
             f.response :json
             f.adapter :net_http
@@ -196,9 +204,11 @@ module Passage
         @auth_origin = app.auth_origin
         response =
           auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
-        @jwks = response.body
 
-        !get_cache(@app_id) && set_cache(@app_id, [@jwks, @auth_origin])
+        if response.success?
+          @jwks = response.body
+          set_cache(key: @app_id, jwks: @jwks)
+        end
       end
     end
 
@@ -221,11 +231,11 @@ module Passage
     end
 
     def get_cache(key)
-      @app_cache[key]
+      @app_cache.read(key)
     end
 
-    def set_cache(key, value)
-      @app_cache[key] = value
+    def set_cache(key:, jwks:)
+      @app_cache.write(key, jwks, expires_in: 86_400)
     end
 
     def jwk_exists(token)
@@ -235,7 +245,7 @@ module Passage
     # rubocop:enable Metrics/AbcSize
 
     deprecate(:authenticate_request, :validate_jwt, 2025, 1)
-    deprecate(:authenticate_token, :none, 2025, 1)
+    deprecate(:authenticate_token, :validate_jwt, 2025, 1)
     deprecate(:fetch_app, :none, 2025, 1)
     deprecate(:fetch_jwks, :none, 2025, 1)
   end
