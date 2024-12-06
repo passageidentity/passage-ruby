@@ -238,7 +238,7 @@ module Passage
     end
 
     def set_cache(key:, jwks:)
-      @app_cache.write(key, jwks)
+      @app_cache.write(key, jwks, expires_in: 3600)
     end
 
     def jwk_exists(token)
