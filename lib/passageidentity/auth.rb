@@ -72,9 +72,6 @@ module Passage
         )
       end
 
-      exists = jwk_exists(token)
-      fetch_jwks unless exists
-
       unless get_cache(@app_id)
         raise PassageError.new(
           status_code: 401,
@@ -238,7 +235,7 @@ module Passage
     end
 
     def set_cache(key:, jwks:)
-      @app_cache.write(key, jwks, expires_in: 3600)
+      @app_cache.write(key, jwks, expires_in: 86_400)
     end
 
     def jwk_exists(token)
