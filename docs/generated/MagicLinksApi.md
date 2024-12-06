@@ -28,7 +28,7 @@ end
 
 api_instance = OpenapiClient::MagicLinksApi.new
 app_id = 'app_id_example' # String | App ID
-create_magic_link_request = OpenapiClient::CreateMagicLinkRequest.new({channel: OpenapiClient::MagicLinkChannel::EMAIL, email: 'email_example', magic_link_path: 'magic_link_path_example', phone: 'phone_example', redirect_url: 'redirect_url_example', _send: false, ttl: 37, user_id: 'user_id_example'}) # CreateMagicLinkRequest | magic link request
+create_magic_link_request = OpenapiClient::CreateMagicLinkRequest.new # CreateMagicLinkRequest | Request to create a magic link
 
 begin
   # Create Embeddable Magic Link
@@ -62,7 +62,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **app_id** | **String** | App ID |  |
-| **create_magic_link_request** | [**CreateMagicLinkRequest**](CreateMagicLinkRequest.md) | magic link request |  |
+| **create_magic_link_request** | [**CreateMagicLinkRequest**](CreateMagicLinkRequest.md) | Request to create a magic link |  |
 
 ### Return type
 
