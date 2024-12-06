@@ -4,16 +4,16 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **channel** | [**MagicLinkChannel**](MagicLinkChannel.md) |  |  |
-| **email** | **String** |  |  |
+| **channel** | [**MagicLinkChannel**](MagicLinkChannel.md) |  | [optional] |
+| **email** | **String** |  | [optional] |
 | **language** | **String** | language of the email to send (optional) | [optional] |
-| **magic_link_path** | **String** |  |  |
-| **phone** | **String** |  |  |
-| **redirect_url** | **String** |  |  |
-| **_send** | **Boolean** |  |  |
-| **ttl** | **Integer** |  |  |
+| **magic_link_path** | **String** | must be a relative url | [optional] |
+| **phone** | **String** |  | [optional] |
+| **redirect_url** | **String** |  | [optional] |
+| **_send** | **Boolean** |  | [optional] |
+| **ttl** | **Integer** |  | [optional] |
 | **type** | [**MagicLinkType**](MagicLinkType.md) |  | [optional] |
-| **user_id** | **String** |  |  |
+| **user_id** | **String** |  | [optional] |
 
 ## Example
 
