@@ -25,7 +25,7 @@ module Passage
     end
 
     def get(user_id:)
-      user_exists?(user_id)
+      raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
 
       begin
         response = @user_client.get_user(@app_id, user_id, @req_opts)
@@ -39,7 +39,7 @@ module Passage
     end
 
     def get_by_identifier(user_identifier:)
-      identifier_exists?(user_identifier)
+      raise ArgumentError, 'identifier is required.' unless user_identifier && !user_identifier.empty?
 
       begin
         @req_opts[:limit] = 1
@@ -66,7 +66,7 @@ module Passage
     end
 
     def activate(user_id:)
-      user_exists?(user_id)
+      raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
 
       begin
         response = @user_client.activate_user(@app_id, user_id, @req_opts)
@@ -80,7 +80,7 @@ module Passage
     end
 
     def deactivate(user_id:)
-      user_exists?(user_id)
+      raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
 
       begin
         response = @user_client.deactivate_user(@app_id, user_id, @req_opts)
@@ -96,8 +96,6 @@ module Passage
     def update(user_id:, email: '', phone: '', user_metadata: {})
       warn '[DEPRECATED] the `update` method parameters will change to `user_id: string, ' \
            'options: UpdateUserArgs`. Parameters will change on or after 2025-1.'
-
-      user_exists?(user_id)
 
       updates = {}
       updates['email'] = email unless email.empty?
@@ -120,7 +118,7 @@ module Passage
     end
 
     def delete(user_id:)
-      user_exists?(user_id)
+      raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
 
       begin
         @user_client.delete_user(@app_id, user_id, @req_opts)
@@ -135,8 +133,8 @@ module Passage
     end
 
     def revoke_device(user_id:, device_id:)
-      user_exists?(user_id)
-      device_exists?(device_id)
+      raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
+      raise ArgumentError, 'device_id is required.' unless device_id && !device_id.empty?
 
       begin
         @user_device_client.delete_user_devices(@app_id, user_id, device_id, @req_opts)
@@ -154,7 +152,7 @@ module Passage
     end
 
     def list_devices(user_id:)
-      user_exists?(user_id)
+      raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
 
       begin
         response = @user_device_client.list_user_devices(@app_id, user_id, @req_opts)
@@ -173,7 +171,7 @@ module Passage
     end
 
     def revoke_refresh_tokens(user_id:)
-      user_exists?(user_id)
+      raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
 
       begin
         tokens_client = OpenapiClient::TokensApi.new
@@ -189,6 +187,8 @@ module Passage
     private
 
     def create_v2(args: {})
+      raise ArgumentError, 'At least one of args.email or args.phone is required.' unless args['phone'] || args['email']
+
       response = @user_client.create_user(@app_id, args, @req_opts)
       response.user
     rescue Faraday::Error => e
@@ -199,48 +199,15 @@ module Passage
     end
 
     def update_v2(user_id:, options: {})
+      raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
+      raise ArgumentError, 'options are required.' if options.empty?
+
       response = @user_client.update_user(@app_id, user_id, options, @req_opts)
       response.user
     rescue Faraday::Error => e
       raise PassageError.new(
         status_code: e.response[:status],
         body: e.response[:body]
-      )
-    end
-
-    def user_exists?(user_id)
-      return unless user_id.to_s.empty?
-
-      raise PassageError.new(
-        status_code: 404,
-        body: {
-          error: 'must supply a valid user_id',
-          code: 'user_not_found'
-        }
-      )
-    end
-
-    def identifier_exists?(identifier)
-      return unless identifier.to_s.empty?
-
-      raise PassageError.new(
-        status_code: 400,
-        body: {
-          error: 'must supply a valid identifier',
-          code: 'identifier_not_found'
-        }
-      )
-    end
-
-    def device_exists?(device_id)
-      return unless device_id.to_s.empty?
-
-      raise PassageError.new(
-        status_code: 400,
-        body: {
-          error: 'must supply a valid device_id',
-          code: 'device_not_found'
-        }
       )
     end
     # rubocop:enable Metrics/AbcSize
