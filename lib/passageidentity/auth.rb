@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'active_support'
-require 'faraday_middleware'
 require 'openssl'
 require 'base64'
 require 'jwt'
