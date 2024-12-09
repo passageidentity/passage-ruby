@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'active_support'
+require 'faraday_middleware'
 require 'openssl'
 require 'base64'
 require 'jwt'
@@ -82,18 +83,21 @@ module Passage
         )
       end
 
+      audiences = [@auth_origin, @app_id]
+
       claims =
         JWT.decode(
           token,
           nil,
           true,
           {
-            aud: @auth_origin,
+            aud: audiences,
             verify_aud: true,
             algorithms: ['RS256'],
             jwks: @jwks
           }
         )
+
       claims[0]['sub']
     rescue JWT::InvalidIssuerError, JWT::InvalidAudError, JWT::ExpiredSignature, JWT::IncorrectAlgorithm,
            JWT::DecodeError => e
@@ -236,11 +240,6 @@ module Passage
 
     def set_cache(key:, jwks:)
       @app_cache.write(key, jwks, expires_in: 86_400)
-    end
-
-    def jwk_exists(token)
-      kid = JWT.decode(token, nil, false)[1]['kid']
-      @jwks['keys'].any? { |jwk| jwk['kid'] == kid }
     end
     # rubocop:enable Metrics/AbcSize
 
