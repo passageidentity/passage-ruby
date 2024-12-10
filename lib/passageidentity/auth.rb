@@ -62,15 +62,7 @@ module Passage
     end
 
     def validate_jwt(token)
-      if token.nil?
-        raise PassageError.new(
-          status_code: 400,
-          body: {
-            error: 'no authentication token',
-            code: 'missing_auth_token'
-          }
-        )
-      end
+      raise ArgumentError, 'jwt is required.' unless token && !token.empty?
 
       unless get_cache(@app_id)
         raise PassageError.new(
@@ -82,18 +74,21 @@ module Passage
         )
       end
 
+      audiences = [@auth_origin, @app_id]
+
       claims =
         JWT.decode(
           token,
           nil,
           true,
           {
-            aud: @auth_origin,
+            aud: audiences,
             verify_aud: true,
             algorithms: ['RS256'],
             jwks: @jwks
           }
         )
+
       claims[0]['sub']
     rescue JWT::InvalidIssuerError, JWT::InvalidAudError, JWT::ExpiredSignature, JWT::IncorrectAlgorithm,
            JWT::DecodeError => e
@@ -236,11 +231,6 @@ module Passage
 
     def set_cache(key:, jwks:)
       @app_cache.write(key, jwks, expires_in: 86_400)
-    end
-
-    def jwk_exists(token)
-      kid = JWT.decode(token, nil, false)[1]['kid']
-      @jwks['keys'].any? { |jwk| jwk['kid'] == kid }
     end
     # rubocop:enable Metrics/AbcSize
 
