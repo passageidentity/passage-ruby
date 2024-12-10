@@ -62,15 +62,7 @@ module Passage
     end
 
     def validate_jwt(token)
-      if token.nil?
-        raise PassageError.new(
-          status_code: 400,
-          body: {
-            error: 'no authentication token',
-            code: 'missing_auth_token'
-          }
-        )
-      end
+      raise ArgumentError, 'jwt is required.' unless token && !token.empty?
 
       unless get_cache(@app_id)
         raise PassageError.new(
