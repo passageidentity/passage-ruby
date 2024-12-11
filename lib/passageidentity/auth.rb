@@ -35,10 +35,10 @@ module Passage
       if @auth_strategy == Passage::COOKIE_STRATEGY
         unless request.cookies.key?('psg_auth_token')
           raise PassageError.new(
-            status_code: 400,
+            status_code: 401,
             body: {
               error: 'missing authentication token: expected "psg_auth_token" cookie',
-              code: 'missing_auth_token'
+              code: 'invalid_access_token'
             }
           )
         end
@@ -47,10 +47,10 @@ module Passage
         headers = request.headers
         unless headers.key?('Authorization')
           raise PassageError.new(
-            status_code: 400,
+            status_code: 401,
             body: {
               error: 'no authentication token in header',
-              code: 'missing_auth_token'
+              code: 'invalid_access_token'
             }
           )
         end
@@ -68,8 +68,8 @@ module Passage
         raise PassageError.new(
           status_code: 401,
           body: {
-            error: 'invalid authentication token',
-            code: 'invalid_jwks'
+            error: 'invalid JWKs',
+            code: 'invalid_access_token'
           }
         )
       end
@@ -96,7 +96,7 @@ module Passage
         status_code: 401,
         body: {
           error: e.message,
-          code: 'invalid_jwt'
+          code: 'invalid_access_token'
         }
       )
     end
@@ -139,7 +139,7 @@ module Passage
           status_code: 400,
           body: {
             error: 'channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL',
-            code: 'bad_request_data'
+            code: 'invalid_request'
           }
         )
       end
@@ -220,7 +220,7 @@ module Passage
         status_code: 400,
         body: {
           error: 'Must supply a valid user_id',
-          code: 'user_not_found'
+          code: 'invalid_request'
         }
       )
     end
