@@ -51,7 +51,7 @@ module Passage
           raise PassageError.new(
             status_code: 404,
             body: {
-              error: "Passage User with identifer \"#{user_identifier}\" does not exist",
+              error: 'User not found.',
               code: 'user_not_found'
             }
           )
