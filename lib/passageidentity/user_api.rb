@@ -147,7 +147,7 @@ module Passage
     end
 
     def delete_device(user_id:, device_id:)
-      revoke_device(user_id, device_id)
+      revoke_device(user_id: user_id, device_id: device_id)
       true
     end
 
