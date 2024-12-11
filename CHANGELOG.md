@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0](https://github.com/passageidentity/passage-ruby/compare/v0.6.2...v0.7.0) (2024-12-11)
+
+
+### Features
+
+* add new class and method names ([4515ac6](https://github.com/passageidentity/passage-ruby/commit/4515ac647530d193450939e4d727c146c7c970b5))
+* add parameter guards ([#116](https://github.com/passageidentity/passage-ruby/issues/116)) ([ce5c590](https://github.com/passageidentity/passage-ruby/commit/ce5c59064f1f223c34121acf1b8c8f99cba4acc2))
+* **codegen:** create magic link request fields are now optional ([#113](https://github.com/passageidentity/passage-ruby/issues/113)) ([f04af7b](https://github.com/passageidentity/passage-ruby/commit/f04af7bef874db3aba57c1541cc27210313da997))
+* jwks caching with ActiveSupport ([#111](https://github.com/passageidentity/passage-ruby/issues/111)) ([34df698](https://github.com/passageidentity/passage-ruby/commit/34df6989e0f793e8a1cf7b81576ebaf3a2c84f98))
+* support jwt aud validation for hosted apps ([#117](https://github.com/passageidentity/passage-ruby/issues/117)) ([bcaaebe](https://github.com/passageidentity/passage-ruby/commit/bcaaebe987d9e94d6c79a86261db8e56156b91dc))
+
+
+### Bug Fixes
+
+* update PassageError message precedence ([#120](https://github.com/passageidentity/passage-ruby/issues/120)) ([0e3bfbf](https://github.com/passageidentity/passage-ruby/commit/0e3bfbf6f156ae8871b4d0be3a6086366be2ff51))
+* use keywords for revoke_device ([#119](https://github.com/passageidentity/passage-ruby/issues/119)) ([afb787a](https://github.com/passageidentity/passage-ruby/commit/afb787af913df269c1bbd2ccc52f7e4663fbe0dc))
+
 ## [0.6.2] - 2024-10-22
 
 ### Changed
