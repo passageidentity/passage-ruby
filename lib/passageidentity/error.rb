@@ -10,9 +10,10 @@ module Passage
     def initialize(message: nil, status_code: nil, body: {})
       # Ensure body is a hash
       body = {} if body.nil?
+      body = symbolize_keys(body)
 
       @status_code = status_code
-      @error_code = body['code']
+      @error_code = body[:code]
 
       # Message precedence: explicit message > body error > default message
       @message = determine_message(message, body)
@@ -30,7 +31,7 @@ module Passage
 
     def determine_message(message, body)
       return message if message
-      return body['error'] if body['error']
+      return body[:error] if body[:error]
       'Unknown error occurred'
     end
 
@@ -41,6 +42,10 @@ module Passage
       Net::HTTPResponse::CODE_TO_OBJ[status_code_str]
     rescue
       nil
+    end
+
+    def symbolize_keys(hash)
+      hash.transform_keys(&:to_sym)
     end
   end
 end
