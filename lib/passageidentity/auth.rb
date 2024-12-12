@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'active_support'
-require 'openssl'
-require 'base64'
 require 'jwt'
 require 'rubygems/deprecate'
 require_relative 'client'
