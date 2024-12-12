@@ -16,7 +16,7 @@ RuboCop::RakeTask.new
 task default: %i[test rubocop]
 
 # Clear the existing release task
-Rake::Task["release"].clear
+Rake::Task['release'].clear
 
 # Redefine it without the source_control_push dependency
-task "release", [:remote] => ["build", "release:guard_clean", "release:rubygem_push"]
+task 'release', [:remote] => ['build', 'release:guard_clean', 'release:rubygem_push']
