@@ -62,10 +62,7 @@ module Passage
     end
     # rubocop:enable Naming/AccessorMethodName
 
-    # rubocop:disable Metrics/ParameterLists
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/ParameterLists, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create_magic_link(
       user_id: '',
       email: '',
@@ -108,10 +105,7 @@ module Passage
         )
       end
     end
-    # rubocop:enable Metrics/ParameterLists
-    # rubocop:enable Metrics/AbcSize
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/ParameterLists, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     deprecate(:create_magic_link, 'Passage::Auth.create_magic_link', 2025, 1)
     deprecate(:get_app, :none, 2025, 1)
