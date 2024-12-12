@@ -13,7 +13,6 @@ module Passage
   class Auth
     extend Gem::Deprecate
 
-    # rubocop:disable Metrics/AbcSize
     def initialize(app_id, api_key, auth_strategy)
       @app_cache = ActiveSupport::Cache::MemoryStore.new
       @app_id = app_id
@@ -28,6 +27,9 @@ module Passage
       @req_opts = {}
       @req_opts[:header_params] = header_params
       @req_opts[:debug_auth_names] = ['header']
+
+      @tokens_client = OpenapiClient::TokensApi.new
+      @magic_links_client = OpenapiClient::MagicLinksApi.new
     end
 
     def authenticate_request(request)
@@ -106,8 +108,7 @@ module Passage
         use Passage::User#revoke_refresh_tokens instead. It will be removed on or after 2024-12.'
       user_exists?(user_id)
 
-      client = OpenapiClient::TokensApi.new
-      client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
+      @tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
     rescue Faraday::Error => e
       raise PassageError.new(
         status_code: e.response[:status],
@@ -115,57 +116,35 @@ module Passage
       )
     end
 
-    # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/ParameterLists
-    def create_magic_link(
-      user_id: '',
-      email: '',
-      phone: '',
-      channel: '',
-      send: false,
-      magic_link_path: '',
-      redirect_url: '',
-      language: '',
-      ttl: 60,
-      type: 'login'
-    )
-      magic_link_req = {}
-      magic_link_req['user_id'] = user_id unless user_id.empty?
-      magic_link_req['email'] = email unless email.empty?
-      magic_link_req['phone'] = phone unless phone.empty?
+    def create_magic_link_with_email(email, type, send, opts = {})
+      args = {}
+      args['email'] = email
+      args['channel'] = EMAIL_CHANNEL
+      args['type'] = type
+      args['send'] = send
 
-      # check to see if the channel specified is valid before sending it off to the server
-      unless [PHONE_CHANNEL, EMAIL_CHANNEL].include? channel
-        raise PassageError.new(
-          status_code: 400,
-          body: {
-            error: 'channel: must be either Passage::EMAIL_CHANNEL or Passage::PHONE_CHANNEL',
-            code: 'invalid_request'
-          }
-        )
-      end
-      magic_link_req['channel'] = channel unless channel.empty?
-      magic_link_req['send'] = send
-      unless magic_link_path.empty?
-        magic_link_req[
-          'magic_link_path'
-        ] = magic_link_path
-      end
-      magic_link_req['redirect_url'] = redirect_url unless redirect_url.empty?
-      magic_link_req['language'] = language
-      magic_link_req['ttl'] = ttl unless ttl.zero?
-      magic_link_req['type'] = type
-
-      begin
-        client = OpenapiClient::MagicLinksApi.new
-        client.create_magic_link(@app_id, magic_link_req, @req_opts).magic_link
-      rescue Faraday::Error => e
-        raise PassageError.new(
-          status_code: e.response[:status],
-          body: e.response[:body]
-        )
-      end
+      create_magic_link(args, opts)
     end
-    # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/ParameterLists
+
+    def create_magic_link_with_phone(phone, type, send, opts = {})
+      args = {}
+      args['phone'] = phone
+      args['channel'] = PHONE_CHANNEL
+      args['type'] = type
+      args['send'] = send
+
+      create_magic_link(args, opts)
+    end
+
+    def create_magic_link_with_user(user_id, channel, type, send, opts = {})
+      args = {}
+      args['user_id'] = user_id
+      args['channel'] = channel
+      args['type'] = type
+      args['send'] = send
+
+      create_magic_link(args, opts)
+    end
 
     def fetch_app
       client = OpenapiClient::AppsApi.new
@@ -213,6 +192,35 @@ module Passage
 
     private
 
+    def create_magic_link(args, opts)
+      args['language'] = opts['language']
+      args['magic_link_path'] = opts['magic_link_path']
+      args['redirect_url'] = opts['redirect_url']
+      args['ttl'] = opts['ttl']
+
+      handle_magic_link_creation(args)
+    end
+
+    def handle_magic_link_creation(args)
+      @magic_links_client.create_magic_link(@app_id, args, @req_opts).magic_link
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        status_code: e.response[:status],
+        body: e.response[:body]
+      )
+    rescue OpenapiClient::ApiError => e
+      raise PassageError.new(
+        status_code: e.code,
+        body: try_parse_json_string(e.response_body)
+      )
+    end
+
+    def try_parse_json_string(string)
+      JSON.parse(string)
+    rescue JSON::ParserError
+      string
+    end
+
     def user_exists?(user_id)
       return unless user_id.to_s.empty?
 
@@ -232,8 +240,6 @@ module Passage
     def set_cache(key:, jwks:)
       @app_cache.write(key, jwks, expires_in: 86_400)
     end
-    # rubocop:enable Metrics/AbcSize
-
     deprecate(:authenticate_request, :validate_jwt, 2025, 1)
     deprecate(:authenticate_token, :validate_jwt, 2025, 1)
     deprecate(:fetch_app, :none, 2025, 1)

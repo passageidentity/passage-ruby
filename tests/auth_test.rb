@@ -82,7 +82,7 @@ class TestAuthAPI < Test::Unit::TestCase
 
   def test_create_magic_link
     magic_link =
-      PassageClient.auth.create_magic_link(
+      PassageClient.create_magic_link(
         email: 'passage@passage.id',
         channel: Passage::EMAIL_CHANNEL,
         ttl: 122
@@ -94,7 +94,7 @@ class TestAuthAPI < Test::Unit::TestCase
 
   def test_invalid_create_magic_link
     assert_raises Passage::PassageError do
-      PassageClient.auth.create_magic_link(
+      PassageClient.create_magic_link(
         email: 'passage@passage.id',
         ttl: 122
       )
