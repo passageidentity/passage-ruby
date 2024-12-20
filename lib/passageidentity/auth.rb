@@ -76,15 +76,13 @@ module Passage
         )
       end
 
-      audiences = [@auth_origin, @app_id]
-
       claims =
         JWT.decode(
           token,
           nil,
           true,
           {
-            aud: audiences,
+            aud: [@app_id],
             verify_aud: true,
             algorithms: ['RS256'],
             jwks: @jwks
@@ -172,10 +170,6 @@ module Passage
             f.adapter :net_http
           end
 
-        # fetch the public key if not in cache
-        app = fetch_app
-
-        @auth_origin = app.auth_origin
         response =
           auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
 
