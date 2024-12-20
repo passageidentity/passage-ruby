@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.1](https://github.com/passageidentity/passage-ruby/compare/v0.7.0...v0.7.1) (2024-12-20)
+
+
+### Bug Fixes
+
+* jwt validation correctly compares the aud with both app id and auth origin ([#147](https://github.com/passageidentity/passage-ruby/issues/147)) ([8b03140](https://github.com/passageidentity/passage-ruby/commit/8b031405acb9905479f3a65c836083b845f8113e))
+* validate_jwt now refreshes cache if it is expired after client initialization ([#145](https://github.com/passageidentity/passage-ruby/issues/145)) ([eef1230](https://github.com/passageidentity/passage-ruby/commit/eef1230285af8e3c9d1f1eedfdc1332575e98ee3))
+
 ## [0.7.0](https://github.com/passageidentity/passage-ruby/compare/v0.6.2...v0.7.0) (2024-12-12)
 
 
