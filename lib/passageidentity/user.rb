@@ -4,7 +4,7 @@ require_relative '../openapi_client'
 
 module Passage
   # The User class provides methods for interacting with Passage Users
-  class UserAPI
+  class User
     def initialize(app_id:, req_opts:)
       @app_id = app_id
       @req_opts = req_opts
