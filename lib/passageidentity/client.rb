@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
-require 'rubygems'
 require_relative 'auth'
 require_relative 'user_api'
-require_relative 'error'
 require_relative 'version'
-require_relative '../openapi_client'
 
 module Passage
   # The Passage::Client class provides methods for interacting with Passage
   class Client
     attr_reader :auth, :user
-
-    extend Gem::Deprecate
 
     def initialize(app_id:, api_key:)
       unless app_id && !app_id.empty?

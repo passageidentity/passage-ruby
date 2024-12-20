@@ -2,7 +2,6 @@
 
 require 'active_support'
 require 'jwt'
-require_relative 'client'
 require_relative '../openapi_client'
 
 module Passage

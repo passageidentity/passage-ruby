@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'client'
+require_relative '../openapi_client'
 
 module Passage
   # The User class provides methods for interacting with Passage Users
