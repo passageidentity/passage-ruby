@@ -64,7 +64,9 @@ module Passage
     def validate_jwt(token)
       raise ArgumentError, 'jwt is required.' unless token && !token.empty?
 
-      unless get_cache(@app_id)
+      begin
+        fetch_jwks
+      rescue Faraday::Error
         raise PassageError.new(
           status_code: 401,
           body: {
