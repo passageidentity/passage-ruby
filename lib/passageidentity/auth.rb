@@ -82,7 +82,7 @@ module Passage
           nil,
           true,
           {
-            aud: [@app_id],
+            aud: @app_id,
             verify_aud: true,
             algorithms: ['RS256'],
             jwks: @jwks
