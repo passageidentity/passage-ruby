@@ -102,7 +102,6 @@ module Passage
 
       begin
         @user_client.delete_user(@app_id, user_id, @req_opts)
-        true
       rescue Faraday::Error => e
         raise PassageError.new(
           'failed to delete Passage User',
