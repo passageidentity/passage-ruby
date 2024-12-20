@@ -28,11 +28,11 @@ module Passage
       end
     end
 
-    def get_by_identifier(user_identifier:)
-      raise ArgumentError, 'identifier is required.' unless user_identifier && !user_identifier.empty?
+    def get_by_identifier(identifier:)
+      raise ArgumentError, 'identifier is required.' unless identifier && !identifier.empty?
 
       begin
-        req_opts = set_get_by_identifier_query_params(identifier: user_identifier)
+        req_opts = set_get_by_identifier_query_params(identifier: identifier)
         response = @user_client.list_paginated_users(@app_id, req_opts)
       rescue Faraday::Error => e
         raise PassageError.new(
