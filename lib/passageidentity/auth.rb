@@ -17,7 +17,7 @@ module Passage
       @magic_links_client = OpenapiClient::MagicLinksApi.new
     end
 
-    def validate_jwt(token)
+    def validate_jwt(token:)
       raise ArgumentError, 'jwt is required.' unless token && !token.empty?
 
       claims =
@@ -36,7 +36,7 @@ module Passage
       claims[0]['sub']
     end
 
-    def create_magic_link_with_email(email, type, send, opts = {})
+    def create_magic_link_with_email(email:, type:, send:, opts: {})
       args = {}
       args['email'] = email
       args['channel'] = 'email'
@@ -46,7 +46,7 @@ module Passage
       create_magic_link(args, opts)
     end
 
-    def create_magic_link_with_phone(phone, type, send, opts = {})
+    def create_magic_link_with_phone(phone:, type:, send:, opts: {})
       args = {}
       args['phone'] = phone
       args['channel'] = 'phone'
@@ -56,7 +56,7 @@ module Passage
       create_magic_link(args, opts)
     end
 
-    def create_magic_link_with_user(user_id, channel, type, send, opts = {})
+    def create_magic_link_with_user(user_id:, channel:, type:, send:, opts: {})
       raise ArgumentError, "channel must be either 'email' or 'phone'" unless %w[
         email
         phone
