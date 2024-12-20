@@ -5,7 +5,6 @@ require_relative 'client'
 module Passage
   # The User class provides methods for interacting with Passage Users
   class UserAPI
-    # rubocop:disable Metrics/AbcSize
     def initialize(app_id:, req_opts:)
       @app_id = app_id
       @req_opts = req_opts
@@ -33,27 +32,16 @@ module Passage
       raise ArgumentError, 'identifier is required.' unless user_identifier && !user_identifier.empty?
 
       begin
-        @req_opts[:limit] = 1
-        @req_opts[:identifier] = user_identifier.downcase
-        response = @user_client.list_paginated_users(@app_id, @req_opts)
-        users = response.users
-
-        if users.empty?
-          raise PassageError.new(
-            status_code: 404,
-            body: {
-              error: 'User not found.',
-              code: 'user_not_found'
-            }
-          )
-        end
-        get(user_id: users.first.id)
+        req_opts = set_get_by_identifier_query_params
+        response = @user_client.list_paginated_users(@app_id, req_opts)
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
           body: e.response[:body]
         )
       end
+
+      handle_get_by_identifier(users: response.users)
     end
 
     def activate(user_id:)
@@ -164,6 +152,28 @@ module Passage
         )
       end
     end
-    # rubocop:enable Metrics/AbcSize
+
+    private
+
+    def set_get_by_identifier_query_params
+      req_opts = @req_opts.dup
+      req_opts[:limit] = 1
+      req_opts[:identifier] = user_identifier.downcase
+      req_opts
+    end
+
+    def handle_get_by_identifier(users:)
+      if users.empty?
+        raise PassageError.new(
+          status_code: 404,
+          body: {
+            error: 'User not found.',
+            code: 'user_not_found'
+          }
+        )
+      end
+
+      get(user_id: users.first.id)
+    end
   end
 end
