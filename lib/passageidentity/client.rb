@@ -27,12 +27,12 @@ module Passage
       req_opts = {}
       req_opts[:header_params] = {
         'Passage-Version' => "passage-ruby #{Passage::VERSION}",
-        'Authorization' => "Bearer #{@api_key}"
+        'Authorization' => "Bearer #{api_key}"
       }
       req_opts[:debug_auth_names] = ['header']
 
-      @auth = Passage::Auth.new(@app_id, req_opts)
-      @user = Passage::UserAPI.new(@app_id, req_opts)
+      @auth = Passage::Auth.new(app_id: app_id, req_opts: req_opts)
+      @user = Passage::UserAPI.new(app_id: app_id, req_opts: req_opts)
     end
   end
 end

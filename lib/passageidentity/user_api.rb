@@ -32,7 +32,7 @@ module Passage
       raise ArgumentError, 'identifier is required.' unless user_identifier && !user_identifier.empty?
 
       begin
-        req_opts = set_get_by_identifier_query_params
+        req_opts = set_get_by_identifier_query_params(identifier: user_identifier)
         response = @user_client.list_paginated_users(@app_id, req_opts)
       rescue Faraday::Error => e
         raise PassageError.new(
@@ -72,9 +72,9 @@ module Passage
       end
     end
 
-    def update(user_id:, options: {})
+    def update(user_id:, options:)
       raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
-      raise ArgumentError, 'options are required.' if options.empty?
+      raise ArgumentError, 'options are required.' unless options && !options.empty?
 
       response = @user_client.update_user(@app_id, user_id, options, @req_opts)
       response.user
@@ -85,7 +85,7 @@ module Passage
       )
     end
 
-    def create(args: {})
+    def create(args:)
       raise ArgumentError, 'At least one of args.email or args.phone is required.' unless args['phone'] || args['email']
 
       response = @user_client.create_user(@app_id, args, @req_opts)
@@ -155,10 +155,10 @@ module Passage
 
     private
 
-    def set_get_by_identifier_query_params
+    def set_get_by_identifier_query_params(identifier:)
       req_opts = @req_opts.dup
       req_opts[:limit] = 1
-      req_opts[:identifier] = user_identifier.downcase
+      req_opts[:identifier] = identifier.downcase
       req_opts
     end
 

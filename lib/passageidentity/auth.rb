@@ -89,7 +89,7 @@ module Passage
       response = auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
       jwks = response.body
 
-      @app_cache.write(@app_id, jwks, expires_in: 24.hours)
+      @app_cache.write(@app_id, jwks, expires_in: 86_400) # 24 hours in seconds
       jwks
     end
 
