@@ -8,12 +8,6 @@ require_relative 'version'
 require_relative '../openapi_client'
 
 module Passage
-  COOKIE_STRATEGY = 0
-  HEADER_STRATEGY = 1
-
-  EMAIL_CHANNEL = 'email'
-  PHONE_CHANNEL = 'phone'
-
   # The Passage::Client class provides methods for interacting with Passage
   class Client
     attr_reader :auth, :user
