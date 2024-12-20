@@ -27,7 +27,7 @@ jobs:
         with:
           bundler-cache: true
           ruby-version: '3.1'
-          rubygems: 'latest'
+          rubygems: '3.5'
         if: ${{ steps.release.outputs.release_created }}
       - uses: rubygems/release-gem@v1
         id: publish
