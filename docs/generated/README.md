@@ -68,15 +68,16 @@ OpenapiClient.configure do |config|
   config.configure_faraday_connection { |connection| 'YOUR CONNECTION CONFIG PROC' }
 end
 
-api_instance = OpenapiClient::AppsApi.new
+api_instance = OpenapiClient::MagicLinksApi.new
 app_id = 'app_id_example' # String | App ID
+create_magic_link_request = OpenapiClient::CreateMagicLinkRequest.new # CreateMagicLinkRequest | Request to create a magic link
 
 begin
-  #Get App
-  result = api_instance.get_app(app_id)
+  #Create Embeddable Magic Link
+  result = api_instance.create_magic_link(app_id, create_magic_link_request)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Exception when calling AppsApi->get_app: #{e}"
+  puts "Exception when calling MagicLinksApi->create_magic_link: #{e}"
 end
 
 ```
@@ -87,7 +88,6 @@ All URIs are relative to *https://api.passage.id/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*OpenapiClient::AppsApi* | [**get_app**](docs/AppsApi.md#get_app) | **GET** /apps/{app_id} | Get App
 *OpenapiClient::MagicLinksApi* | [**create_magic_link**](docs/MagicLinksApi.md#create_magic_link) | **POST** /apps/{app_id}/magic-links | Create Embeddable Magic Link
 *OpenapiClient::TokensApi* | [**revoke_user_refresh_tokens**](docs/TokensApi.md#revoke_user_refresh_tokens) | **DELETE** /apps/{app_id}/users/{user_id}/tokens | Revokes refresh tokens
 *OpenapiClient::UserDevicesApi* | [**delete_user_devices**](docs/UserDevicesApi.md#delete_user_devices) | **DELETE** /apps/{app_id}/users/{user_id}/devices/{device_id} | Delete a device for a user
@@ -103,24 +103,16 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [OpenapiClient::AppInfo](docs/AppInfo.md)
- - [OpenapiClient::AppResponse](docs/AppResponse.md)
  - [OpenapiClient::AppleUserSocialConnection](docs/AppleUserSocialConnection.md)
- - [OpenapiClient::AuthMethods](docs/AuthMethods.md)
  - [OpenapiClient::CreateMagicLinkRequest](docs/CreateMagicLinkRequest.md)
  - [OpenapiClient::CreateUserRequest](docs/CreateUserRequest.md)
- - [OpenapiClient::ElementCustomization](docs/ElementCustomization.md)
- - [OpenapiClient::FontFamily](docs/FontFamily.md)
  - [OpenapiClient::GithubUserSocialConnection](docs/GithubUserSocialConnection.md)
  - [OpenapiClient::GoogleUserSocialConnection](docs/GoogleUserSocialConnection.md)
- - [OpenapiClient::LayoutConfig](docs/LayoutConfig.md)
- - [OpenapiClient::Layouts](docs/Layouts.md)
  - [OpenapiClient::Link](docs/Link.md)
  - [OpenapiClient::ListDevicesResponse](docs/ListDevicesResponse.md)
  - [OpenapiClient::ListPaginatedUsersItem](docs/ListPaginatedUsersItem.md)
  - [OpenapiClient::ListPaginatedUsersResponse](docs/ListPaginatedUsersResponse.md)
  - [OpenapiClient::MagicLink](docs/MagicLink.md)
- - [OpenapiClient::MagicLinkAuthMethod](docs/MagicLinkAuthMethod.md)
  - [OpenapiClient::MagicLinkChannel](docs/MagicLinkChannel.md)
  - [OpenapiClient::MagicLinkResponse](docs/MagicLinkResponse.md)
  - [OpenapiClient::MagicLinkType](docs/MagicLinkType.md)
@@ -130,19 +122,12 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::Model404Error](docs/Model404Error.md)
  - [OpenapiClient::Model500Error](docs/Model500Error.md)
  - [OpenapiClient::Nonce](docs/Nonce.md)
- - [OpenapiClient::OtpAuthMethod](docs/OtpAuthMethod.md)
  - [OpenapiClient::PaginatedLinks](docs/PaginatedLinks.md)
- - [OpenapiClient::PasskeysAuthMethod](docs/PasskeysAuthMethod.md)
  - [OpenapiClient::SocialConnectionType](docs/SocialConnectionType.md)
- - [OpenapiClient::Technologies](docs/Technologies.md)
- - [OpenapiClient::ThemeType](docs/ThemeType.md)
- - [OpenapiClient::TtlDisplayUnit](docs/TtlDisplayUnit.md)
  - [OpenapiClient::UpdateUserRequest](docs/UpdateUserRequest.md)
  - [OpenapiClient::UserEventAction](docs/UserEventAction.md)
  - [OpenapiClient::UserEventStatus](docs/UserEventStatus.md)
  - [OpenapiClient::UserInfo](docs/UserInfo.md)
- - [OpenapiClient::UserMetadataField](docs/UserMetadataField.md)
- - [OpenapiClient::UserMetadataFieldType](docs/UserMetadataFieldType.md)
  - [OpenapiClient::UserRecentEvent](docs/UserRecentEvent.md)
  - [OpenapiClient::UserResponse](docs/UserResponse.md)
  - [OpenapiClient::UserSocialConnections](docs/UserSocialConnections.md)
