@@ -162,7 +162,7 @@ module Passage
       app_cache = get_cache(@app_id)
 
       if app_cache
-        @jwks, @auth_origin = app_cache
+        @jwks = app_cache
       else
         auth_gw_connection =
           Faraday.new(url: 'https://auth.passage.id') do |f|
