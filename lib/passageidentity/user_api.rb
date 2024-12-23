@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
-require 'rubygems/deprecate'
 require_relative 'client'
 
 module Passage
   # The UserAPI class provides methods for interacting with Passage Users
   class UserAPI
-    extend Gem::Deprecate
-
     # rubocop:disable Metrics/AbcSize
-    # This class will require an API key
     def initialize(app_id, api_key)
       @app_id = app_id
       @api_key = api_key
@@ -146,11 +142,6 @@ module Passage
       end
     end
 
-    def delete_device(user_id:, device_id:)
-      revoke_device(user_id: user_id, device_id: device_id)
-      true
-    end
-
     def list_devices(user_id:)
       raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
 
@@ -163,11 +154,6 @@ module Passage
           body: e.response[:body]
         )
       end
-    end
-
-    def signout(user_id:)
-      revoke_refresh_tokens(user_id: user_id)
-      true
     end
 
     def revoke_refresh_tokens(user_id:)
@@ -211,8 +197,5 @@ module Passage
       )
     end
     # rubocop:enable Metrics/AbcSize
-
-    deprecate(:signout, :revoke_refresh_tokens, 2025, 1)
-    deprecate(:delete_device, :revoke_device, 2025, 1)
   end
 end
