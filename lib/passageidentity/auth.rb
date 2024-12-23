@@ -2,7 +2,6 @@
 
 require 'active_support'
 require 'jwt'
-require_relative 'client'
 require_relative '../openapi_client'
 
 module Passage
@@ -21,18 +20,6 @@ module Passage
     def validate_jwt(token)
       raise ArgumentError, 'jwt is required.' unless token && !token.empty?
 
-      begin
-        fetch_jwks
-      rescue Faraday::Error
-        raise PassageError.new(
-          status_code: 401,
-          body: {
-            error: 'invalid JWKs',
-            code: 'invalid_access_token'
-          }
-        )
-      end
-
       claims =
         JWT.decode(
           token,
@@ -42,26 +29,17 @@ module Passage
             aud: @app_id,
             verify_aud: true,
             algorithms: ['RS256'],
-            jwks: @jwks
+            jwks: fetch_jwks
           }
         )
 
       claims[0]['sub']
-    rescue JWT::InvalidIssuerError, JWT::InvalidAudError, JWT::ExpiredSignature, JWT::IncorrectAlgorithm,
-           JWT::DecodeError => e
-      raise PassageError.new(
-        status_code: 401,
-        body: {
-          error: e.message,
-          code: 'invalid_access_token'
-        }
-      )
     end
 
     def create_magic_link_with_email(email, type, send, opts = {})
       args = {}
       args['email'] = email
-      args['channel'] = EMAIL_CHANNEL
+      args['channel'] = 'email'
       args['type'] = type
       args['send'] = send
 
@@ -71,7 +49,7 @@ module Passage
     def create_magic_link_with_phone(phone, type, send, opts = {})
       args = {}
       args['phone'] = phone
-      args['channel'] = PHONE_CHANNEL
+      args['channel'] = 'phone'
       args['type'] = type
       args['send'] = send
 
@@ -79,6 +57,11 @@ module Passage
     end
 
     def create_magic_link_with_user(user_id, channel, type, send, opts = {})
+      raise ArgumentError, "channel must be either 'email' or 'phone'" unless %w[
+        email
+        phone
+      ].include?(channel)
+
       args = {}
       args['user_id'] = user_id
       args['channel'] = channel
@@ -91,27 +74,22 @@ module Passage
     private
 
     def fetch_jwks
-      app_cache = get_cache(@app_id)
+      jwks = @app_cache.read(@app_id)
+      return jwks if jwks
 
-      if app_cache
-        @jwks = app_cache
-      else
-        auth_gw_connection =
-          Faraday.new(url: 'https://auth.passage.id') do |f|
-            f.request :json
-            f.response :raise_error
-            f.response :json
-            f.adapter :net_http
-          end
-
-        response =
-          auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
-
-        if response.success?
-          @jwks = response.body
-          set_cache(key: @app_id, jwks: @jwks)
+      auth_gw_connection =
+        Faraday.new(url: 'https://auth.passage.id') do |f|
+          f.request :json
+          f.response :raise_error
+          f.response :json
+          f.adapter :net_http
         end
-      end
+
+      response = auth_gw_connection.get("/v1/apps/#{@app_id}/.well-known/jwks.json")
+      jwks = response.body
+
+      @app_cache.write(@app_id, jwks, expires_in: 86_400) # 24 hours in seconds
+      jwks
     end
 
     def create_magic_link(args, opts)
@@ -141,26 +119,6 @@ module Passage
       JSON.parse(string)
     rescue JSON::ParserError
       string
-    end
-
-    def user_exists?(user_id)
-      return unless user_id.to_s.empty?
-
-      raise PassageError.new(
-        status_code: 400,
-        body: {
-          error: 'Must supply a valid user_id',
-          code: 'invalid_request'
-        }
-      )
-    end
-
-    def get_cache(key)
-      @app_cache.read(key)
-    end
-
-    def set_cache(key:, jwks:)
-      @app_cache.write(key, jwks, expires_in: 86_400)
     end
   end
 end

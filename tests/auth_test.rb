@@ -16,7 +16,7 @@ class TestAuthAPI < Test::Unit::TestCase
   end
 
   def test_invalid_jwt
-    assert_raises Passage::PassageError do
+    assert_raises JWT::DecodeError do
       PassageClient.auth.validate_jwt('invalid_token')
     end
   end
