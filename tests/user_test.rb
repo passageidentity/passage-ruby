@@ -7,8 +7,8 @@ require 'test/unit'
 
 Dotenv.load('.env')
 
-# This is a test suite for the Passage User API using the Test::Unit framework.
-class TestUserAPI < Test::Unit::TestCase
+# This is a test suite for the Passage User using the Test::Unit framework.
+class TestUser < Test::Unit::TestCase
   PassageClient = Passage::Client.new(app_id: ENV['APP_ID'], api_key: ENV['API_KEY'])
 
   def setup
