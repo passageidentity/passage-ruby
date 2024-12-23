@@ -5,9 +5,6 @@ require_relative 'user_api'
 require_relative 'version'
 
 module Passage
-  COOKIE_STRATEGY = 0
-  HEADER_STRATEGY = 1
-
   EMAIL_CHANNEL = 'email'
   PHONE_CHANNEL = 'phone'
 
