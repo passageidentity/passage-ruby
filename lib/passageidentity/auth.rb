@@ -2,15 +2,12 @@
 
 require 'active_support'
 require 'jwt'
-require 'rubygems/deprecate'
 require_relative 'client'
 require_relative '../openapi_client'
 
 module Passage
   # The Passage::Auth class provides methods for authenticating requests and tokens
   class Auth
-    extend Gem::Deprecate
-
     def initialize(app_id, api_key, auth_strategy)
       @app_cache = ActiveSupport::Cache::MemoryStore.new
       @app_id = app_id
@@ -28,37 +25,6 @@ module Passage
 
       @tokens_client = OpenapiClient::TokensApi.new
       @magic_links_client = OpenapiClient::MagicLinksApi.new
-    end
-
-    def authenticate_request(request)
-      # Get the token based on the strategy
-      if @auth_strategy == Passage::COOKIE_STRATEGY
-        unless request.cookies.key?('psg_auth_token')
-          raise PassageError.new(
-            status_code: 401,
-            body: {
-              error: 'missing authentication token: expected "psg_auth_token" cookie',
-              code: 'invalid_access_token'
-            }
-          )
-        end
-        @token = request.cookies['psg_auth_token']
-      else
-        headers = request.headers
-        unless headers.key?('Authorization')
-          raise PassageError.new(
-            status_code: 401,
-            body: {
-              error: 'no authentication token in header',
-              code: 'invalid_access_token'
-            }
-          )
-        end
-
-        @token = headers['Authorization'].split(' ').last
-      end
-
-      validate_jwt(@token)
     end
 
     def validate_jwt(token)
@@ -101,19 +67,6 @@ module Passage
       )
     end
 
-    def revoke_user_refresh_tokens(user_id)
-      warn 'NOTE: Passage::Auth#revoke_user_refresh_tokens is deprecated;
-        use Passage::User#revoke_refresh_tokens instead. It will be removed on or after 2024-12.'
-      user_exists?(user_id)
-
-      @tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
-    rescue Faraday::Error => e
-      raise PassageError.new(
-        status_code: e.response[:status],
-        body: e.response[:body]
-      )
-    end
-
     def create_magic_link_with_email(email, type, send, opts = {})
       args = {}
       args['email'] = email
@@ -144,17 +97,7 @@ module Passage
       create_magic_link(args, opts)
     end
 
-    def fetch_app
-      client = OpenapiClient::AppsApi.new
-      response = client.get_app(@app_id)
-
-      response.app
-    rescue Faraday::Error => e
-      raise PassageError.new(
-        status_code: e.response[:status],
-        body: e.response[:body]
-      )
-    end
+    private
 
     def fetch_jwks
       app_cache = get_cache(@app_id)
@@ -179,12 +122,6 @@ module Passage
         end
       end
     end
-
-    def authenticate_token(token)
-      validate_jwt(token)
-    end
-
-    private
 
     def create_magic_link(args, opts)
       args['language'] = opts['language']
@@ -234,9 +171,5 @@ module Passage
     def set_cache(key:, jwks:)
       @app_cache.write(key, jwks, expires_in: 86_400)
     end
-    deprecate(:authenticate_request, :validate_jwt, 2025, 1)
-    deprecate(:authenticate_token, :validate_jwt, 2025, 1)
-    deprecate(:fetch_app, :none, 2025, 1)
-    deprecate(:fetch_jwks, :none, 2025, 1)
   end
 end
