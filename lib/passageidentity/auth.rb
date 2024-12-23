@@ -17,12 +17,12 @@ module Passage
       @magic_links_client = OpenapiClient::MagicLinksApi.new
     end
 
-    def validate_jwt(token)
-      raise ArgumentError, 'jwt is required.' unless token && !token.empty?
+    def validate_jwt(jwt:)
+      raise ArgumentError, 'jwt is required.' unless jwt && !jwt.empty?
 
       claims =
         JWT.decode(
-          token,
+          jwt,
           nil,
           true,
           {
