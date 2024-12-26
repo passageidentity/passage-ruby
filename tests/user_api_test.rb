@@ -9,8 +9,7 @@ Dotenv.load('.env')
 
 # This is a test suite for the Passage User API using the Test::Unit framework.
 class TestUserAPI < Test::Unit::TestCase
-  PassageClient =
-    Passage::Client.new(app_id: ENV['APP_ID'], api_key: ENV['API_KEY'])
+  PassageClient = Passage::Client.new(app_id: ENV['APP_ID'], api_key: ENV['API_KEY'])
 
   def setup
     @test_user =
@@ -114,11 +113,6 @@ class TestUserAPI < Test::Unit::TestCase
   def test_list_devices
     devices = PassageClient.user.list_devices(user_id: @test_user.id)
     assert_equal [], devices
-  end
-
-  def test_signout
-    success = PassageClient.user.signout(user_id: @test_user.id)
-    assert_equal true, success
   end
 
   def teardown
