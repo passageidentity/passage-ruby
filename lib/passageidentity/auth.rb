@@ -8,22 +8,13 @@ require_relative '../openapi_client'
 module Passage
   # The Passage::Auth class provides methods for authenticating requests and tokens
   class Auth
-    def initialize(app_id, api_key, auth_strategy)
-      @app_cache = ActiveSupport::Cache::MemoryStore.new
+    def initialize(app_id:, req_opts:)
       @app_id = app_id
-      @api_key = api_key
-      @auth_strategy = auth_strategy
+      @req_opts = req_opts
 
+      @app_cache = ActiveSupport::Cache::MemoryStore.new
       fetch_jwks
 
-      header_params = { 'Passage-Version' => "passage-ruby #{Passage::VERSION}" }
-      header_params['Authorization'] = "Bearer #{@api_key}" if @api_key != ''
-
-      @req_opts = {}
-      @req_opts[:header_params] = header_params
-      @req_opts[:debug_auth_names] = ['header']
-
-      @tokens_client = OpenapiClient::TokensApi.new
       @magic_links_client = OpenapiClient::MagicLinksApi.new
     end
 

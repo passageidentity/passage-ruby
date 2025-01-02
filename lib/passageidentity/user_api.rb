@@ -6,18 +6,13 @@ module Passage
   # The UserAPI class provides methods for interacting with Passage Users
   class UserAPI
     # rubocop:disable Metrics/AbcSize
-    def initialize(app_id, api_key)
+    def initialize(app_id:, req_opts:)
       @app_id = app_id
-      @api_key = api_key
+      @req_opts = req_opts
+
       @user_client = OpenapiClient::UsersApi.new
       @user_device_client = OpenapiClient::UserDevicesApi.new
-
-      header_params = { 'Passage-Version' => "passage-ruby #{Passage::VERSION}" }
-      header_params['Authorization'] = "Bearer #{@api_key}" if @api_key != ''
-
-      @req_opts = {}
-      @req_opts[:header_params] = header_params
-      @req_opts[:debug_auth_names] = ['header']
+      @tokens_client = OpenapiClient::TokensApi.new
     end
 
     def get(user_id:)
@@ -160,8 +155,7 @@ module Passage
       raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
 
       begin
-        tokens_client = OpenapiClient::TokensApi.new
-        tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
+        @tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
