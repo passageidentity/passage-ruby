@@ -7,30 +7,31 @@ require 'test/unit'
 
 Dotenv.load('.env')
 
-# This is a test suite for the Passage User API using the Test::Unit framework.
-class TestUserAPI < Test::Unit::TestCase
+# This is a test suite for the Passage User using the Test::Unit framework.
+class TestUser < Test::Unit::TestCase
   PassageClient = Passage::Client.new(app_id: ENV['APP_ID'], api_key: ENV['API_KEY'])
 
   def setup
-    @test_user =
-      PassageClient.user.create(
-        email: 'passage+test-ruby@passage.id',
-        user_metadata: {
-          example1: 'cool'
-        }
-      )
+    args = {
+      'email' => 'passage+test-ruby@passage.id',
+      'user_metadata' => {
+        'example1' => 'cool'
+      }
+    }
+    @test_user = PassageClient.user.create(args: args)
   end
 
   def test_create_delete_user
-    user =
-      PassageClient.user.create(
-        email: 'passage+test-create-delete@passage.id',
-        user_metadata: {
-          example1: 'cool'
-        }
-      )
+    args = {
+      'email' => 'passage+test-create-delete@passage.id',
+      'user_metadata' => {
+        'example1' => 'cool'
+      }
+    }
+    user = PassageClient.user.create(args: args)
     assert_equal 'passage+test-create-delete@passage.id', user.email
     assert_equal 'cool', user.user_metadata[:example1]
+
     deleted = PassageClient.user.delete(user_id: user.id)
     assert_equal true, deleted
   end
@@ -44,7 +45,7 @@ class TestUserAPI < Test::Unit::TestCase
     user = PassageClient.user.get(user_id: @test_user.id)
     assert_equal @test_user.id, user.id
 
-    user_by_identifier = PassageClient.user.get_by_identifier(user_identifier: @test_user.email)
+    user_by_identifier = PassageClient.user.get_by_identifier(identifier: @test_user.email)
     assert_equal @test_user.id, user_by_identifier.id
 
     assert_equal user, user_by_identifier
@@ -54,7 +55,7 @@ class TestUserAPI < Test::Unit::TestCase
     user = PassageClient.user.get(user_id: @test_user.id)
     assert_equal @test_user.id, user.id
 
-    user_by_identifier = PassageClient.user.get_by_identifier(user_identifier: @test_user.email.upcase)
+    user_by_identifier = PassageClient.user.get_by_identifier(identifier: @test_user.email.upcase)
     assert_equal @test_user.id, user_by_identifier.id
 
     assert_equal user, user_by_identifier
@@ -62,24 +63,25 @@ class TestUserAPI < Test::Unit::TestCase
 
   def test_get_user_by_identifier_phone
     phone = '+15005550007'
-    create_user = PassageClient.user.create(
-      phone: phone
-    )
+    args = {
+      'phone' => phone
+    }
+    create_user = PassageClient.user.create(args: args)
     user = PassageClient.user.get(user_id: create_user.id)
     assert_equal create_user.id, user.id
 
-    user_by_identifier = PassageClient.user.get_by_identifier(user_identifier: phone)
+    user_by_identifier = PassageClient.user.get_by_identifier(identifier: phone)
     assert_equal create_user.id, user_by_identifier.id
 
     assert_equal user, user_by_identifier
   end
 
-  def test_invalid_get_user_by_identifier
+  def test_invalid_get_by_identifier
     user = PassageClient.user.get(user_id: @test_user.id)
     assert_equal @test_user.id, user.id
 
     assert_raise Passage::PassageError do
-      PassageClient.user.get_by_identifier(user_identifier: 'error@passage.id')
+      PassageClient.user.get_by_identifier(identifier: 'error@passage.id')
     end
   end
 
@@ -97,14 +99,13 @@ class TestUserAPI < Test::Unit::TestCase
 
   def test_update_user
     new_email = 'passage+update_test-ruby@passage.id'
-    user =
-      PassageClient.user.update(
-        user_id: @test_user.id,
-        email: new_email,
-        user_metadata: {
-          example1: 'lame'
-        }
-      )
+    opts = {
+      'email' => new_email,
+      'user_metadata' => {
+        'example1' => 'lame'
+      }
+    }
+    user = PassageClient.user.update(user_id: @test_user.id, options: opts)
     assert_equal @test_user.id, user.id
     assert_equal new_email, user.email
     assert_equal 'lame', user.user_metadata[:example1]

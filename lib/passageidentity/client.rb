@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'auth'
-require_relative 'user_api'
+require_relative 'user'
 require_relative 'version'
 
 module Passage
@@ -30,7 +30,7 @@ module Passage
       req_opts[:debug_auth_names] = ['header']
 
       @auth = Passage::Auth.new(app_id: app_id, req_opts: req_opts)
-      @user = Passage::UserAPI.new(app_id: app_id, req_opts: req_opts)
+      @user = Passage::User.new(app_id: app_id, req_opts: req_opts)
     end
   end
 end
