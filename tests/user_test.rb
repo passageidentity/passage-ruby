@@ -7,8 +7,8 @@ require 'test/unit'
 
 Dotenv.load('.env')
 
-# This is a test suite for the Passage User API using the Test::Unit framework.
-class TestUserAPI < Test::Unit::TestCase
+# This is a test suite for the Passage User using the Test::Unit framework.
+class TestUser < Test::Unit::TestCase
   PassageClient = Passage::Client.new(app_id: ENV['APP_ID'], api_key: ENV['API_KEY'])
 
   def setup
@@ -45,7 +45,7 @@ class TestUserAPI < Test::Unit::TestCase
     user = PassageClient.user.get(user_id: @test_user.id)
     assert_equal @test_user.id, user.id
 
-    user_by_identifier = PassageClient.user.get_by_identifier(user_identifier: @test_user.email)
+    user_by_identifier = PassageClient.user.get_by_identifier(identifier: @test_user.email)
     assert_equal @test_user.id, user_by_identifier.id
 
     assert_equal user, user_by_identifier
@@ -55,7 +55,7 @@ class TestUserAPI < Test::Unit::TestCase
     user = PassageClient.user.get(user_id: @test_user.id)
     assert_equal @test_user.id, user.id
 
-    user_by_identifier = PassageClient.user.get_by_identifier(user_identifier: @test_user.email.upcase)
+    user_by_identifier = PassageClient.user.get_by_identifier(identifier: @test_user.email.upcase)
     assert_equal @test_user.id, user_by_identifier.id
 
     assert_equal user, user_by_identifier
@@ -70,7 +70,7 @@ class TestUserAPI < Test::Unit::TestCase
     user = PassageClient.user.get(user_id: create_user.id)
     assert_equal create_user.id, user.id
 
-    user_by_identifier = PassageClient.user.get_by_identifier(user_identifier: phone)
+    user_by_identifier = PassageClient.user.get_by_identifier(identifier: phone)
     assert_equal create_user.id, user_by_identifier.id
 
     assert_equal user, user_by_identifier
@@ -81,7 +81,7 @@ class TestUserAPI < Test::Unit::TestCase
     assert_equal @test_user.id, user.id
 
     assert_raise Passage::PassageError do
-      PassageClient.user.get_by_identifier(user_identifier: 'error@passage.id')
+      PassageClient.user.get_by_identifier(identifier: 'error@passage.id')
     end
   end
 
