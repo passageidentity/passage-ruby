@@ -2,7 +2,6 @@
 
 require_relative '../lib/passageidentity/error'
 require 'test/unit'
-require 'net/http'
 
 # This is a test suite for the PassageError class using the Test::Unit framework.
 class ErrorTest < Test::Unit::TestCase
