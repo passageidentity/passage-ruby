@@ -32,7 +32,7 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'user' => :'UserInfo'
+        :'user' => :'PassageUser'
       }
     end
 

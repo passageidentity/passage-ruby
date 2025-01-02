@@ -86,7 +86,7 @@ end
 
 ## create_user
 
-> <UserResponse> create_user(app_id, create_user_request)
+> <UserResponse> create_user(app_id, create_user_args)
 
 Create User
 
@@ -105,11 +105,11 @@ end
 
 api_instance = OpenapiClient::UsersApi.new
 app_id = 'app_id_example' # String | App ID
-create_user_request = OpenapiClient::CreateUserRequest.new # CreateUserRequest | email, phone, user_metadata
+create_user_args = OpenapiClient::CreateUserArgs.new # CreateUserArgs | email, phone, user_metadata
 
 begin
   # Create User
-  result = api_instance.create_user(app_id, create_user_request)
+  result = api_instance.create_user(app_id, create_user_args)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UsersApi->create_user: #{e}"
@@ -120,12 +120,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UserResponse>, Integer, Hash)> create_user_with_http_info(app_id, create_user_request)
+> <Array(<UserResponse>, Integer, Hash)> create_user_with_http_info(app_id, create_user_args)
 
 ```ruby
 begin
   # Create User
-  data, status_code, headers = api_instance.create_user_with_http_info(app_id, create_user_request)
+  data, status_code, headers = api_instance.create_user_with_http_info(app_id, create_user_args)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UserResponse>
@@ -139,7 +139,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **app_id** | **String** | App ID |  |
-| **create_user_request** | [**CreateUserRequest**](CreateUserRequest.md) | email, phone, user_metadata |  |
+| **create_user_args** | [**CreateUserArgs**](CreateUserArgs.md) | email, phone, user_metadata |  |
 
 ### Return type
 
@@ -462,7 +462,7 @@ end
 
 ## update_user
 
-> <UserResponse> update_user(app_id, user_id, update_user_request)
+> <UserResponse> update_user(app_id, user_id, update_user_args)
 
 Update User
 
@@ -482,11 +482,11 @@ end
 api_instance = OpenapiClient::UsersApi.new
 app_id = 'app_id_example' # String | App ID
 user_id = 'user_id_example' # String | User ID
-update_user_request = OpenapiClient::UpdateUserRequest.new # UpdateUserRequest | user settings
+update_user_args = OpenapiClient::UpdateUserArgs.new # UpdateUserArgs | user settings
 
 begin
   # Update User
-  result = api_instance.update_user(app_id, user_id, update_user_request)
+  result = api_instance.update_user(app_id, user_id, update_user_args)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UsersApi->update_user: #{e}"
@@ -497,12 +497,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UserResponse>, Integer, Hash)> update_user_with_http_info(app_id, user_id, update_user_request)
+> <Array(<UserResponse>, Integer, Hash)> update_user_with_http_info(app_id, user_id, update_user_args)
 
 ```ruby
 begin
   # Update User
-  data, status_code, headers = api_instance.update_user_with_http_info(app_id, user_id, update_user_request)
+  data, status_code, headers = api_instance.update_user_with_http_info(app_id, user_id, update_user_args)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UserResponse>
@@ -517,7 +517,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **app_id** | **String** | App ID |  |
 | **user_id** | **String** | User ID |  |
-| **update_user_request** | [**UpdateUserRequest**](UpdateUserRequest.md) | user settings |  |
+| **update_user_args** | [**UpdateUserArgs**](UpdateUserArgs.md) | user settings |  |
 
 ### Return type
 
