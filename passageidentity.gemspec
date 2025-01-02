@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
     ' passwordless standalone auth solution with Passage by 1Password.'
   s.homepage = 'http://docs.passage.id/complete'
   s.license = 'MIT'
-  s.required_ruby_version = '>= 3.1.3'
+  s.required_ruby_version = '>= 3.1.6'
 
   s.metadata['source_code_uri'] = 'https://github.com/passageidentity/passage-ruby'
   s.metadata['changelog_uri'] = 'https://github.com/passageidentity/passage-ruby/CHANGELOG.md'
