@@ -1,4 +1,4 @@
-# OpenapiClient::UserInfo
+# OpenapiClient::PassageUser
 
 ## Properties
 
@@ -27,7 +27,7 @@
 ```ruby
 require 'openapi_client'
 
-instance = OpenapiClient::UserInfo.new(
+instance = OpenapiClient::PassageUser.new(
   created_at: null,
   email: null,
   email_verified: null,

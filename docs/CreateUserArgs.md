@@ -1,4 +1,4 @@
-# OpenapiClient::CreateUserRequest
+# OpenapiClient::CreateUserArgs
 
 ## Properties
 
@@ -13,7 +13,7 @@
 ```ruby
 require 'openapi_client'
 
-instance = OpenapiClient::CreateUserRequest.new(
+instance = OpenapiClient::CreateUserArgs.new(
   email: null,
   phone: null,
   user_metadata: null

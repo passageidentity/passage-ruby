@@ -12,11 +12,12 @@ docker run --rm -v "${PWD}:/local" -u $(id -u) openapitools/openapi-generator-cl
   -i "/local/$file" \
   -g ruby \
   -o /local/generated \
-  --additional-properties=modelPropertyNaming=original,library=faraday
+  --additional-properties=library=faraday \
+  --model-name-mappings CreateUserRequest=CreateUserArgs,UpdateUserRequest=UpdateUserArgs,UserInfo=PassageUser
 
-rm -rf ./docs/generated
-mv ./generated/docs ./docs/generated
-mv ./generated/README.md ./docs/generated
+rm -rf ./docs
+mv ./generated/docs ./docs
+mv ./generated/README.md ./docs
 
 rm -rf ./lib/openapi_client
 mv ./generated/lib/openapi_client ./lib

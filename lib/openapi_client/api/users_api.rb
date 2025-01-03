@@ -91,21 +91,21 @@ module OpenapiClient
     # Create User
     # Create user for an application. Must provide an email of phone number identifier.
     # @param app_id [String] App ID
-    # @param create_user_request [CreateUserRequest] email, phone, user_metadata
+    # @param create_user_args [CreateUserArgs] email, phone, user_metadata
     # @param [Hash] opts the optional parameters
     # @return [UserResponse]
-    def create_user(app_id, create_user_request, opts = {})
-      data, _status_code, _headers = create_user_with_http_info(app_id, create_user_request, opts)
+    def create_user(app_id, create_user_args, opts = {})
+      data, _status_code, _headers = create_user_with_http_info(app_id, create_user_args, opts)
       data
     end
 
     # Create User
     # Create user for an application. Must provide an email of phone number identifier.
     # @param app_id [String] App ID
-    # @param create_user_request [CreateUserRequest] email, phone, user_metadata
+    # @param create_user_args [CreateUserArgs] email, phone, user_metadata
     # @param [Hash] opts the optional parameters
     # @return [Array<(UserResponse, Integer, Hash)>] UserResponse data, response status code and response headers
-    def create_user_with_http_info(app_id, create_user_request, opts = {})
+    def create_user_with_http_info(app_id, create_user_args, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: UsersApi.create_user ...'
       end
@@ -113,9 +113,9 @@ module OpenapiClient
       if @api_client.config.client_side_validation && app_id.nil?
         fail ArgumentError, "Missing the required parameter 'app_id' when calling UsersApi.create_user"
       end
-      # verify the required parameter 'create_user_request' is set
-      if @api_client.config.client_side_validation && create_user_request.nil?
-        fail ArgumentError, "Missing the required parameter 'create_user_request' when calling UsersApi.create_user"
+      # verify the required parameter 'create_user_args' is set
+      if @api_client.config.client_side_validation && create_user_args.nil?
+        fail ArgumentError, "Missing the required parameter 'create_user_args' when calling UsersApi.create_user"
       end
       # resource path
       local_var_path = '/apps/{app_id}/users'.sub('{' + 'app_id' + '}', CGI.escape(app_id.to_s))
@@ -137,7 +137,7 @@ module OpenapiClient
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_user_request)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_user_args)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UserResponse'
@@ -469,11 +469,11 @@ module OpenapiClient
     # Update a user's information.
     # @param app_id [String] App ID
     # @param user_id [String] User ID
-    # @param update_user_request [UpdateUserRequest] user settings
+    # @param update_user_args [UpdateUserArgs] user settings
     # @param [Hash] opts the optional parameters
     # @return [UserResponse]
-    def update_user(app_id, user_id, update_user_request, opts = {})
-      data, _status_code, _headers = update_user_with_http_info(app_id, user_id, update_user_request, opts)
+    def update_user(app_id, user_id, update_user_args, opts = {})
+      data, _status_code, _headers = update_user_with_http_info(app_id, user_id, update_user_args, opts)
       data
     end
 
@@ -481,10 +481,10 @@ module OpenapiClient
     # Update a user&#39;s information.
     # @param app_id [String] App ID
     # @param user_id [String] User ID
-    # @param update_user_request [UpdateUserRequest] user settings
+    # @param update_user_args [UpdateUserArgs] user settings
     # @param [Hash] opts the optional parameters
     # @return [Array<(UserResponse, Integer, Hash)>] UserResponse data, response status code and response headers
-    def update_user_with_http_info(app_id, user_id, update_user_request, opts = {})
+    def update_user_with_http_info(app_id, user_id, update_user_args, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: UsersApi.update_user ...'
       end
@@ -496,9 +496,9 @@ module OpenapiClient
       if @api_client.config.client_side_validation && user_id.nil?
         fail ArgumentError, "Missing the required parameter 'user_id' when calling UsersApi.update_user"
       end
-      # verify the required parameter 'update_user_request' is set
-      if @api_client.config.client_side_validation && update_user_request.nil?
-        fail ArgumentError, "Missing the required parameter 'update_user_request' when calling UsersApi.update_user"
+      # verify the required parameter 'update_user_args' is set
+      if @api_client.config.client_side_validation && update_user_args.nil?
+        fail ArgumentError, "Missing the required parameter 'update_user_args' when calling UsersApi.update_user"
       end
       # resource path
       local_var_path = '/apps/{app_id}/users/{user_id}'.sub('{' + 'app_id' + '}', CGI.escape(app_id.to_s)).sub('{' + 'user_id' + '}', CGI.escape(user_id.to_s))
@@ -520,7 +520,7 @@ module OpenapiClient
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_user_request)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_user_args)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UserResponse'
