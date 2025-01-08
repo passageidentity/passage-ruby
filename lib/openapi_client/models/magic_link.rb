@@ -27,6 +27,7 @@ module OpenapiClient
 
     attr_accessor :secret
 
+    # time to live in minutes
     attr_accessor :ttl
 
     attr_accessor :type
