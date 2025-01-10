@@ -108,15 +108,15 @@ module Passage
 
     def handle_magic_link_creation(args)
       @magic_links_client.create_magic_link(@app_id, args, @req_opts).magic_link
-    rescue Faraday::Error => e
-      raise PassageError.new(
-        status_code: e.response[:status],
-        body: e.response[:body]
-      )
     rescue OpenapiClient::ApiError => e
       raise PassageError.new(
         status_code: e.code,
         body: try_parse_json_string(e.response_body)
+      )
+    rescue Faraday::Error => e
+      raise PassageError.new(
+        status_code: e.response[:status],
+        body: e.response[:body]
       )
     end
 

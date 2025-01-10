@@ -20,6 +20,11 @@ module Passage
       begin
         response = @user_client.get_user(@app_id, user_id, @req_opts)
         response.user
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -34,6 +39,11 @@ module Passage
       begin
         req_opts = set_get_by_identifier_query_params(identifier: identifier)
         response = @user_client.list_paginated_users(@app_id, req_opts)
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -50,6 +60,11 @@ module Passage
       begin
         response = @user_client.activate_user(@app_id, user_id, @req_opts)
         response.user
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -64,6 +79,11 @@ module Passage
       begin
         response = @user_client.deactivate_user(@app_id, user_id, @req_opts)
         response.user
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -76,25 +96,39 @@ module Passage
       raise ArgumentError, 'user_id is required.' unless user_id && !user_id.empty?
       raise ArgumentError, 'options are required.' unless options && !options.empty?
 
-      response = @user_client.update_user(@app_id, user_id, options, @req_opts)
-      response.user
-    rescue Faraday::Error => e
-      raise PassageError.new(
-        status_code: e.response[:status],
-        body: e.response[:body]
-      )
+      begin
+        response = @user_client.update_user(@app_id, user_id, options, @req_opts)
+        response.user
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
+      rescue Faraday::Error => e
+        raise PassageError.new(
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
+      end
     end
 
     def create(args:)
       raise ArgumentError, 'At least one of args.email or args.phone is required.' unless args['phone'] || args['email']
 
-      response = @user_client.create_user(@app_id, args, @req_opts)
-      response.user
-    rescue Faraday::Error => e
-      raise PassageError.new(
-        status_code: e.response[:status],
-        body: e.response[:body]
-      )
+      begin
+        response = @user_client.create_user(@app_id, args, @req_opts)
+        response.user
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
+      rescue Faraday::Error => e
+        raise PassageError.new(
+          status_code: e.response[:status],
+          body: e.response[:body]
+        )
+      end
     end
 
     def delete(user_id:)
@@ -102,6 +136,11 @@ module Passage
 
       begin
         @user_client.delete_user(@app_id, user_id, @req_opts)
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
       rescue Faraday::Error => e
         raise PassageError.new(
           'failed to delete Passage User',
@@ -117,6 +156,11 @@ module Passage
 
       begin
         @user_device_client.delete_user_devices(@app_id, user_id, device_id, @req_opts)
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -131,6 +175,11 @@ module Passage
       begin
         response = @user_device_client.list_user_devices(@app_id, user_id, @req_opts)
         response.devices
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -144,6 +193,11 @@ module Passage
 
       begin
         @tokens_client.revoke_user_refresh_tokens(@app_id, user_id, @req_opts)
+      rescue OpenapiClient::ApiError => e
+        raise PassageError.new(
+          status_code: e.code,
+          body: try_parse_json_string(e.response_body)
+        )
       rescue Faraday::Error => e
         raise PassageError.new(
           status_code: e.response[:status],
@@ -173,6 +227,12 @@ module Passage
       end
 
       get(user_id: users.first.id)
+    end
+
+    def try_parse_json_string(string)
+      JSON.parse(string)
+    rescue JSON::ParserError
+      string
     end
   end
 end
