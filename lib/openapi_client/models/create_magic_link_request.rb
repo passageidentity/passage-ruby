@@ -19,7 +19,6 @@ module OpenapiClient
 
     attr_accessor :email
 
-    # language of the email to send (optional)
     attr_accessor :language
 
     # must be a relative url
@@ -31,6 +30,7 @@ module OpenapiClient
 
     attr_accessor :_send
 
+    # time to live in minutes
     attr_accessor :ttl
 
     attr_accessor :type
@@ -85,7 +85,7 @@ module OpenapiClient
       {
         :'channel' => :'MagicLinkChannel',
         :'email' => :'String',
-        :'language' => :'String',
+        :'language' => :'MagicLinkLanguage',
         :'magic_link_path' => :'String',
         :'phone' => :'String',
         :'redirect_url' => :'String',
@@ -163,6 +163,10 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if !@ttl.nil? && @ttl < 1
+        invalid_properties.push('invalid value for "ttl", must be greater than or equal to 1.')
+      end
+
       invalid_properties
     end
 
@@ -170,7 +174,22 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if !@ttl.nil? && @ttl < 1
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] ttl Value to be assigned
+    def ttl=(ttl)
+      if ttl.nil?
+        fail ArgumentError, 'ttl cannot be nil'
+      end
+
+      if ttl < 1
+        fail ArgumentError, 'invalid value for "ttl", must be greater than or equal to 1.'
+      end
+
+      @ttl = ttl
     end
 
     # Checks equality by comparing each attribute.

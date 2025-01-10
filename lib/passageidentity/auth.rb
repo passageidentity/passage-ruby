@@ -93,7 +93,12 @@ module Passage
     end
 
     def create_magic_link(args, opts)
-      args['language'] = opts['language']
+      language = opts['language']
+      if language && !OpenapiClient::MagicLinkLanguage.all_vars.include?(language)
+        raise ArgumentError, "language must be one of #{OpenapiClient::MagicLinkLanguage.all_vars}"
+      end
+
+      args['language'] = language
       args['magic_link_path'] = opts['magic_link_path']
       args['redirect_url'] = opts['redirect_url']
       args['ttl'] = opts['ttl']
