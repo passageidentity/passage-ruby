@@ -52,9 +52,8 @@ require 'passageidentity'
 ```ruby
 PassageClient =
   Passage::Client.new(
-    app_id: 'YOUR_PASSAGE_APP_ID',
-    api_key: 'YOUR_PASSAGE_API_KEY',
-    auth_strategy: Passage::HEADER_AUTH,
+    app_id: ENV.fetch('PASSAGE_APP_ID'),
+    api_key: ENV.fetch('PASSAGE_API_KEY')
   )
 ```
 
