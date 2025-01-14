@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0](https://github.com/passageidentity/passage-ruby/compare/v0.7.1...v1.0.0) (2025-01-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove deprecated AppInfo code from codegen ([#144](https://github.com/passageidentity/passage-ruby/issues/144))
+* return void instead of boolean for `Passage.user.delete`
+* require kwargs for validate_jwt and magic link methods
+* update deprecated user method signatures ([#159](https://github.com/passageidentity/passage-ruby/issues/159))
+* changes the constructor signatures for the client, auth, and user classes
+* remove deprecated client, auth, and user methods
+
+### Features
+
+* add parameter guard for language in magic link options ([#165](https://github.com/passageidentity/passage-ruby/issues/165)) ([a1ce3e7](https://github.com/passageidentity/passage-ruby/commit/a1ce3e72409d7602db9b0ec5619a82fe022e4448))
+* changes the constructor signatures for the client, auth, and user classes ([111431e](https://github.com/passageidentity/passage-ruby/commit/111431ee28195c9589663baa70cdbe9b928dc2ee))
+* remove deprecated AppInfo code from codegen ([#144](https://github.com/passageidentity/passage-ruby/issues/144)) ([4075193](https://github.com/passageidentity/passage-ruby/commit/4075193242dceaa46c882e5fe23aec9edc8027c9))
+* remove deprecated client, auth, and user methods ([c49fe3a](https://github.com/passageidentity/passage-ruby/commit/c49fe3aa25080eb18b8d0b918a2ca2d51c6088fe))
+* require kwargs for validate_jwt and magic link methods ([ba6bed9](https://github.com/passageidentity/passage-ruby/commit/ba6bed999064d03e2cd404c38643ef0c3317e6c2))
+* return void instead of boolean for `Passage.user.delete` ([c6b5746](https://github.com/passageidentity/passage-ruby/commit/c6b5746506a8758c7d41a6fef0b204e35663ba9a))
+* update deprecated user method signatures ([#159](https://github.com/passageidentity/passage-ruby/issues/159)) ([a6faeba](https://github.com/passageidentity/passage-ruby/commit/a6faeba292675a6f4340cbd9b245bbc037b8e5f5))
+* update minimum required ruby version to 3.1.6 ([#162](https://github.com/passageidentity/passage-ruby/issues/162)) ([7da23ec](https://github.com/passageidentity/passage-ruby/commit/7da23ecc852106ee2b9fcaa2d5bb7fb1897d07f1))
+
+
+### Bug Fixes
+
+* adds error handling for OpenApi errors ([#166](https://github.com/passageidentity/passage-ruby/issues/166)) ([827bc5c](https://github.com/passageidentity/passage-ruby/commit/827bc5ceefab5270d76073879ead423fce88bb8b))
+
 ## [0.7.1](https://github.com/passageidentity/passage-ruby/compare/v0.7.0...v0.7.1) (2024-12-20)
 
 
