@@ -6,7 +6,6 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'dotenv', '~> 3.1'
   gem 'rack', '~> 3.1'
   gem 'rake', '~> 13.2'
   gem 'rubocop', '~> 1.68'
