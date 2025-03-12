@@ -8,7 +8,7 @@ fi
 
 file="$1"
 
-docker run --rm -v "${PWD}:/local" -u $(id -u) openapitools/openapi-generator-cli:latest generate \
+docker run --rm -v "${PWD}:/local" -u $(id -u) openapitools/openapi-generator-cli:v7.11.0 generate \
   -i "/local/$file" \
   -g ruby \
   -o /local/generated \
@@ -24,4 +24,4 @@ mv ./generated/lib/openapi_client.rb ./lib/openapi_client.rb
 
 rm -rf ./generated
 
-sed -i 's/require /require_relative /g' ./lib/openapi_client.rb
+sed -i.bak 's/require /require_relative /g' ./lib/openapi_client.rb && rm -f ./lib/openapi_client.rb.bak
