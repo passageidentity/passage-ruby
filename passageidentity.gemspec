@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*.rb']
   s.require_path = 'lib'
 
-  s.add_dependency 'activesupport', '~> 7.2', '>= 7.2'
+  s.add_dependency 'activesupport', '>= 7.2', '< 9'
   s.add_dependency 'faraday', '>= 2.12', '< 3.0' # required by codegen
   s.add_dependency 'faraday-multipart', '~> 1.1', '>= 1.1.0' # required by codegen
   s.add_dependency 'jwt', '~> 2.10', '>= 2.10.1'
