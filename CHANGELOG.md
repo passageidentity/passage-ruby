@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
-* trigger release for activesupport dependency change ([531984e](https://github.com/passageidentity/passage-ruby/commit/531984e85fb9385587c7ee31273a2b465124cdec))
+* Bump `activesupport` dependency version to accommodate Rails 8 apps ([531984e](https://github.com/passageidentity/passage-ruby/commit/531984e85fb9385587c7ee31273a2b465124cdec))
 
 ## [1.0.0](https://github.com/passageidentity/passage-ruby/compare/v0.7.1...v1.0.0) (2025-01-14)
 
