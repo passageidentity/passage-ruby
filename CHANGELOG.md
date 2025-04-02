@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1](https://github.com/passageidentity/passage-ruby/compare/v1.0.0...v1.0.1) (2025-04-02)
+
+
+### Bug Fixes
+
+* trigger release for activesupport dependency change ([531984e](https://github.com/passageidentity/passage-ruby/commit/531984e85fb9385587c7ee31273a2b465124cdec))
+
 ## [1.0.0](https://github.com/passageidentity/passage-ruby/compare/v0.7.1...v1.0.0) (2025-01-14)
 
 
