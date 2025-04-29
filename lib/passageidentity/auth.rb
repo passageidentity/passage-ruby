@@ -3,6 +3,7 @@
 require 'active_support'
 require 'jwt'
 require_relative '../openapi_client'
+require_relative 'error'
 
 module Passage
   # The Passage::Auth class provides methods for authenticating requests and tokens
