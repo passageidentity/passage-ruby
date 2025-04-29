@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2](https://github.com/passageidentity/passage-ruby/compare/v1.0.1...v1.0.2) (2025-04-29)
+
+
+### Bug Fixes
+
+* PassageError class is now correctly imported in the auth and user classes ([#176](https://github.com/passageidentity/passage-ruby/issues/176)) ([42e894a](https://github.com/passageidentity/passage-ruby/commit/42e894a81dbded6323a8643352353dd108a5bb91))
+
 ## [1.0.1](https://github.com/passageidentity/passage-ruby/compare/v1.0.0...v1.0.1) (2025-04-02)
 
 
