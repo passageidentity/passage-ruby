@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3](https://github.com/passageidentity/passage-ruby/compare/v1.0.2...v1.0.3) (2026-01-09)
+
+
+### Documentation
+
+* add sunset notice to README ([#178](https://github.com/passageidentity/passage-ruby/issues/178)) ([18cf380](https://github.com/passageidentity/passage-ruby/commit/18cf380fc7d8658093d5758af92baff333ba4d47))
+
 ## [1.0.2](https://github.com/passageidentity/passage-ruby/compare/v1.0.1...v1.0.2) (2025-04-29)
 
 
