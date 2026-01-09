@@ -7,7 +7,10 @@
       "bump-patch-for-minor-pre-major": false,
       "draft": false,
       "prerelease": false,
-      "version-file": "lib/passageidentity/version.rb"
+      "version-file": "lib/passageidentity/version.rb",
+      "changelog-sections": [
+        { "type": "docs", "section": "Documentation", "hidden": false }
+      ]
     }
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
